@@ -4,7 +4,7 @@ include <fstream>
 #include <sstream>
 #include <map>
 #include "Helpers.hpp"
-#include "Model3d.hpp"
+#include "Models.hpp"
 #include "Operations.hpp"
 
 using namespace Spider3d;
@@ -37,13 +37,13 @@ int main( int argc, char* argv[] ) {
 
     std::map<std::string, std::string> configParameters;
     loadIni( argv[1], configParameters );
-    if( configParameters.find("objects")==configParameters.end() || 
+    if( configParameters.find("models")==configParameters.end() || 
         configParameters.find("operations")==configParameters.end() ||
         configParameters.find("types")==configParameters.end() ) {
         std::cout << "The configuration file " << argv[1] << " is invalid.\nExiting...\n";
     }
 
-    Model3d model;
+    Models models;
     Operations operations;
 
     loadOperations( operations, configParameters["operations"].c_str() );
@@ -52,7 +52,7 @@ int main( int argc, char* argv[] ) {
         return 0;
     }
 
-    loadModel( model, configParameters["objects"].c_str() );
+    loadModels( models, configParameters["objects"].c_str() );
     if( model.objectsNumber() == 0 ) {
         cout << "No objects found!\n.Exiting...\n";
         return 0;

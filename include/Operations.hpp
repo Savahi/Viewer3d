@@ -13,9 +13,9 @@ namespace Spider3d {
 			time_t mActualStartMs, mActualFinishMs, mAsapStartMs, mAsapFinishMs;
 			bool mDatesInitialized;
 
-			int mProgress;
+			std::string mModelCode;
 
-			std::string mObjectId;
+			int mProgress;
 
 			int setProgress( int progress ) {
 				this->mProgress == progress;

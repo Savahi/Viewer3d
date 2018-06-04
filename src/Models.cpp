@@ -6,7 +6,7 @@
 #define GL_GLEXT_PROTOTYPES
 #include <GL/glut.h>
 
-#include "Model3d.hpp"
+#include "Models.hpp"
 
 namespace Spider3d {
 
@@ -14,7 +14,7 @@ namespace Spider3d {
 
 	static void displayFunc();
 	static void displayAxis( void );
-	static void displayFacet( Facet3d& facet, float progress=100, bool selected=false );
+	static void displayFacet( Facet& facet, float progress=100, bool selected=false );
 
 	static void displayKeys( int key, int x, int y );
 	static void displayMouse ( int button, int state, int x, int y );
@@ -24,7 +24,7 @@ namespace Spider3d {
 
 	static float f_ModelW, f_ModelL, f_ModelH, f_ModelMinX, f_ModelMaxX, f_ModelMinY, f_ModelMaxY, f_ModelMinZ, f_ModelMaxZ;
 	static int i_ModelRotateX, i_ModelRotateY;
-	static Model3d *o_Model;
+	static Model *o_Model;
 	static time_t t_TimeNow;
 	static time_t t_ModelTime;
 	static time_t t_ModelStart, t_ModelFinish; 
@@ -52,8 +52,8 @@ namespace Spider3d {
 				t_ModelFinish = op->tActualFinish;
 			}
 		    for( std::vector<Object>::iterator ob = (*op).mObjects.begin() ; ob != (*op).mObjects.end() ; ++ob ) {
-			    for( std::vector<Facet3d>::iterator fa = (*ob).mFacets.begin() ; fa != (*ob).mFacets.end() ; ++fa ) {	
-				    for( std::vector<Vertex3d>::iterator ve = (*fa).mVertices.begin() ; ve != (*fa).mVertices.end() ; ++ve ) {
+			    for( std::vector<Facet>::iterator fa = (*ob).mFacets.begin() ; fa != (*ob).mFacets.end() ; ++fa ) {	
+				    for( std::vector<Vertex>::iterator ve = (*fa).mVertices.begin() ; ve != (*fa).mVertices.end() ; ++ve ) {
 				    	float x = (*ve).mX;
 				    	float y = (*ve).mY;
 				    	float z = (*ve).mZ;
@@ -94,7 +94,7 @@ namespace Spider3d {
 
 	// void Model::display( Model& model, int argc, char* argv[] ) {
 
-	void Model3d::display( int argc, char* argv[] ) {
+	void Model::display( int argc, char* argv[] ) {
 	  	o_Model = this;
 
 		displayInitializer();
@@ -189,7 +189,7 @@ namespace Spider3d {
 	    	}
 	    	bool selected = (_operationSelected == &(*op)) ? true : false;
 	        for( std::vector<Object>::iterator ob = (*op).mObjects.begin() ; ob != (*op).mObjects.end() ; ++ob ) {
-		        for( std::vector<Facet3d>::iterator fa = (*ob).mFacets.begin() ; fa != (*ob).mFacets.end() ; ++fa ) {
+		        for( std::vector<Facet>::iterator fa = (*ob).mFacets.begin() ; fa != (*ob).mFacets.end() ; ++fa ) {
 		        	displayFacet( *fa, progress, selected );
 				}
 			}
@@ -236,11 +236,11 @@ namespace Spider3d {
 	}
 
 
-	static void displayFacet( Facet3d& facet, float progress, bool selected ) {
+	static void displayFacet( Facet& facet, float progress, bool selected ) {
 		// Facet
 		glBegin(GL_POLYGON);
 		glColor4f( 1.0f, 1.0f, 1.0f, progress );
-	    for( std::vector<Vertex3d>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
+	    for( std::vector<Vertex>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
 			glVertex3f( ve->mX, ve->mY, ve->mZ );
 	    }
 		glEnd();
@@ -258,7 +258,7 @@ namespace Spider3d {
 		bool prevVertex = false;
 		double prevX, prevY, prevZ;
 		double firstX, firstY, firstZ;
-	    for( std::vector<Vertex3d>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
+	    for( std::vector<Vertex>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
 			if( !firstVertex ) {
 				firstX = ve->mX; firstY = ve->mY; firstZ = ve->mZ;
 				firstVertex = true;
@@ -355,8 +355,8 @@ namespace Spider3d {
 			    double minX, maxX, minY, maxY, minZ, maxZ;
 			    bool first=true;
 			    for( std::vector<Object>::iterator ob = (*op).mObjects.begin() ; ob != (*op).mObjects.end() ; ++ob ) {
-				    for( std::vector<Facet3d>::iterator fa = (*ob).mFacets.begin() ; fa != (*ob).mFacets.end() ; ++fa ) {	
-					    for( std::vector<Vertex3d>::iterator ve = (*fa).mVertices.begin() ; ve != (*fa).mVertices.end() ; ++ve ) {
+				    for( std::vector<Facet>::iterator fa = (*ob).mFacets.begin() ; fa != (*ob).mFacets.end() ; ++fa ) {	
+					    for( std::vector<Vertex>::iterator ve = (*fa).mVertices.begin() ; ve != (*fa).mVertices.end() ; ++ve ) {
 					    	if( first ) {
 					    		minX = maxX = ve->mX;
 					    		minY = maxY = ve->mY;

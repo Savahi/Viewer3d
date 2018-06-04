@@ -9,7 +9,7 @@ namespace Spider3d {
     int loadOperations( Operations& operations, const char *cpFile ) {
 
         FILE *fp;
-        int iStatus, iOperationModelPosition;
+        int iStatus;
 
         fp = fopen( cpFile, "rb" );
         if( fp != NULL ) {
@@ -61,22 +61,6 @@ namespace Spider3d {
         free(cpHeader);
         return iReturn;
     }
-
-    static int getPosByColumnName( char *cpBuffer, const char *cpColumn ) {
-        int iPosition=-1, i, iStatus, iStart;
-
-        iStatus = findSubstring( cpBuffer, cpColumn, 0, -1, &iStart, NULL );
-        if( iStatus == 1 ) {
-            iPosition = 0;
-            for( i = 0 ; i < iStart ; i++ ) {
-                if( cpBuffer[i] == ';' ) {
-                    iPosition++;
-                }
-            }
-        }
-        return iPosition;
-    }
-
 
     static int parseFileLine( Operations& operations, FILE *fp ) {
         int iStatus, iObject, iFactStart, iFactFin, iAsapStart, iAsapFin;
@@ -153,7 +137,7 @@ namespace Spider3d {
         return 0;
     }
 
-    int parseDates( char *cpActualStart, char *cpActualFinish, char *cpAsapStart, char *cpAsapFinish, Operation& operation ) {
+    static int parseDates( char *cpActualStart, char *cpActualFinish, char *cpAsapStart, char *cpAsapFinish, Operation& operation ) {
         int iStatus;
 
         iStatus = parseDate( cpActualStart, operation.mActualStart );

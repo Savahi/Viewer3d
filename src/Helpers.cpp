@@ -108,4 +108,19 @@ namespace Spider3d {
         return iFound;
     }
 
+    int getPosByColumnName( char *cpBuffer, const char *cpColumn ) {
+        int iPosition=-1, i, iStatus, iStart;
+
+        iStatus = findSubstring( cpBuffer, cpColumn, 0, -1, &iStart, NULL );
+        if( iStatus == 1 ) {
+            iPosition = 0;
+            for( i = 0 ; i < iStart ; i++ ) {
+                if( cpBuffer[i] == ';' ) {
+                    iPosition++;
+                }
+            }
+        }
+        return iPosition;
+    }
+    
 }

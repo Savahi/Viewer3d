@@ -18,4 +18,6 @@ namespace Spider3d {
 
 	int loadOperations( Operations& operations, const char *cpFile );
 
+    int getPosByColumnName( char *cpBuffer, const char *cpColumn );	
+
 }
