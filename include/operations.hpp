@@ -9,20 +9,20 @@ namespace Spider3d {
 	class Operation {
 		public:
 
-			tm mActualStart, mActualFinish, mAsapStart, mAsapFinish;
-			time_t mActualStartMs, mActualFinishMs, mAsapStartMs, mAsapFinishMs;
-			bool mDatesInitialized;
+			tm tmActualStart, tmActualFinish, tmAsapStart, tmAsapFinish;
+			time_t tActualStart, tActualFinish, tAsapStart, tAsapFinish;
+			bool bDatesInitialized;
 
-			std::string mModelCode;
+			std::string sModelCode;
 
-			int mProgress;
+			int iProgress;
 
 			int setProgress( int progress ) {
-				this->mProgress == progress;
+				this->iProgress == progress;
 				return 0;
 			}
 
-			Operation() : mDatesInitialized(false), mProgress(100) {
+			Operation() : bDatesInitialized(false), iProgress(100) {
 				; // std::cout << "Constructor for Operation\n";
 			}
 
@@ -51,7 +51,7 @@ namespace Spider3d {
 					; // std::cout << "Destructor for Operations\n";
 				}
 
-				unsigned int totalNumber( void ) {
+				unsigned int number( void ) {
 					return this->mOperations.size(); 
 				}
 		};

@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/user/Desktop/spider/Viewer3d
 CMAKE_BINARY_DIR = /home/user/Desktop/spider/Viewer3d/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/Viewer3d.dir
+# Target rules for target CMakeFiles/viewer3d.dir
 
 # All Build rule for target.
-CMakeFiles/Viewer3d.dir/all:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/depend
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=1,2,3,4 "Built target Viewer3d"
-.PHONY : CMakeFiles/Viewer3d.dir/all
+CMakeFiles/viewer3d.dir/all:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/depend
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target viewer3d"
+.PHONY : CMakeFiles/viewer3d.dir/all
 
 # Include target in all.
-all: CMakeFiles/Viewer3d.dir/all
+all: CMakeFiles/viewer3d.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Viewer3d.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/spider/Viewer3d/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Viewer3d.dir/all
+CMakeFiles/viewer3d.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/spider/Viewer3d/build/CMakeFiles 8
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/viewer3d.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/Desktop/spider/Viewer3d/build/CMakeFiles 0
-.PHONY : CMakeFiles/Viewer3d.dir/rule
+.PHONY : CMakeFiles/viewer3d.dir/rule
 
 # Convenience name for target.
-Viewer3d: CMakeFiles/Viewer3d.dir/rule
+viewer3d: CMakeFiles/viewer3d.dir/rule
 
-.PHONY : Viewer3d
-
-# clean rule for target.
-CMakeFiles/Viewer3d.dir/clean:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/clean
-.PHONY : CMakeFiles/Viewer3d.dir/clean
+.PHONY : viewer3d
 
 # clean rule for target.
-clean: CMakeFiles/Viewer3d.dir/clean
+CMakeFiles/viewer3d.dir/clean:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/clean
+.PHONY : CMakeFiles/viewer3d.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/viewer3d.dir/clean
 
 .PHONY : clean
 

@@ -130,7 +130,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=Viewer3d
+CMAKE_PROJECT_NAME:STATIC=viewer3d
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -221,10 +221,10 @@ OPENGL_opengl_LIBRARY:FILEPATH=OPENGL_opengl_LIBRARY-NOTFOUND
 OPENGL_xmesa_INCLUDE_DIR:PATH=OPENGL_xmesa_INCLUDE_DIR-NOTFOUND
 
 //Value Computed by CMake
-Viewer3d_BINARY_DIR:STATIC=/home/user/Desktop/spider/Viewer3d/build
+viewer3d_BINARY_DIR:STATIC=/home/user/Desktop/spider/Viewer3d/build
 
 //Value Computed by CMake
-Viewer3d_SOURCE_DIR:STATIC=/home/user/Desktop/spider/Viewer3d
+viewer3d_SOURCE_DIR:STATIC=/home/user/Desktop/spider/Viewer3d
 
 
 ########################

@@ -1,10 +1,19 @@
 #include <stdio.h>
-#include "Helpers.hpp"
-#include "Operations.hpp"
+#include <stdlib.h>
+#include <string.h>
+#include "helpers.hpp"
+#include "operations.hpp"
 
 namespace Spider3d {
 
-    static int _objectPos, _factStartPos, _factFinPos, _asapStartPos, _asapFinPos;
+    static int parseFileHeader( FILE *fp );
+    static int parseFileLine( Operations& operations, FILE *fp );
+
+    static int parseDates( char *cpActualStart, char *cpActualFinish, char *cpAsapStart, char *cpAsapFinish, Operation& operation );
+
+    static int getValuesByColumnPos( char *cpLine, int *ipModel, int *ipFactStart, int *ipFactFin, int *ipAsapStart, int *ipAsapFin );
+
+    static int _iModelPos, _iFactStartPos, _iFactFinPos, _iAsapStartPos, _iAsapFinPos;
 
     int loadOperations( Operations& operations, const char *cpFile ) {
 
@@ -37,24 +46,24 @@ namespace Spider3d {
             return -1;
         }
 
-        _objectPos = getPosByColumnName( cpHeader, "model" );
-        if( _objectPos == -1 ) {
+        _iModelPos = getPosByColumnName( cpHeader, "model" );
+        if( _iModelPos == -1 ) {
             iReturn = -1;
         }
-        _factStartPos = getPosByColumnName( cpHeader, "factstart" );
-        if( _factStartPos == -1 ) {
+        _iFactStartPos = getPosByColumnName( cpHeader, "factstart" );
+        if( _iFactStartPos == -1 ) {
             iReturn = -1;
         }
-        _factFinPos = getPosByColumnName( cpHeader, "factfin" );
-        if( _factFinPos == -1 ) {
+        _iFactFinPos = getPosByColumnName( cpHeader, "factfin" );
+        if( _iFactFinPos == -1 ) {
             iReturn = -1;
         }
-        _asapStartPos = getPosByColumnName( cpHeader, "asapstart" );
-        if( _asapStartPos == -1 ) {
+        _iAsapStartPos = getPosByColumnName( cpHeader, "asapstart" );
+        if( _iAsapStartPos == -1 ) {
             iReturn = -1;
         }
-        _asapFinPos = getPosByColumnName( cpHeader, "asapfin" );
-        if( _asapFinPos == -1 ) {
+        _iAsapFinPos = getPosByColumnName( cpHeader, "asapfin" );
+        if( _iAsapFinPos == -1 ) {
             iReturn = -1;
         }
 
@@ -63,7 +72,7 @@ namespace Spider3d {
     }
 
     static int parseFileLine( Operations& operations, FILE *fp ) {
-        int iStatus, iObject, iFactStart, iFactFin, iAsapStart, iAsapFin;
+        int iStatus, iModel, iFactStart, iFactFin, iAsapStart, iAsapFin;
         char *cpLine; 
 
         cpLine = readLineFromFile(fp);
@@ -71,11 +80,11 @@ namespace Spider3d {
             return -1;
         }
 
-        iStatus = getValuesByColumnPos( cpLine, &iObject, &iFactStart, &iFactFin, &iAsapStart, &iAsapFin );
+        iStatus = getValuesByColumnPos( cpLine, &iModel, &iFactStart, &iFactFin, &iAsapStart, &iAsapFin );
         if( iStatus == 0 ) {
             Operation operation;
             if( parseDates( &cpLine[iFactStart], &cpLine[iFactFin], &cpLine[iAsapStart], &cpLine[iAsapFin], operation ) == 0 ) {
-                operation.mObjectId = &cpLine[iObject];
+                operation.sModelCode = std::string( &cpLine[iModel] );
                 operations.add( operation );
             }
         }
@@ -84,9 +93,9 @@ namespace Spider3d {
     }
 
 
-    static int getValuesByColumnPos( char *cpLine, int *ipObect, int *ipFactStart, int *ipFactFin, int *ipAsapStart, int *ipAsapFin ) {
+    static int getValuesByColumnPos( char *cpLine, int *ipModel, int *ipFactStart, int *ipFactFin, int *ipAsapStart, int *ipAsapFin ) {
         int i, iPos, iLineLen;
-        *ipObect=-1; 
+        *ipModel=-1; 
         *ipFactStart=-1;
         *ipFactFin=-1;
         *ipAsapStart=-1;
@@ -94,15 +103,15 @@ namespace Spider3d {
 
         iLineLen = strlen( cpLine ); 
         for( i = 0, iPos = 0 ; i < iLineLen ; i++ ) {
-            if( iPos == _objectPos && *ipObect == -1 ) {
-                *ipObect = i;
-            } else if( iPos == _factStartPos && *ipFactStart == -1 ) {
+            if( iPos == _iModelPos && *ipModel == -1 ) {
+                *ipModel = i;
+            } else if( iPos == _iFactStartPos && *ipFactStart == -1 ) {
                 *ipFactStart = i;
-            } else if( iPos == _factFinPos && *ipFactFin == -1 ) { 
+            } else if( iPos == _iFactFinPos && *ipFactFin == -1 ) { 
                 *ipFactFin = i;
-            } else if( iPos == _asapStartPos && *ipAsapStart == -1 ) {
+            } else if( iPos == _iAsapStartPos && *ipAsapStart == -1 ) {
                 *ipAsapStart = i;
-            } else if( iPos == _asapFinPos && *ipAsapFin == -1 ) { 
+            } else if( iPos == _iAsapFinPos && *ipAsapFin == -1 ) { 
                 *ipAsapFin = i;
             }
             if( cpLine[i] == ';' ) {
@@ -112,7 +121,7 @@ namespace Spider3d {
                 cpLine[i] = '\x0';            
             }
         }
-        if( *ipObect == -1 || *ipFactStart == -1 || *ipFactFin == -1 || *ipAsapStart == -1 || *ipAsapFin == -1 ) {
+        if( *ipModel == -1 || *ipFactStart == -1 || *ipFactFin == -1 || *ipAsapStart == -1 || *ipAsapFin == -1 ) {
             return -1;
         }
         return 0;
@@ -140,31 +149,31 @@ namespace Spider3d {
     static int parseDates( char *cpActualStart, char *cpActualFinish, char *cpAsapStart, char *cpAsapFinish, Operation& operation ) {
         int iStatus;
 
-        iStatus = parseDate( cpActualStart, operation.mActualStart );
+        iStatus = parseDate( cpActualStart, operation.tmActualStart );
         if( iStatus == -1 ) {
             return -1;
         }
-        operation.mActualStartMs = mktime( &(operation.mActualStart) );
+        operation.tActualStart = mktime( &(operation.tmActualStart) );
 
-        iStatus = parseDate( cpActualFinish, operation.mActualFinish );
+        iStatus = parseDate( cpActualFinish, operation.tmActualFinish );
         if( iStatus == -1 ) {
             return -1;
         }
-        operation.mActualFinishMs = mktime( &(operation.mActualFinish) );
+        operation.tActualFinish = mktime( &(operation.tmActualFinish) );
         
-        iStatus = parseDate( cpAsapStart, operation.mAsapStart );
+        iStatus = parseDate( cpAsapStart, operation.tmAsapStart );
         if( iStatus == -1 ) {
             return -1;
         }
-        operation.mAsapStartMs = mktime( &(operation.mAsapStart) );
+        operation.tAsapStart = mktime( &(operation.tmAsapStart) );
 
-        iStatus = parseDate( cpAsapFinish, operation.mAsapFinish );
+        iStatus = parseDate( cpAsapFinish, operation.tmAsapFinish );
         if( iStatus == -1 ) {
             return -1;
         }
-        operation.mAsapFinishMs = mktime( &(operation.mAsapFinish) );
+        operation.tAsapFinish = mktime( &(operation.tmAsapFinish) );
         
-        operation.mDatesInitialized = true;
+        operation.bDatesInitialized = true;
 
         return 0;
     }

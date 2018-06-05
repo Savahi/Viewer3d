@@ -1,21 +1,30 @@
 #include <stdio.h>
-#include "Helpers.hpp"
-#include "Models.hpp"
+#include <stdlib.h>
+#include <string.h>
+#include "helpers.hpp"
+#include "models.hpp"
 
 namespace Spider3d {
-    static int _codePos, _namePos, _descriptionPos, _notesPos;
+
+    static int parseFileHeader( FILE *fp );
+    static int parseFileLine( Models& models, FILE *fp );
+
+    static int parseModel( Model& model, char *cpText );
+
+    static int getValuesByColumnPos( char *cpLine, int *codeIndex, int *nameIndex, int *descriptionIndex, int *notesIndex );
+
+    static int _iCodePos, _iNamePos, _iDescriptionPos, _iNotesPos;
 
     int loadModels( Models& models, const char *cpFile ) {
 
         FILE *fp;
         int status;
-
         fp = fopen( cpFile, "rb" );
         if( fp != NULL ) {
             status = parseFileHeader( fp );
             if( status != -1 ) {
                 while(1) {
-                    status = parseFileLine( operations, fp );
+                    status = parseFileLine( models, fp );
                     if( status == -1 ) {
                         break;
                     }
@@ -37,20 +46,20 @@ namespace Spider3d {
             return -1;
         }
 
-        _codePos = getPosByColumnName( cpHeader, "code" );
-        if( _codePos == -1 ) {
+        _iCodePos = getPosByColumnName( cpHeader, "code" );
+        if( _iCodePos == -1 ) {
             ret_val = -1;
         }
-        _namePos = getPosByColumnName( cpHeader, "name" );
-        if( _namePos == -1 ) {
+        _iNamePos = getPosByColumnName( cpHeader, "name" );
+        if( _iNamePos == -1 ) {
             ret_val = -1;
         }
-        _descriptionPos = getPosByColumnName( cpHeader, "description" );
-        if( _descriptionPos == -1 ) {
+        _iDescriptionPos = getPosByColumnName( cpHeader, "description" );
+        if( _iDescriptionPos == -1 ) {
             ret_val = -1;
         }
-        _notesPos = getPosByColumnName( cpHeader, "notes" );
-        if( _notesPos == -1 ) {
+        _iNotesPos = getPosByColumnName( cpHeader, "notes" );
+        if( _iNotesPos == -1 ) {
             ret_val = -1;
         }
 
@@ -71,24 +80,23 @@ namespace Spider3d {
         status = getValuesByColumnPos( cpLine, &codeIndex, &nameIndex, &descriptionIndex, &notesIndex );
         if( status == 0 ) {
             Model model;
-            parseModel( Model& model, &cpLine[descriptionIndex] );
-            model.setCode( &cpLine[codeIndex] );
-            model.setName( &cpLine[nameIndex] );
-            models.add(model);
-
-            if( parseDates(  &cpLine[codeIndex], &cpLine[nameIndex], &cpLine[descriptionIndex], operation ) == 0 ) {
-                operation.mObjectId = &cpLine[iObject];
-                operations.add( operation );
+            parseModel( model, &cpLine[descriptionIndex] );
+            if( model.numFacets() > 0 ) {
+                model.setCode( &cpLine[codeIndex] );
+                model.setName( &cpLine[nameIndex] );
+                model.setNotes( &cpLine[notesIndex] );
+                models.add(model);
             }
         }
+
         free(cpLine);
         return 0;
     }
 
 
     static int parseModel( Model& model, char *cpText ) {
-        int iStatus, lenText, facetStart, facetEnd, pointStart, pointEnd, boxStart, boxEnd;
-        int iIndex, nBuffered;
+        int status, lenText, facetStart, facetEnd, pointStart, pointEnd, boxStart, boxEnd;
+        int index, numBuffered;
         char caBuffer[READ_BUFFER_SIZE];
         float fX, fY, fZ;
         float xNear, yNear, zNear, xFar, yFar, zFar;
@@ -97,31 +105,31 @@ namespace Spider3d {
 
         facetEnd = 0;
         while(1) {
-            iStatus = findTagContent( cpText, "facet", facetEnd, lenText, &facetStart, &facetEnd );
-            if( iStatus == 0 ) {
+            status = findTagContent( cpText, "facet", facetEnd, lenText, &facetStart, &facetEnd );
+            if( status == 0 ) {
                 break;
             }
             Facet facet;
 
             pointEnd = facetStart;
             while(1) {
-                iStatus = findTagContent( cpText, "point", pointEnd, facetEnd, &pointStart, &pointEnd );
-                if( iStatus == 0 ) {
+                status = findTagContent( cpText, "point", pointEnd, facetEnd, &pointStart, &pointEnd );
+                if( status == 0 ) {
                     break;
                 }
 
-                for( iIndex = pointStart, nBuffered = 0 ; iIndex <= pointEnd && nBuffered < READ_BUFFER_SIZE ; ) {
-                    if( cpText[iIndex] == ',' ) {
-                        caBuffer[ nBuffered ] = ' ';
+                for( index = pointStart, numBuffered = 0 ; index <= pointEnd && numBuffered < READ_BUFFER_SIZE ; ) {
+                    if( cpText[index] == ',' ) {
+                        caBuffer[ numBuffered ] = ' ';
                     } else {
-                        caBuffer[ nBuffered ] = cpText[iIndex];
+                        caBuffer[ numBuffered ] = cpText[index];
                     }
-                    iIndex++;
-                    nBuffered++;
+                    index++;
+                    numBuffered++;
                 }
-                caBuffer[ nBuffered ] = '\x0';
-                iStatus = sscanf( caBuffer, " %f %f %f", &fX, &fY, &fZ );
-                if( iStatus == 3 ) {
+                caBuffer[ numBuffered ] = '\x0';
+                status = sscanf( caBuffer, " %f %f %f", &fX, &fY, &fZ );
+                if( status == 3 ) {
                     Vertex vertex( fX, fY, fZ );
                     facet.add(vertex);
                 }
@@ -131,23 +139,23 @@ namespace Spider3d {
 
         boxEnd = 0;
         while(1) {
-            iStatus = findTagContent( cpText, "box", boxEnd, lenText, &boxStart, &boxEnd );
-            if( iStatus == 0 ) {
+            status = findTagContent( cpText, "box", boxEnd, lenText, &boxStart, &boxEnd );
+            if( status == 0 ) {
                 break;
             }
 
-            for( iIndex = boxStart, nBuffered = 0 ; iIndex <= boxEnd && nBuffered < READ_BUFFER_SIZE ; ) {
-                if( cpText[iIndex] == ',' ) {
-                    caBuffer[ nBuffered ] = ' ';
+            for( index = boxStart, numBuffered = 0 ; index <= boxEnd && numBuffered < READ_BUFFER_SIZE ; ) {
+                if( cpText[index] == ',' ) {
+                    caBuffer[ numBuffered ] = ' ';
                 } else {
-                    caBuffer[ nBuffered ] = cpText[iIndex];
+                    caBuffer[ numBuffered ] = cpText[index];
                 }
-                iIndex++;
-                nBuffered++;
+                index++;
+                numBuffered++;
             }
-            caBuffer[ nBuffered ] = '\x0'; 
-            iStatus = sscanf( caBuffer, " %f %f %f %f %f %f", &xNear, &yNear, &zNear, &xFar, &yFar, &zFar );
-            if( iStatus == 6 ) {
+            caBuffer[ numBuffered ] = '\x0'; 
+            status = sscanf( caBuffer, " %f %f %f %f %f %f", &xNear, &yNear, &zNear, &xFar, &yFar, &zFar );
+            if( status == 6 ) {
                 Facet facet;
                 Vertex vertex;
                 vertex.setXYZ( xNear, yNear, zNear ); facet.add(vertex);
@@ -181,6 +189,37 @@ namespace Spider3d {
                 vertex.setXYZ( xFar, yNear, zFar ); facet.add(vertex);
                 model.add(facet);
             }
+        }
+        return 0;
+    }
+
+    static int getValuesByColumnPos( char *cpLine, int *codeInex, int *nameIndex, int *descriptionIndex, int *notesIndex ) {
+        int i, iPos, iLineLen;
+        *codeInex=-1; 
+        *nameIndex=-1;
+        *descriptionIndex=-1;
+        *notesIndex=-1;
+
+        iLineLen = strlen( cpLine ); 
+        for( i = 0, iPos = 0 ; i < iLineLen ; i++ ) {
+            if( iPos == _iCodePos && *codeInex == -1 ) {
+                *codeInex = i;
+            } else if( iPos == _iNamePos && *nameIndex == -1 ) {
+                *nameIndex = i;
+            } else if( iPos == _iDescriptionPos && *descriptionIndex == -1 ) { 
+                *descriptionIndex = i;
+            } else if( iPos == _iNotesPos && *notesIndex == -1 ) {
+                *notesIndex = i;
+            } 
+            if( cpLine[i] == ';' ) {
+                iPos++;
+                cpLine[i] = '\x0';
+            } else if( cpLine[i] == '\r' || cpLine[i] == '\n') {
+                cpLine[i] = '\x0';            
+            }
+        }
+        if( *codeInex == -1 || *nameIndex == -1 || *descriptionIndex == -1 || *notesIndex == -1 ) {
+            return -1;
         }
         return 0;
     }

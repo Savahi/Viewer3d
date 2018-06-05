@@ -1,13 +1,9 @@
 #pragma once 
 
-
+#include <string>
 #include <vector>
 #include <ctime>
-#include <stdlib.h>
-/*
-#include <iostream>
-#include <string>
-*/
+
 namespace Spider3d {
 
 	class Vertex {
@@ -35,7 +31,7 @@ namespace Spider3d {
 			std::vector<Vertex> mVertices;
 
 			int add( Vertex& vertex ) {
-				this->mVertices.push_back( verte );
+				this->mVertices.push_back( vertex );
 				return 0;
 			}
 
@@ -52,35 +48,37 @@ namespace Spider3d {
 	};
 
 	class Model {
+		
 		public:
 			std::vector<Facet> mFacets; 
 			std::string mCode;
 			std::string mName;
+			std::string mNotes;
+			bool mSelected;
 
 			int add( Facet& facet ) {
 				this->mFacets.push_back( facet );
 				return 0;
 			}
 
-			void setCode( std::string code ) {
-				this->mCode = code;
-			}
-			void setCode( char *cpCode ) {
-				this->mCode = std::string( cpCode );
-			}
-			
-			void setName( std::string name ) {
-				this->mName = name;
-			}
-			void setName( char *cpName ) {
-				this->mName = std::string( cpName );
+			void setCode( std::string code ) { this->mCode = code; }
+			void setCode( char *cpCode ) { this->mCode = std::string( cpCode ); }
+
+			void setName( std::string name ) { this->mName = name; }
+			void setName( char *cpName ) { this->mName = std::string( cpName ); }
+
+			void setNotes( std::string notes ) { this->mNotes = notes; }
+			void setNotes( char *cpNotes ) { this->mNotes = std::string( cpNotes ); }
+
+			unsigned int numFacets( void ) {
+				return this->mFacets.size(); 
 			}
 
-			Model() {
+			Model() : mSelected(false) {
 				; // std::cout << "Constructor for Model\n";
 			}
 
-			Model( std::string code ) : mCode(code) {
+			Model( std::string code ) : mCode(code), mSelected(false) {
 				; // std::cout << "Constructor for Model\n";
 			}
 
@@ -91,17 +89,11 @@ namespace Spider3d {
 
 	class Models {
 		public:
-			std::vector<Object> mModels; 
+			std::vector<Model> mModels; 
 
 			bool mAxis;
 			float mGrid;
 			float mXMargin, mYMargin, mZMargin;
-
-			int add( Model& model ) {
-				this->mModels.push_back( model );
-				return 0;
-			}
-
 
 			Models() {
 				; // std::cout << "Constructor for Model\n";
@@ -110,14 +102,15 @@ namespace Spider3d {
 			~Models() {
 				; // std::cout << "Destructor for Model\n";
 			}
+			int add( Model& model ) {
+				this->mModels.push_back( model );
+				return 0;
+			}
 
-			unsigned int totalNumber( void ) {
+			unsigned int number( void ) {
 				return this->mModels.size(); 
 			}
 
-			void display( int argc, char* argv[] );
-			
-			static void display( Model& model, int argc, char* argv[] );
 	};
 
 }

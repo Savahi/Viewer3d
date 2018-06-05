@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/user/Desktop/spider/Viewer3d/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/home/user/Desktop/install/cmake/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/home/user/Desktop/install/cmake/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,98 +111,206 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Viewer3d
+# Target rules for targets named viewer3d
 
 # Build rule for target.
-Viewer3d: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Viewer3d
-.PHONY : Viewer3d
+viewer3d: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 viewer3d
+.PHONY : viewer3d
 
 # fast build rule for target.
-Viewer3d/fast:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/build
-.PHONY : Viewer3d/fast
+viewer3d/fast:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/build
+.PHONY : viewer3d/fast
 
-src/Helpers.o: src/Helpers.cpp.o
+src/display.o: src/display.cpp.o
 
-.PHONY : src/Helpers.o
-
-# target to build an object file
-src/Helpers.cpp.o:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Helpers.cpp.o
-.PHONY : src/Helpers.cpp.o
-
-src/Helpers.i: src/Helpers.cpp.i
-
-.PHONY : src/Helpers.i
-
-# target to preprocess a source file
-src/Helpers.cpp.i:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Helpers.cpp.i
-.PHONY : src/Helpers.cpp.i
-
-src/Helpers.s: src/Helpers.cpp.s
-
-.PHONY : src/Helpers.s
-
-# target to generate assembly for a file
-src/Helpers.cpp.s:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Helpers.cpp.s
-.PHONY : src/Helpers.cpp.s
-
-src/Model3d.o: src/Model3d.cpp.o
-
-.PHONY : src/Model3d.o
+.PHONY : src/display.o
 
 # target to build an object file
-src/Model3d.cpp.o:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Model3d.cpp.o
-.PHONY : src/Model3d.cpp.o
+src/display.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/display.cpp.o
+.PHONY : src/display.cpp.o
 
-src/Model3d.i: src/Model3d.cpp.i
+src/display.i: src/display.cpp.i
 
-.PHONY : src/Model3d.i
+.PHONY : src/display.i
 
 # target to preprocess a source file
-src/Model3d.cpp.i:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Model3d.cpp.i
-.PHONY : src/Model3d.cpp.i
+src/display.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/display.cpp.i
+.PHONY : src/display.cpp.i
 
-src/Model3d.s: src/Model3d.cpp.s
+src/display.s: src/display.cpp.s
 
-.PHONY : src/Model3d.s
+.PHONY : src/display.s
 
 # target to generate assembly for a file
-src/Model3d.cpp.s:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Model3d.cpp.s
-.PHONY : src/Model3d.cpp.s
+src/display.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/display.cpp.s
+.PHONY : src/display.cpp.s
 
-src/Viewer3d.o: src/Viewer3d.cpp.o
+src/helpers.o: src/helpers.cpp.o
 
-.PHONY : src/Viewer3d.o
+.PHONY : src/helpers.o
 
 # target to build an object file
-src/Viewer3d.cpp.o:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Viewer3d.cpp.o
-.PHONY : src/Viewer3d.cpp.o
+src/helpers.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/helpers.cpp.o
+.PHONY : src/helpers.cpp.o
 
-src/Viewer3d.i: src/Viewer3d.cpp.i
+src/helpers.i: src/helpers.cpp.i
 
-.PHONY : src/Viewer3d.i
+.PHONY : src/helpers.i
 
 # target to preprocess a source file
-src/Viewer3d.cpp.i:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Viewer3d.cpp.i
-.PHONY : src/Viewer3d.cpp.i
+src/helpers.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/helpers.cpp.i
+.PHONY : src/helpers.cpp.i
 
-src/Viewer3d.s: src/Viewer3d.cpp.s
+src/helpers.s: src/helpers.cpp.s
 
-.PHONY : src/Viewer3d.s
+.PHONY : src/helpers.s
 
 # target to generate assembly for a file
-src/Viewer3d.cpp.s:
-	$(MAKE) -f CMakeFiles/Viewer3d.dir/build.make CMakeFiles/Viewer3d.dir/src/Viewer3d.cpp.s
-.PHONY : src/Viewer3d.cpp.s
+src/helpers.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/helpers.cpp.s
+.PHONY : src/helpers.cpp.s
+
+src/loadmodels.o: src/loadmodels.cpp.o
+
+.PHONY : src/loadmodels.o
+
+# target to build an object file
+src/loadmodels.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o
+.PHONY : src/loadmodels.cpp.o
+
+src/loadmodels.i: src/loadmodels.cpp.i
+
+.PHONY : src/loadmodels.i
+
+# target to preprocess a source file
+src/loadmodels.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadmodels.cpp.i
+.PHONY : src/loadmodels.cpp.i
+
+src/loadmodels.s: src/loadmodels.cpp.s
+
+.PHONY : src/loadmodels.s
+
+# target to generate assembly for a file
+src/loadmodels.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadmodels.cpp.s
+.PHONY : src/loadmodels.cpp.s
+
+src/loadoperations.o: src/loadoperations.cpp.o
+
+.PHONY : src/loadoperations.o
+
+# target to build an object file
+src/loadoperations.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o
+.PHONY : src/loadoperations.cpp.o
+
+src/loadoperations.i: src/loadoperations.cpp.i
+
+.PHONY : src/loadoperations.i
+
+# target to preprocess a source file
+src/loadoperations.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoperations.cpp.i
+.PHONY : src/loadoperations.cpp.i
+
+src/loadoperations.s: src/loadoperations.cpp.s
+
+.PHONY : src/loadoperations.s
+
+# target to generate assembly for a file
+src/loadoperations.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoperations.cpp.s
+.PHONY : src/loadoperations.cpp.s
+
+src/models.o: src/models.cpp.o
+
+.PHONY : src/models.o
+
+# target to build an object file
+src/models.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/models.cpp.o
+.PHONY : src/models.cpp.o
+
+src/models.i: src/models.cpp.i
+
+.PHONY : src/models.i
+
+# target to preprocess a source file
+src/models.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/models.cpp.i
+.PHONY : src/models.cpp.i
+
+src/models.s: src/models.cpp.s
+
+.PHONY : src/models.s
+
+# target to generate assembly for a file
+src/models.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/models.cpp.s
+.PHONY : src/models.cpp.s
+
+src/operations.o: src/operations.cpp.o
+
+.PHONY : src/operations.o
+
+# target to build an object file
+src/operations.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/operations.cpp.o
+.PHONY : src/operations.cpp.o
+
+src/operations.i: src/operations.cpp.i
+
+.PHONY : src/operations.i
+
+# target to preprocess a source file
+src/operations.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/operations.cpp.i
+.PHONY : src/operations.cpp.i
+
+src/operations.s: src/operations.cpp.s
+
+.PHONY : src/operations.s
+
+# target to generate assembly for a file
+src/operations.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/operations.cpp.s
+.PHONY : src/operations.cpp.s
+
+src/viewer3d.o: src/viewer3d.cpp.o
+
+.PHONY : src/viewer3d.o
+
+# target to build an object file
+src/viewer3d.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o
+.PHONY : src/viewer3d.cpp.o
+
+src/viewer3d.i: src/viewer3d.cpp.i
+
+.PHONY : src/viewer3d.i
+
+# target to preprocess a source file
+src/viewer3d.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/viewer3d.cpp.i
+.PHONY : src/viewer3d.cpp.i
+
+src/viewer3d.s: src/viewer3d.cpp.s
+
+.PHONY : src/viewer3d.s
+
+# target to generate assembly for a file
+src/viewer3d.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/viewer3d.cpp.s
+.PHONY : src/viewer3d.cpp.s
 
 # Help Target
 help:
@@ -210,18 +318,30 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Viewer3d"
-	@echo "... src/Helpers.o"
-	@echo "... src/Helpers.i"
-	@echo "... src/Helpers.s"
-	@echo "... src/Model3d.o"
-	@echo "... src/Model3d.i"
-	@echo "... src/Model3d.s"
-	@echo "... src/Viewer3d.o"
-	@echo "... src/Viewer3d.i"
-	@echo "... src/Viewer3d.s"
+	@echo "... edit_cache"
+	@echo "... viewer3d"
+	@echo "... src/display.o"
+	@echo "... src/display.i"
+	@echo "... src/display.s"
+	@echo "... src/helpers.o"
+	@echo "... src/helpers.i"
+	@echo "... src/helpers.s"
+	@echo "... src/loadmodels.o"
+	@echo "... src/loadmodels.i"
+	@echo "... src/loadmodels.s"
+	@echo "... src/loadoperations.o"
+	@echo "... src/loadoperations.i"
+	@echo "... src/loadoperations.s"
+	@echo "... src/models.o"
+	@echo "... src/models.i"
+	@echo "... src/models.s"
+	@echo "... src/operations.o"
+	@echo "... src/operations.i"
+	@echo "... src/operations.s"
+	@echo "... src/viewer3d.o"
+	@echo "... src/viewer3d.i"
+	@echo "... src/viewer3d.s"
 .PHONY : help
 
 

@@ -1,4 +1,4 @@
-project(Viewer3d)
+project(viewer3d)
 
 cmake_minimum_required(VERSION 2.6)
 

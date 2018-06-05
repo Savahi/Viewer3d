@@ -1,11 +1,12 @@
 #include <string>
 #include <iostream>
-include <fstream>
+#include <fstream>
 #include <sstream>
 #include <map>
-#include "Helpers.hpp"
-#include "Models.hpp"
-#include "Operations.hpp"
+#include "helpers.hpp"
+#include "models.hpp"
+#include "operations.hpp"
+#include "viewer3d.hpp"
 
 using namespace Spider3d;
 
@@ -47,18 +48,18 @@ int main( int argc, char* argv[] ) {
     Operations operations;
 
     loadOperations( operations, configParameters["operations"].c_str() );
-    if( operations.totalNumber() == 0 ) {
-        cout << "No operations found!\n.Exiting...\n";
+    if( operations.number() == 0 ) {
+        std::cout << "No operations found!\n.Exiting...\n";
         return 0;
     }
 
-    loadModels( models, configParameters["objects"].c_str() );
-    if( model.objectsNumber() == 0 ) {
-        cout << "No objects found!\n.Exiting...\n";
+    loadModels( models, configParameters["models"].c_str() );
+    if( models.number() == 0 ) {
+        std::cout << "No models found!\n.Exiting...\n";
         return 0;
     }
 
-    model.display( argc, argv );
+    display( models, operations, argc, argv );
     
     return 0;
 }

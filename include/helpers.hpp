@@ -1,6 +1,4 @@
 #pragma once
-#include "Model3d.hpp" 
-#include "Operations.hpp"
 
 namespace Spider3d {
 
@@ -13,10 +11,6 @@ namespace Spider3d {
 	int findTagContent( char *cpText, const char *cpTagName, int iStartAt, int iStopAt, int *ipStart, int *ipEnd );
 
 	int findSubstring( char *cpText, const char *cpSubstring, int iStartAt, int iStopAt, int *ipStart, int *ipEnd );
-
-	int loadModel( Model3d& model, const char *cpFile );
-
-	int loadOperations( Operations& operations, const char *cpFile );
 
     int getPosByColumnName( char *cpBuffer, const char *cpColumn );	
 

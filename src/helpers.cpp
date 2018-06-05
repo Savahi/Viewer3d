@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "Helpers.hpp"
+#include "helpers.hpp"
 
 namespace Spider3d {
 
