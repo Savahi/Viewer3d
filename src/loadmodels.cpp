@@ -32,7 +32,6 @@ namespace Spider3d {
             }
             fclose(fp);
         }
-
         return 0;
     }
 
@@ -82,7 +81,7 @@ namespace Spider3d {
             Model model;
             parseModel( model, &cpLine[descriptionIndex] );
             if( model.numFacets() > 0 ) {
-                model.setCode( &cpLine[codeIndex] );
+                model.setCode( trimString(&cpLine[codeIndex]) );
                 model.setName( &cpLine[nameIndex] );
                 model.setNotes( &cpLine[notesIndex] );
                 models.add(model);
@@ -99,7 +98,7 @@ namespace Spider3d {
         int index, numBuffered;
         char caBuffer[READ_BUFFER_SIZE];
         float fX, fY, fZ;
-        float xNear, yNear, zNear, xFar, yFar, zFar;
+        float xLeft, yBottom, zNear, xRight, yTop, zFar;
 
         lenText = strlen( cpText );
 
@@ -154,39 +153,39 @@ namespace Spider3d {
                 numBuffered++;
             }
             caBuffer[ numBuffered ] = '\x0'; 
-            status = sscanf( caBuffer, " %f %f %f %f %f %f", &xNear, &yNear, &zNear, &xFar, &yFar, &zFar );
+            status = sscanf( caBuffer, " %f %f %f %f %f %f", &xLeft, &yBottom, &zNear, &xRight, &yTop, &zFar );
             if( status == 6 ) {
                 Facet facet;
                 Vertex vertex;
-                vertex.setXYZ( xNear, yNear, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yNear, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yFar, zNear ); facet.add(vertex);
-                vertex.setXYZ( xNear, yFar, zNear ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yBottom, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zNear ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zNear ); facet.add(vertex);
                 model.add(facet);
-                vertex.setXYZ( xNear, yNear, zFar ); facet.add(vertex);
-                vertex.setXYZ( xFar, yNear, zFar ); facet.add(vertex);
-                vertex.setXYZ( xFar, yFar, zFar ); facet.add(vertex);
-                vertex.setXYZ( xNear, yFar, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yBottom, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zFar ); facet.add(vertex);
                 model.add(facet);
-                vertex.setXYZ( xNear, yNear, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yNear, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yNear, zFar ); facet.add(vertex);
-                vertex.setXYZ( xNear, yNear, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yBottom, zNear ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yBottom, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zNear ); facet.add(vertex);
                 model.add(facet);
-                vertex.setXYZ( xNear, yFar, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yFar, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yFar, zFar ); facet.add(vertex);
-                vertex.setXYZ( xNear, yFar, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
                 model.add(facet);
-                vertex.setXYZ( xNear, yNear, zNear ); facet.add(vertex);
-                vertex.setXYZ( xNear, yFar, zNear ); facet.add(vertex);
-                vertex.setXYZ( xNear, yFar, zFar ); facet.add(vertex);
-                vertex.setXYZ( xNear, yNear, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yBottom, zNear ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zNear ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yBottom, zFar ); facet.add(vertex);
                 model.add(facet);
-                vertex.setXYZ( xFar, yNear, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yFar, zNear ); facet.add(vertex);
-                vertex.setXYZ( xFar, yFar, zFar ); facet.add(vertex);
-                vertex.setXYZ( xFar, yNear, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zNear ); facet.add(vertex);
                 model.add(facet);
             }
         }

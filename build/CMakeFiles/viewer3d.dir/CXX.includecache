@@ -7,6 +7,12 @@
 #IncludeRegexTransform: 
 
 ../include/helpers.hpp
+stdio.h
+-
+string
+-
+ctime
+-
 
 ../include/models.hpp
 string
@@ -15,6 +21,12 @@ vector
 -
 ctime
 -
+map
+-
+helpers.hpp
+../include/helpers.hpp
+operations.hpp
+../include/operations.hpp
 
 ../include/operations.hpp
 vector
@@ -23,10 +35,22 @@ string
 -
 ctime
 -
+helpers.hpp
+../include/helpers.hpp
+
+../include/optypes.hpp
+vector
+-
+string
+-
+helpers.hpp
+../include/helpers.hpp
 
 ../include/viewer3d.hpp
 models.hpp
 ../include/models.hpp
+optypes.hpp
+../include/optypes.hpp
 operations.hpp
 ../include/operations.hpp
 
@@ -37,12 +61,16 @@ iostream
 -
 stdio.h
 -
+string.h
+-
 math.h
 -
 GL/glut.h
 -
 models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
+optypes.hpp
+/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
 viewer3d.hpp
@@ -54,6 +82,8 @@ stdio.h
 string.h
 -
 stdlib.h
+-
+string
 -
 ctype.h
 -
@@ -84,6 +114,18 @@ helpers.hpp
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
 
+/home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+helpers.hpp
+/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+optypes.hpp
+/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
+
 /home/user/Desktop/spider/Viewer3d/src/models.cpp
 models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
@@ -109,6 +151,8 @@ models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
+optypes.hpp
+/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
 viewer3d.hpp
 /home/user/Desktop/spider/Viewer3d/src/viewer3d.hpp
 

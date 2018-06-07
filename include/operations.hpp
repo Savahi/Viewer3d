@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <ctime>
+#include "helpers.hpp"
 	
 namespace Spider3d {
 
@@ -13,16 +14,32 @@ namespace Spider3d {
 			time_t tActualStart, tActualFinish, tAsapStart, tAsapFinish;
 			bool bDatesInitialized;
 
+			std::string sCode;
+			std::string sName;
+			std::string sType;
 			std::string sModelCode;
 
+			/*
 			int iProgress;
 
 			int setProgress( int progress ) {
 				this->iProgress == progress;
 				return 0;
 			}
+			*/
+			void setModelCode( std::string& sCode ) { this->sModelCode = sCode; }
+			void setModelCode( char *cpCode ) { this->sModelCode = std::string(cpCode); }
 
-			Operation() : bDatesInitialized(false), iProgress(100) {
+			void setCode( std::string& sCode ) { this->sCode = sCode; }
+			void setCode( char *cpCode ) { this->sCode = std::string( cpCode ); }
+
+			void setName( std::string& sName ) { this->sName = sName; }
+			void setName( char *cpName ) { this->sName = std::string( cpName ); }
+
+			void setType( std::string& sType ) { this->sType = sType; }
+			void setType( char *cpType ) { this->sType = std::string( cpType ); }
+
+			Operation() : bDatesInitialized(false) {
 				; // std::cout << "Constructor for Operation\n";
 			}
 

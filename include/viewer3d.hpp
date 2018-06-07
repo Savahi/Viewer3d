@@ -1,5 +1,6 @@
 #pragma once
 #include "models.hpp" 
+#include "optypes.hpp"
 #include "operations.hpp"
 
 namespace Spider3d {
@@ -8,6 +9,8 @@ namespace Spider3d {
 
 	int loadOperations( Operations& operations, const char *cpFile );
 
-	void display( Models& models, Operations& operations, int argc, char *argv[] );
+	int loadOpTypes( OpTypes& opTypes, const char *cpFile );
+
+	void display( Models& models, Operations& operations, OpTypes& opTypes, int argc, char *argv[] );
 
 }

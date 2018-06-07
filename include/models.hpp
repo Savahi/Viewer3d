@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <map>
+#include "helpers.hpp"
+#include "operations.hpp"
 
 namespace Spider3d {
 
@@ -51,34 +54,36 @@ namespace Spider3d {
 		
 		public:
 			std::vector<Facet> mFacets; 
-			std::string mCode;
-			std::string mName;
-			std::string mNotes;
-			bool mSelected;
+			std::string sCode;
+			std::string sName;
+			std::string sNotes;
+			bool bSelected;
+
+			std::map<time_t,Operation*> operations;
 
 			int add( Facet& facet ) {
 				this->mFacets.push_back( facet );
 				return 0;
 			}
 
-			void setCode( std::string code ) { this->mCode = code; }
-			void setCode( char *cpCode ) { this->mCode = std::string( cpCode ); }
+			void setCode( std::string& code ) { this->sCode = code; }
+			void setCode( char *cpCode ) { this->sCode = std::string( cpCode ); }
 
-			void setName( std::string name ) { this->mName = name; }
-			void setName( char *cpName ) { this->mName = std::string( cpName ); }
+			void setName( std::string& name ) { this->sName = name; }
+			void setName( char *cpName ) { this->sName = std::string( cpName ); }
 
-			void setNotes( std::string notes ) { this->mNotes = notes; }
-			void setNotes( char *cpNotes ) { this->mNotes = std::string( cpNotes ); }
+			void setNotes( std::string& notes ) { this->sNotes = notes; }
+			void setNotes( char *cpNotes ) { this->sNotes = std::string( cpNotes ); }
 
 			unsigned int numFacets( void ) {
 				return this->mFacets.size(); 
 			}
 
-			Model() : mSelected(false) {
+			Model() : bSelected(false) {
 				; // std::cout << "Constructor for Model\n";
 			}
 
-			Model( std::string code ) : mCode(code), mSelected(false) {
+			Model( std::string code ) : sCode(code), bSelected(false) {
 				; // std::cout << "Constructor for Model\n";
 			}
 

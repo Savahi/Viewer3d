@@ -231,6 +231,33 @@ src/loadoperations.cpp.s:
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoperations.cpp.s
 .PHONY : src/loadoperations.cpp.s
 
+src/loadoptypes.o: src/loadoptypes.cpp.o
+
+.PHONY : src/loadoptypes.o
+
+# target to build an object file
+src/loadoptypes.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o
+.PHONY : src/loadoptypes.cpp.o
+
+src/loadoptypes.i: src/loadoptypes.cpp.i
+
+.PHONY : src/loadoptypes.i
+
+# target to preprocess a source file
+src/loadoptypes.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.i
+.PHONY : src/loadoptypes.cpp.i
+
+src/loadoptypes.s: src/loadoptypes.cpp.s
+
+.PHONY : src/loadoptypes.s
+
+# target to generate assembly for a file
+src/loadoptypes.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.s
+.PHONY : src/loadoptypes.cpp.s
+
 src/models.o: src/models.cpp.o
 
 .PHONY : src/models.o
@@ -333,6 +360,9 @@ help:
 	@echo "... src/loadoperations.o"
 	@echo "... src/loadoperations.i"
 	@echo "... src/loadoperations.s"
+	@echo "... src/loadoptypes.o"
+	@echo "... src/loadoptypes.i"
+	@echo "... src/loadoptypes.s"
 	@echo "... src/models.o"
 	@echo "... src/models.i"
 	@echo "... src/models.s"

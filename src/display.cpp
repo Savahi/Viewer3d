@@ -1,12 +1,14 @@
 #include <vector>
 #include <iostream>
 #include <stdio.h> 
+#include <string.h>
 #include <math.h>
 
 #define GL_GLEX_tPROTOTYPES
 #include <GL/glut.h>
 
 #include "models.hpp"
+#include "optypes.hpp"
 #include "operations.hpp"
 #include "viewer3d.hpp"
 
@@ -16,23 +18,32 @@ namespace Spider3d {
 
 	static void displayFunc( void );
 	static void displayModelsWithZeroProgress( void );	
-	static void displayAxis( void );
-	static void displayFacet( Facet& facet, float progress=100, bool selected=false );
+	static void displayOperations( void );
+
 	static void displaySelectedModelInfo( void );
+	static int getOpTypeDetails( std::string& code, std::string& name, float *fpR, float *fpG, float *fpB );	
+
+	static void displayModel( Model& model, double dProgress=0.0 );	
+	static void displayFacet( Facet& facet, double progress=0, bool selected=false );
+	static void displayRib( double fX1, double fY1, double fZ1, double fX2, double fY2, double fZ2 );	
+
+	static void displayAxis( void );
+
 	static void displayKeys( int key, int x, int y );
 	static void displayMouse ( int button, int state, int x, int y );
 	static void displayReshape( GLsizei width, GLsizei height );
 
 	static Models *_models;
 	static Operations *_operations;
+	static OpTypes *_opTypes;
 	static Model *_modelSelected=NULL;
 
-	static GLsizei _windowWidth, _windowHeight;
+	static GLsizei _iWindowWidth, _iWindowHeight;
 
 	static float _fModelsW, _fModelsL, _fModelsH, _fModelsMinX, _fModelsMaxX, _fModelsMinY, _fModelsMaxY, _fModelsMinZ, _fModelsMaxZ;
 	static int _iModelsRotateX, _iModelsRotateY;
 	static time_t _tTimeNow;
-	static time_t _tOperationsTime;
+	static time_t _tDisplayTime;
 	static time_t _tOperationsStart, _tOperationsFinish; 
 
 	static int _iDateScaleRate = 50;
@@ -41,7 +52,7 @@ namespace Spider3d {
 
 	  	_iModelsRotateX = 15;
 	  	_iModelsRotateY = 15;
-	  	_tTimeNow = _tOperationsTime = time(0);
+	  	_tTimeNow = _tDisplayTime = time(0);
 	  	_tOperationsStart = _tOperationsFinish = -1.0;
 
 		for( std::vector<Operation>::iterator op = _operations->mOperations.begin() ; op != _operations->mOperations.end() ; ++op ) {
@@ -96,12 +107,24 @@ namespace Spider3d {
 		_fModelsW = _fModelsMaxX - _fModelsMinX;
 		_fModelsH = _fModelsMaxY - _fModelsMinY;
 		_fModelsL = _fModelsMaxZ - _fModelsMinZ;
+
+		// Creating operations stack sorted ascending...
+		for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {
+			for( std::vector<Operation>::iterator op = _operations->mOperations.begin() ; op != _operations->mOperations.end() ; ++op ) {
+				if( model->sCode.compare( op->sModelCode) != 0 ) {
+					continue;
+				}
+				// std::cout << "c=" << model->sCode << " c2=" << op->sModelCode << "\n";				
+    			model->operations.insert( std::pair<time_t,Operation*>( op->tActualStart, &(*op) ) );
+    		}
+    	}
 	}
 
 
-	void display( Models& models, Operations& operations, int argc, char* argv[] ) {
+	void display( Models& models, Operations& operations, OpTypes& opTypes, int argc, char* argv[] ) {
 	  	_models = &models;
 	  	_operations = &operations;
+	  	_opTypes = &opTypes;
 
 		displayInitializer();
 
@@ -145,12 +168,10 @@ namespace Spider3d {
 		float fMarginX = _fModelsW*1.0;
 		float fMarginY = _fModelsH*1.0;
 		float fMarginZ = _fModelsL*1.0;
-		glOrtho( _fModelsMinX-fMarginX, _fModelsMaxX+fMarginX, _fModelsMinY-fMarginY, _fModelsMaxY+fMarginY, _fModelsMinZ-fMarginZ, _fModelsMaxZ+fMarginZ );
-		//std::cout << "_fModelsMinX=" << _fModelsMinX <<", _fModelsMaxX=" << _fModelsMaxX;
-		//std::cout << ", _fModelsMinY=" << _fModelsMinY << ", _fModelsMaxY=" << _fModelsMaxY;
-		//std::cout << ", _fModelsMinZ=" << _fModelsMinZ << ", _fModelsMaxZ=" << _fModelsMaxZ <<"\n";
-		_windowWidth = width;
-		_windowHeight = height;
+		glOrtho( _fModelsMinX-fMarginX, _fModelsMaxX+fMarginX, 
+			_fModelsMinY-fMarginY, _fModelsMaxY+fMarginY, _fModelsMinZ-fMarginZ, _fModelsMaxZ+fMarginZ );
+		_iWindowWidth = width;
+		_iWindowHeight = height;
 	}
 
 
@@ -180,30 +201,9 @@ namespace Spider3d {
 		glTranslatef( -(_fModelsMinX + _fModelsW/2.0), -(_fModelsMinY + _fModelsH/2.0), -(_fModelsMinZ + _fModelsL/2.0) );  
 		*/
 
-		/*
-	    for( std::vector<Model>::iterator model = (*_models).mModels.begin() ; model != (*_models).mModels.end() ; ++model ) {    	
-	    	time_t tStart = model->tActualStart;
-	    	time_t tFinish = model->tActualFinish;
-	    	double dAfterStart = difftime( _tOperationsTime, tStart  );
-	    	double dAfterFinish = difftime( _tOperationsTime, tFinish ); 
-	    	float progress;
-	    	if( !(dAfterStart > 0.0) ) {
-	    		progress = 0;
-	    	} else if( !(dAfterFinish < 0.0) ) {
-	    		progress = 100;
-	    	} else {
-	    		progress = dAfterStart / (dAfterStart-dAfterFinish);	
-	    	}
-	    	bool selected = (_modelSelected == &(*model)) ? true : false;
-	        for( std::vector<Facet>::iterator fa = (*model).mFacets.begin() ; fa != (*model).mFacets.end() ; ++fa ) {
-	        	displayFacet( *fa, progress, selected );
-			}
-	    }	
-		*/
-
+		displayOperations();
 	    displayModelsWithZeroProgress();
-		
-		//displaySelectedModelInfo();
+		displaySelectedModelInfo();
 
 		glPopMatrix();
 		//glFlush();
@@ -211,44 +211,84 @@ namespace Spider3d {
 	}
 
 	static void displayModelsWithZeroProgress() {
-
 	    for( std::vector<Model>::iterator model = (*_models).mModels.begin() ; model != (*_models).mModels.end() ; ++model ) {    	
-	    	float progress;
-	    	bool selected = (_modelSelected == &(*model)) ? true : false;
-	        for( std::vector<Facet>::iterator fa = (*model).mFacets.begin() ; fa != (*model).mFacets.end() ; ++fa ) {
-	        	displayFacet( *fa, progress, selected );
-			}
+	    	displayModel( (*model), 0.0 );
 	    }	
-
 	}
 
-	static void displaySelectedModelInfo() {
-		/*
-		if( _modelSelected ) {
-			Model *model = _modelSelected;
-			char text[100];
+	static void displayOperations( void ) {
+		for( std::vector<Model>::iterator model = (*_models).mModels.begin() ; model != (*_models).mModels.end() ; ++model ) {    	
+		    for( std::map<time_t,Operation*>::reverse_iterator op=model->operations.rbegin() ; op != model->operations.rend() ; ++op ) {
 
-			if( _tOperationsTime < model->tActualStart ) {
-				sprintf( text, "This operation is to start at: %ld", model->tActualStart );
-			} else if ( _tOperationsTime > model->tActualFinish ) {
-				sprintf( text, "This operation haas been finished at: %ld", model->tActualFinish );
-			} else {
-				int pct = int( ( (_tOperationsTime - model->tActualStart)*100 ) / (model->tActualFinish - model->tActualStart) );  
-				sprintf( text, "This operation is under way now, %d%% done.", pct );
-			}
-			glColor3f( 1.0f, 1.0f, 1.0f );
+		    	time_t tStart = (op->second)->tActualStart;
+	    		time_t tFinish = (op->second)->tActualFinish;
+		    	double dAfterStart = difftime( _tDisplayTime, tStart  );
+		    	double dAfterFinish = difftime( _tDisplayTime, tFinish ); 
+		    	double dProgress;
+		    	if( !(dAfterStart > 0.0) ) {
+		    		continue;
+		    	} else if( !(dAfterFinish < 0.0) ) {
+		    		dProgress = 1.0;
+		    	} else {
+		    		dProgress = dAfterStart / (dAfterStart-dAfterFinish);	
+		    	}
+
+		    	if( dProgress > 0.0 ) {
+		    		displayModel( (*model), dProgress );
+		    	}
+		    	break;
+        	}
+        }
+    }
+
+	static void displaySelectedModelInfo() {
+		if( _modelSelected ) {
+			Model *m = _modelSelected;
+			char caOp[200], caOpType[40], caDTText[80], caDT[41];
+			int iOpPair;
 
 			glMatrixMode( GL_PROJECTION );
 			glPushMatrix();
 			glLoadIdentity();
-			gluOrtho2D( 0, _windowWidth, 0, _windowHeight );
+			gluOrtho2D( 0, _iWindowWidth, 0, _iWindowHeight );
 			glMatrixMode( GL_MODELVIEW );
 			glPushMatrix();
 			glLoadIdentity();
-			
-			glRasterPos2i( 10, 10 );
-			for( int i = 0 ; text[i] != '\x0' ; ++i ) {
-			    glutBitmapCharacter( GLUT_BITMAP_TIMES_ROMAN_24, text[i] );
+
+			iOpPair = 0;
+			std::map<time_t,Operation*>::reverse_iterator opPair = m->operations.rbegin();
+		    for( ; opPair != m->operations.rend() ; ++opPair, ++iOpPair ) {
+		    	
+		    	Operation *op = opPair->second;
+
+				if( _tDisplayTime < op->tActualStart ) {
+					timetToStr( op->tActualStart, caDT, 40, false );
+					sprintf( caDTText, "To start on: %s", caDT );
+				} else if ( _tDisplayTime > op->tActualFinish ) {
+					timetToStr( op->tActualFinish, caDT, 40, false );
+					sprintf( caDTText, "Finished on: %s", caDT );
+				} else {
+					timetToStr( op->tActualStart, caDT, 40, false );
+					int pct = int( ( (_tDisplayTime - op->tActualStart)*100 ) / (op->tActualFinish - op->tActualStart) );  
+					sprintf( caDTText, "Started on %s is under way now with %d%% done.", caDT, pct );
+				}
+
+				std::string opTypeName;
+				float opTypeR, opTypeG, opTypeB;
+				int iStatus = getOpTypeDetails( op->sType, opTypeName, &opTypeR, &opTypeG, &opTypeB );
+				if( iStatus == 0 && opTypeName.size() < 40 ) {
+					sprintf( caOpType, " (%s)", opTypeName.c_str() );
+				} else {
+					strcpy( caOpType, "" );
+				}
+
+				sprintf( caOp, "%s%s: %s", op->sName.c_str(), caOpType, caDTText );
+
+				glColor3f( 1.0f, 1.0f, 1.0f );
+				glRasterPos2i( _iWindowWidth * 0.6, _iWindowHeight - 20 - iOpPair*12 );
+				for( int i = 0 ; caOp[i] != '\x0' ; ++i ) {
+				    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, caOp[i] );
+				}
 			}
 
 			glPopMatrix();
@@ -258,13 +298,43 @@ namespace Spider3d {
 			
 			glutSwapBuffers();
 		}
-		*/
 	}
 
-	static void displayFacet( Facet& facet, float progress, bool selected ) {
+	static int getOpTypeDetails( std::string& sCode, std::string& sName, float *fpR, float *fpG, float *fpB ) {
+
+		for( std::vector<OpType>::iterator opType = _opTypes->mOpTypes.begin() ; opType != _opTypes->mOpTypes.end() ; ++opType ) {
+			std::cout << opType->sCode << "vs" << sCode << "\n";
+			if( sCode.compare( opType->sCode ) == 0 ) {
+				sName.assign( opType->sName );
+				if( fpR != NULL ) {
+					*fpR = opType->fR;
+				}
+				if( fpG != NULL ) {
+					*fpG = opType->fG;
+				}
+				if( fpB != NULL ) {
+					*fpB = opType->fB;
+				}
+				return 0;
+			}
+		}
+		return -1;
+	}
+
+	static void displayModel( Model& model, double dProgress ) {
+    	bool selected = (_modelSelected == &model) ? true : false;
+        for( std::vector<Facet>::iterator fa = model.mFacets.begin() ; fa != model.mFacets.end() ; ++fa ) {
+        	displayFacet( *fa, dProgress, selected );
+		}
+	}
+
+	static void displayFacet( Facet& facet, double dProgress, bool selected ) {
 		// Facet
+		if( dProgress < 0.05 ) {
+			dProgress = 0.05;
+		}
 		glBegin(GL_POLYGON);
-		glColor4f( 1.0f, 1.0f, 1.0f, progress );
+		glColor4f( 0.8f, 0.8f, 0.8f, (float)dProgress );
 	    for( std::vector<Vertex>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
 			glVertex3f( ve->mX, ve->mY, ve->mZ );
 	    }
@@ -273,11 +343,10 @@ namespace Spider3d {
 		// Ribs only
 		glBegin(GL_LINES);
 		glEnable( GL_LINE_SMOOTH );
-		glLineWidth( 4.0 );
 		if( !selected ) {
 			glColor3f( 1.0, 1.0, 1.0 );     
 		} else {
-			glColor3f( 0.0, 0.4, 0.8 );     		
+			glColor3f( 0.0, 0.4, 0.8 );
 		}
 		bool firstVertex = false;
 		bool prevVertex = false;
@@ -288,19 +357,34 @@ namespace Spider3d {
 				firstX = ve->mX; firstY = ve->mY; firstZ = ve->mZ;
 				firstVertex = true;
 			} else {
-				glVertex3f( ve->mX, ve->mY, ve->mZ );
-				glVertex3f( prevX, prevY, prevZ );
+				displayRib( ve->mX, ve->mY, ve->mZ, prevX, prevY, prevZ );
 			}
 			prevX = ve->mX; prevY = ve->mY; prevZ = ve->mZ;
 			prevVertex = true;
 		}
 		if( firstVertex && prevVertex ) {
-			glVertex3f( prevX, prevY, prevZ );
-			glVertex3f( firstX, firstY, firstZ );
+			displayRib( prevX, prevY, prevZ, firstX, firstY, firstZ );
 		}
 		glEnd();	
 	}
 
+	static void displayRib( double fX1, double fY1, double fZ1, double fX2, double fY2, double fZ2 ) {
+		glVertex3f( fX1,fY1,fZ1 );
+		glVertex3f( fX2,fY2,fZ2 );
+		/*
+		glBegin(GL_POLYGON);
+		float lineWidth = 0.01;
+		float x1 = fX1 - lineWidth;
+		float x2 = fX2 + lineWidth;
+		float y1 = fY1 - lineWidth;
+		float y2 = fY2 + lineWidth;
+		float z1 = fZ1 - lineWidth;
+		float z2 = fZ2 + lineWidth;
+		glVertex3f( x1,y1,z1 );
+		glVertex3f( x1,y1,z1 );
+		glEnd();
+		*/
+	}
 
 	static void displayAxis( void ) {
 		float cx = _fModelsMinX - _fModelsW*0.25;
@@ -336,17 +420,17 @@ namespace Spider3d {
 				_iModelsRotateX -= 5;
 				break;
 			case GLUT_KEY_PAGE_UP:
-				if( _tOperationsTime < _tOperationsFinish ) {
-					_tOperationsTime += (_tOperationsFinish - _tOperationsStart)/_iDateScaleRate;
-				} else if( _tOperationsTime < _tTimeNow ) {
-					_tOperationsTime = _tTimeNow;
+				if( _tDisplayTime < _tOperationsFinish ) {
+					_tDisplayTime += (_tOperationsFinish - _tOperationsStart)/_iDateScaleRate;
+				} else if( _tDisplayTime < _tTimeNow ) {
+					_tDisplayTime = _tTimeNow;
 				}
 				break;
 			case GLUT_KEY_PAGE_DOWN:
-				if( _tOperationsTime > _tOperationsFinish ) {
-					_tOperationsTime = _tOperationsFinish;
-				} else if( _tOperationsTime > _tOperationsStart ) {
-					_tOperationsTime -= (_tOperationsFinish - _tOperationsStart)/_iDateScaleRate;
+				if( _tDisplayTime > _tOperationsFinish ) {
+					_tDisplayTime = _tOperationsFinish;
+				} else if( _tDisplayTime > _tOperationsStart ) {
+					_tDisplayTime -= (_tOperationsFinish - _tOperationsStart)/_iDateScaleRate;
 				}
 				break;
 		} 
@@ -372,7 +456,7 @@ namespace Spider3d {
 			// Unproject the window coordinates to find the world coordinates.
 			gluUnProject( x, viewport[3]-y, z, modelview, projection, viewport, &objx, &objy, &objz ); 
 
-			std::cout << objx << " , " << objy << " , " << objz << "\n";
+			// std::cout << objx << " , " << objy << " , " << objz << "\n";
 
 			Model *modelToSelect = NULL;
 			for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {
@@ -408,8 +492,15 @@ namespace Spider3d {
 			}
 
 			if( modelToSelect ) {
-				_modelSelected = modelToSelect;
-				glutPostRedisplay();
+				if( _modelSelected != modelToSelect ) {
+					_modelSelected = modelToSelect;
+					glutPostRedisplay();
+				}
+			} else {
+				if( _modelSelected != NULL ) {
+					_modelSelected = NULL;
+					glutPostRedisplay();
+				}
 			}
 		}	
 	}

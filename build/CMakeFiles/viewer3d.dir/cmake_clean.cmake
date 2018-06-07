@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/viewer3d.dir/src/helpers.cpp.o"
   "CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o"
   "CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o"
+  "CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o"
   "CMakeFiles/viewer3d.dir/src/models.cpp.o"
   "CMakeFiles/viewer3d.dir/src/operations.cpp.o"
   "CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o"

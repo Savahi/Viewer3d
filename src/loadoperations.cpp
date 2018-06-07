@@ -11,9 +11,10 @@ namespace Spider3d {
 
     static int parseDates( char *cpActualStart, char *cpActualFinish, char *cpAsapStart, char *cpAsapFinish, Operation& operation );
 
-    static int getValuesByColumnPos( char *cpLine, int *ipModel, int *ipFactStart, int *ipFactFin, int *ipAsapStart, int *ipAsapFin );
+    static int getValuesByColumnPos( char *cpLine, int *ipCode, int *ipName, int *ipType, 
+        int *ipFactStart, int *ipFactFin, int *ipAsapStart, int *ipAsapFin, int *ipModel );
 
-    static int _iModelPos, _iFactStartPos, _iFactFinPos, _iAsapStartPos, _iAsapFinPos;
+    static int _iCodePos, _iNamePos, _iTypePos, _iModelPos, _iFactStartPos, _iFactFinPos, _iAsapStartPos, _iAsapFinPos;
 
     int loadOperations( Operations& operations, const char *cpFile ) {
 
@@ -46,10 +47,19 @@ namespace Spider3d {
             return -1;
         }
 
-        _iModelPos = getPosByColumnName( cpHeader, "model" );
-        if( _iModelPos == -1 ) {
+        _iCodePos = getPosByColumnName( cpHeader, "code" );
+        if( _iCodePos == -1 ) {
             iReturn = -1;
         }
+        _iNamePos = getPosByColumnName( cpHeader, "name" );
+        if( _iNamePos == -1 ) {
+            iReturn = -1;
+        }
+        _iTypePos = getPosByColumnName( cpHeader, "type" );
+        if( _iTypePos == -1 ) {
+            iReturn = -1;
+        }
+
         _iFactStartPos = getPosByColumnName( cpHeader, "factstart" );
         if( _iFactStartPos == -1 ) {
             iReturn = -1;
@@ -66,13 +76,17 @@ namespace Spider3d {
         if( _iAsapFinPos == -1 ) {
             iReturn = -1;
         }
+        _iModelPos = getPosByColumnName( cpHeader, "model" );
+        if( _iModelPos == -1 ) {
+            iReturn = -1;
+        }
 
         free(cpHeader);
         return iReturn;
     }
 
     static int parseFileLine( Operations& operations, FILE *fp ) {
-        int iStatus, iModel, iFactStart, iFactFin, iAsapStart, iAsapFin;
+        int iStatus, iCode, iName, iType, iFactStart, iFactFin, iAsapStart, iAsapFin, iModel;
         char *cpLine; 
 
         cpLine = readLineFromFile(fp);
@@ -80,11 +94,14 @@ namespace Spider3d {
             return -1;
         }
 
-        iStatus = getValuesByColumnPos( cpLine, &iModel, &iFactStart, &iFactFin, &iAsapStart, &iAsapFin );
+        iStatus = getValuesByColumnPos( cpLine, &iCode, &iName, &iType, &iFactStart, &iFactFin, &iAsapStart, &iAsapFin, &iModel );
         if( iStatus == 0 ) {
             Operation operation;
             if( parseDates( &cpLine[iFactStart], &cpLine[iFactFin], &cpLine[iAsapStart], &cpLine[iAsapFin], operation ) == 0 ) {
-                operation.sModelCode = std::string( &cpLine[iModel] );
+                operation.sCode = std::string( trimString( &cpLine[iCode] ) );
+                operation.sName = std::string( &cpLine[iName] );
+                operation.sType = std::string( trimString( &cpLine[iType] ) );
+                operation.sModelCode = std::string( trimString( &cpLine[iModel] ) );
                 operations.add( operation );
             }
         }
@@ -93,18 +110,27 @@ namespace Spider3d {
     }
 
 
-    static int getValuesByColumnPos( char *cpLine, int *ipModel, int *ipFactStart, int *ipFactFin, int *ipAsapStart, int *ipAsapFin ) {
+    static int getValuesByColumnPos( char *cpLine, int *ipCode, int *ipName, int *ipType, 
+        int *ipFactStart, int *ipFactFin, int *ipAsapStart, int *ipAsapFin, int *ipModel ) 
+    {
         int i, iPos, iLineLen;
-        *ipModel=-1; 
+        *ipCode=-1;
+        *ipName=-1; 
+        *ipType=-1;
         *ipFactStart=-1;
         *ipFactFin=-1;
         *ipAsapStart=-1;
         *ipAsapFin=-1;
+        *ipModel=-1;
 
         iLineLen = strlen( cpLine ); 
         for( i = 0, iPos = 0 ; i < iLineLen ; i++ ) {
-            if( iPos == _iModelPos && *ipModel == -1 ) {
-                *ipModel = i;
+            if( iPos == _iCodePos && *ipCode == -1 ) {
+                *ipCode = i;
+            } else if( iPos == _iNamePos && *ipName == -1 ) {
+                *ipName = i;
+            } else if( iPos == _iTypePos && *ipType == -1 ) {
+                *ipType = i;
             } else if( iPos == _iFactStartPos && *ipFactStart == -1 ) {
                 *ipFactStart = i;
             } else if( iPos == _iFactFinPos && *ipFactFin == -1 ) { 
@@ -113,7 +139,9 @@ namespace Spider3d {
                 *ipAsapStart = i;
             } else if( iPos == _iAsapFinPos && *ipAsapFin == -1 ) { 
                 *ipAsapFin = i;
-            }
+            } else if( iPos == _iModelPos && *ipModel == -1 ) {
+                *ipModel = i;
+            } 
             if( cpLine[i] == ';' ) {
                 iPos++;
                 cpLine[i] = '\x0';
@@ -121,7 +149,8 @@ namespace Spider3d {
                 cpLine[i] = '\x0';            
             }
         }
-        if( *ipModel == -1 || *ipFactStart == -1 || *ipFactFin == -1 || *ipAsapStart == -1 || *ipAsapFin == -1 ) {
+        if( *ipCode == -1 || *ipName == -1 || *ipType == -1 || 
+            *ipFactStart == -1 || *ipFactFin == -1 || *ipAsapStart == -1 || *ipAsapFin == -1 || *ipModel == -1 ) {
             return -1;
         }
         return 0;

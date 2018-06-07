@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/user/Desktop/spider/Viewer3d/src/helpers.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/helpers.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o"
+  "/home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/models.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/models.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/operations.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/operations.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/viewer3d.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o"

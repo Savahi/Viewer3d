@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <string>
 #include <ctype.h>
 #include "helpers.hpp"
 
@@ -122,5 +123,135 @@ namespace Spider3d {
         }
         return iPosition;
     }
-    
+
+    std::string& ltrim(std::string& str, const std::string& chars )
+    {
+        str.erase(0, str.find_first_not_of(chars));
+        return str;
+    }
+     
+    std::string& rtrim(std::string& str, const std::string& chars )
+    {
+        str.erase(str.find_last_not_of(chars) + 1);
+        return str;
+    }
+     
+    std::string& trim(std::string& str, const std::string& chars )
+    {
+        return ltrim( rtrim(str, chars), chars );
+    }
+
+
+    char *trimString( char *cp ) {
+        for( int i = 0 ; cp[i] == ' ' && cp[i] != '\x0' ; ) {
+            for( int j = i ; cp[j] != '\x0' ; j++ ) {
+                cp[j] = cp[j+1];
+            }
+        }
+        for( int i = strlen(cp)-1 ; (cp[i] == ' ' || cp[i] == '\r' || cp[i] == '\n') && i >= 0 ; i-- ) {
+            cp[i] = cp[i+1];
+        }
+        return cp;
+    }
+
+
+    int timetToStr( time_t timetDT, char *cpBuffer, int iBufferSize, bool bAscTime ) {
+        int iReturn = -1;
+
+        strcpy( cpBuffer, "" );
+
+        struct tm *tmDT = localtime( &timetDT );
+
+        if( bAscTime ) {
+            char *cp = asctime( tmDT );
+            if( strlen(cp) < iBufferSize ) {
+                strcpy( cpBuffer, cp );
+                iReturn = 0;
+            } 
+        } else if( (tmDT->tm_year > 0 && tmDT->tm_year < 1000) && 
+                    (tmDT->tm_mon >= 0 ) && (tmDT->tm_mon <= 11) && 
+                    (tmDT->tm_mday >= 0) && (tmDT->tm_mday <= 31) &&
+                    (tmDT->tm_hour >= 0) && (tmDT->tm_hour <= 24) && 
+                    (tmDT->tm_min >= 0) && (tmDT->tm_min <= 60) && iBufferSize > 28 ) 
+        {
+            if( tmDT->tm_hour > 0 || tmDT->tm_min > 0 ) {
+                sprintf( cpBuffer, "%02d-%02d-%4d %02d:%02d", tmDT->tm_mday, (tmDT->tm_mon+1), (tmDT->tm_year+1900), tmDT->tm_hour, tmDT->tm_min );
+            } else {
+                sprintf( cpBuffer, "%02d-%02d-%4d", tmDT->tm_mday, (tmDT->tm_mon+1), (tmDT->tm_year+1900) );            
+            }
+            iReturn = 0;
+        }
+        return iReturn;
+    }
+
+
+    int parseFileHeader( FILE *fp, int nFields, char **cpaFields, int **ipaFields ) {
+        int iReturn=0;
+        char *cpHeader;
+
+        cpHeader = readLineFromFile(fp);
+        if( cpHeader == NULL ) {
+            return -1;
+        }
+
+        for( int i = 0 ; i < nFields ; i++ ) {
+            int iPos = getPosByColumnName( cpHeader, cpaFields[i] );
+            if( iPos == -1 ) {
+                iReturn = -1;
+                break;
+            }
+            *ipaFields[i] = iPos;
+        }
+
+        free(cpHeader);
+        return iReturn;
+    }
+
+    static int parseFileLineIntoFields( char *cpLine, int nFields, int **ipaFields, int **ipaFieldIndexes ); 
+
+    char *parseFileLine( FILE *fp, int nFields, int **ipaFields, int **ipaFieldIndexes, int *ipStatus ) {
+        char *cpLine; 
+
+        cpLine = readLineFromFile(fp);
+        if( cpLine == NULL ) {
+            return NULL;
+        }
+
+        *ipStatus = parseFileLineIntoFields( cpLine, nFields, ipaFields, ipaFieldIndexes );
+        return cpLine;
+    }
+
+
+    static int parseFileLineIntoFields( char *cpLine, int nFields, int **ipaFields, int **ipaFieldIndexes ) 
+    {
+        int iPos, iLineLen;
+
+        for( int i = 0 ; i < nFields ; i++ ) {
+            *ipaFieldIndexes[i] = -1;
+        }
+
+        iLineLen = strlen( cpLine ); 
+        for( int i = 0, iPos = 0 ; i < iLineLen ; i++ ) {
+            for( int iF = 0 ; iF < nFields ; iF++ ) {
+                if( iPos == *ipaFields[iF]  && *ipaFieldIndexes[iF] == -1 ) {
+                    *ipaFieldIndexes[iF] = i;
+                    break;
+                }
+            }
+            if( cpLine[i] == ';' ) {
+                iPos++;
+                cpLine[i] = '\x0';
+            } else if( cpLine[i] == '\r' || cpLine[i] == '\n') {
+                cpLine[i] = '\x0';            
+            }
+        }
+
+        for( int i = 0 ; i < nFields ; i++ ) {
+            if( *ipaFieldIndexes[i] == -1 ) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
 }

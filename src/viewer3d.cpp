@@ -6,6 +6,7 @@
 #include "helpers.hpp"
 #include "models.hpp"
 #include "operations.hpp"
+#include "optypes.hpp"
 #include "viewer3d.hpp"
 
 using namespace Spider3d;
@@ -45,21 +46,28 @@ int main( int argc, char* argv[] ) {
     }
 
     Models models;
+    OpTypes opTypes;
     Operations operations;
 
-    loadOperations( operations, configParameters["operations"].c_str() );
+    loadOperations( operations, (configParameters["path"]+configParameters["operations"]).c_str() );
     if( operations.number() == 0 ) {
         std::cout << "No operations found!\n.Exiting...\n";
         return 0;
     }
 
-    loadModels( models, configParameters["models"].c_str() );
+    loadOpTypes( opTypes, (configParameters["path"]+configParameters["types"]).c_str() );
+    if( opTypes.number() == 0 ) {
+        std::cout << "No types found!\n.Exiting...\n";
+        return 0;
+    }
+
+    loadModels( models, (configParameters["path"]+configParameters["models"]).c_str() );
     if( models.number() == 0 ) {
         std::cout << "No models found!\n.Exiting...\n";
         return 0;
     }
 
-    display( models, operations, argc, argv );
+    display( models, operations, opTypes, argc, argv );
     
     return 0;
 }
