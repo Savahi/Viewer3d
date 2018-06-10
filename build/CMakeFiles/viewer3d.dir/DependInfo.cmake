@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/user/Desktop/spider/Viewer3d/src/display.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/display.cpp.o"
+  "/home/user/Desktop/spider/Viewer3d/src/displayfacet.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/helpers.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/helpers.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o"

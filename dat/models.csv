@@ -1,5 +1,5 @@
 Code ; Name ; Description ; Notes
 1003 ; Model #1 ; <object><facet><point>-1,0,-1</point><point>1,0,-1</point><point>1,0,1</point><point>-1,0,1</point></facet><facet><point>0,2,1</point><point>0,2,-1</point><point>-1,0,-1</point><point>-1,0,1</point></facet><facet><point>0,2,-1</point><point>0,2,1</point><point>1,0,1</point><point>1,0,-1</point></facet></object> ; Note #1
-1002 ; Model #2 ; <object><box>-1,-1,-1,1,-0.1,1</box></object> ; Note #2
-1001 ; Model #3 ; <object><box>-1,-2,-1,1,-1,1</box></object> ; Note #3 
-1000 ; Model #4 ; <object><box>-1,-3,-1,1,-2,1</box></object> ; Note #4
+1002 ; Model #2 ; <object><box> 1,-1, 1, 3,-0.1, 3</box></object> ; Note #2
+1001 ; Model #3 ; <object><box> 1,-2, 1, 3,-1.05, 3</box></object> ; Note #3 
+1000 ; Model #4 ; <object><box> 1,-3, 1, 3,-2.05, 3</box></object> ; Note #4

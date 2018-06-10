@@ -10,6 +10,7 @@
 #include "models.hpp"
 #include "optypes.hpp"
 #include "operations.hpp"
+#include "display.hpp"
 #include "viewer3d.hpp"
 
 namespace Spider3d {
@@ -21,11 +22,9 @@ namespace Spider3d {
 	static void displayOperations( void );
 
 	static void displaySelectedModelInfo( void );
-	static int getOpTypeDetails( std::string& code, std::string& name, float *fpR, float *fpG, float *fpB );	
+	static int getOpTypeDetails( std::string& sCode, std::string *sName=NULL, float *fR=NULL, float *fG=NULL, float *fB=NULL );	
 
-	static void displayModel( Model& model, double dProgress=0.0 );	
-	static void displayFacet( Facet& facet, double progress=0, bool selected=false );
-	static void displayRib( double fX1, double fY1, double fZ1, double fX2, double fY2, double fZ2 );	
+	static void displayModel( Model& model, int iOrder, double dProgress=0.0, float fR=0.8, float fG=0.8, float fB=0.8f );	
 
 	static void displayAxis( void );
 
@@ -137,8 +136,6 @@ namespace Spider3d {
 		glutCreateWindow("How the Building has been being Built...");
 
 		glEnable( GL_DEPTH_TEST ); // Enable Z-buffer depth test
-		glEnable( GL_BLEND );
-		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
 		// Callback functions
 		glutDisplayFunc(displayFunc);
@@ -159,7 +156,7 @@ namespace Spider3d {
 			height = width;
 		}
 
-		// Set the viewport to cover the new window
+		// Set the viewport to cover the whole window
 		glViewport(0, 0, width, height);
 
 		glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
@@ -211,17 +208,22 @@ namespace Spider3d {
 	}
 
 	static void displayModelsWithZeroProgress() {
-	    for( std::vector<Model>::iterator model = (*_models).mModels.begin() ; model != (*_models).mModels.end() ; ++model ) {    	
-	    	displayModel( (*model), 0.0 );
+	    for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {    	
+	    	displayModel( (*model), 0, 0.00 );
 	    }	
 	}
 
 	static void displayOperations( void ) {
-		for( std::vector<Model>::iterator model = (*_models).mModels.begin() ; model != (*_models).mModels.end() ; ++model ) {    	
-		    for( std::map<time_t,Operation*>::reverse_iterator op=model->operations.rbegin() ; op != model->operations.rend() ; ++op ) {
+		for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {    	
 
-		    	time_t tStart = (op->second)->tActualStart;
-	    		time_t tFinish = (op->second)->tActualFinish;
+			printf("\n\n");
+
+			int iOrder = 0;
+		    std::map<time_t,Operation*>::iterator opPair=model->operations.begin();
+		    for( ; opPair != model->operations.end() ; ++opPair, ++iOrder ) {
+		    	Operation *op = opPair->second;
+		    	time_t tStart = op->tActualStart;
+	    		time_t tFinish = op->tActualFinish;
 		    	double dAfterStart = difftime( _tDisplayTime, tStart  );
 		    	double dAfterFinish = difftime( _tDisplayTime, tFinish ); 
 		    	double dProgress;
@@ -232,11 +234,12 @@ namespace Spider3d {
 		    	} else {
 		    		dProgress = dAfterStart / (dAfterStart-dAfterFinish);	
 		    	}
-
+		    	printf( "%s: %g/%d\n", (op->sName).c_str(), dProgress, iOrder );
 		    	if( dProgress > 0.0 ) {
-		    		displayModel( (*model), dProgress );
+		    		float fR=0.8, fG=0.8, fB=0.8;
+					getOpTypeDetails( op->sType, NULL, &fR, &fG, &fB );
+		    		displayModel( (*model), model->operations.size()-iOrder-1, dProgress, fR, fG, fB );
 		    	}
-		    	break;
         	}
         }
     }
@@ -274,8 +277,7 @@ namespace Spider3d {
 				}
 
 				std::string opTypeName;
-				float opTypeR, opTypeG, opTypeB;
-				int iStatus = getOpTypeDetails( op->sType, opTypeName, &opTypeR, &opTypeG, &opTypeB );
+				int iStatus = getOpTypeDetails( op->sType, &opTypeName, NULL, NULL, NULL );
 				if( iStatus == 0 && opTypeName.size() < 40 ) {
 					sprintf( caOpType, " (%s)", opTypeName.c_str() );
 				} else {
@@ -300,20 +302,21 @@ namespace Spider3d {
 		}
 	}
 
-	static int getOpTypeDetails( std::string& sCode, std::string& sName, float *fpR, float *fpG, float *fpB ) {
+	static int getOpTypeDetails( std::string& sCode, std::string *sName, float *fR, float *fG, float *fB ) {
 
 		for( std::vector<OpType>::iterator opType = _opTypes->mOpTypes.begin() ; opType != _opTypes->mOpTypes.end() ; ++opType ) {
-			std::cout << opType->sCode << "vs" << sCode << "\n";
 			if( sCode.compare( opType->sCode ) == 0 ) {
-				sName.assign( opType->sName );
-				if( fpR != NULL ) {
-					*fpR = opType->fR;
+				if( sName != NULL ) {
+					sName->assign( opType->sName );					
 				}
-				if( fpG != NULL ) {
-					*fpG = opType->fG;
+				if( fR != NULL ) {
+					*fR = opType->fR;
 				}
-				if( fpB != NULL ) {
-					*fpB = opType->fB;
+				if( fG != NULL ) {
+					*fG = opType->fG;
+				}
+				if( fB != NULL ) {
+					*fB = opType->fB;
 				}
 				return 0;
 			}
@@ -321,69 +324,11 @@ namespace Spider3d {
 		return -1;
 	}
 
-	static void displayModel( Model& model, double dProgress ) {
+	static void displayModel( Model& model, int iOrder, double dProgress, float fR, float fG, float fB ) {
     	bool selected = (_modelSelected == &model) ? true : false;
         for( std::vector<Facet>::iterator fa = model.mFacets.begin() ; fa != model.mFacets.end() ; ++fa ) {
-        	displayFacet( *fa, dProgress, selected );
+        	displayFacet( *fa, model, iOrder, dProgress, fR, fG, fB, selected );
 		}
-	}
-
-	static void displayFacet( Facet& facet, double dProgress, bool selected ) {
-		// Facet
-		if( dProgress < 0.05 ) {
-			dProgress = 0.05;
-		}
-		glBegin(GL_POLYGON);
-		glColor4f( 0.8f, 0.8f, 0.8f, (float)dProgress );
-	    for( std::vector<Vertex>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
-			glVertex3f( ve->mX, ve->mY, ve->mZ );
-	    }
-		glEnd();
-
-		// Ribs only
-		glBegin(GL_LINES);
-		glEnable( GL_LINE_SMOOTH );
-		if( !selected ) {
-			glColor3f( 1.0, 1.0, 1.0 );     
-		} else {
-			glColor3f( 0.0, 0.4, 0.8 );
-		}
-		bool firstVertex = false;
-		bool prevVertex = false;
-		double prevX, prevY, prevZ;
-		double firstX, firstY, firstZ;
-	    for( std::vector<Vertex>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
-			if( !firstVertex ) {
-				firstX = ve->mX; firstY = ve->mY; firstZ = ve->mZ;
-				firstVertex = true;
-			} else {
-				displayRib( ve->mX, ve->mY, ve->mZ, prevX, prevY, prevZ );
-			}
-			prevX = ve->mX; prevY = ve->mY; prevZ = ve->mZ;
-			prevVertex = true;
-		}
-		if( firstVertex && prevVertex ) {
-			displayRib( prevX, prevY, prevZ, firstX, firstY, firstZ );
-		}
-		glEnd();	
-	}
-
-	static void displayRib( double fX1, double fY1, double fZ1, double fX2, double fY2, double fZ2 ) {
-		glVertex3f( fX1,fY1,fZ1 );
-		glVertex3f( fX2,fY2,fZ2 );
-		/*
-		glBegin(GL_POLYGON);
-		float lineWidth = 0.01;
-		float x1 = fX1 - lineWidth;
-		float x2 = fX2 + lineWidth;
-		float y1 = fY1 - lineWidth;
-		float y2 = fY2 + lineWidth;
-		float z1 = fZ1 - lineWidth;
-		float z2 = fZ2 + lineWidth;
-		glVertex3f( x1,y1,z1 );
-		glVertex3f( x1,y1,z1 );
-		glEnd();
-		*/
 	}
 
 	static void displayAxis( void ) {

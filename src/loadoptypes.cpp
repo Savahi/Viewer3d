@@ -38,8 +38,13 @@ namespace Spider3d {
                         OpType opType;
                         opType.sCode = std::string( trimString( &cpLine[_iCodeIndex] ) );
                         opType.sName = std::string( &cpLine[_iNameIndex] );
-                        int nScanned = sscanf( &cpLine[_iColorIndex], "%f %f %f", &opType.fR, &opType.fG, &opType.fB );
-                        if( nScanned == 3 ) {
+                        
+                        int iColor;
+                        int nScanned = sscanf( &cpLine[_iColorIndex], "%d", &iColor );
+                        if( nScanned == 1 ) {
+                            opType.fR = (float)(iColor & 0x0000FF) / 255.0;
+                            opType.fG = (float)(iColor & 0x00FF00) / 255.0;
+                            opType.fB = (float)(iColor & 0xFF0000) / 255.0;
                             opTypes.add( opType );
                         }
                     }

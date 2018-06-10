@@ -11,27 +11,39 @@ namespace Spider3d {
 
 	class Vertex {
 		public:
-			float mX, mY, mZ;
+			double mX, mY, mZ;
 			Vertex( void ) {
 				; // std::cout << "Constructor for Vertex\n"; 
 			}
-			Vertex( float x, float y, float z ) : mX(x), mY(y), mZ(z) {
+			Vertex( double x, double y, double z ) : mX(x), mY(y), mZ(z) {
 				; // std::cout << "Constructor for Vertex\n"; 
 			}
 			~Vertex(){
 				; // std::cout << "Destructor for Vertex\n"; 
 			}
-			int setXYZ( float x, float y, float z ) {
+			int setXYZ( double x, double y, double z ) {
 				this->mX = x;
 				this->mY = y;
 				this->mZ = z;
 				return 0;
 			}
+			int setXYZ( double *x, double *y, double *z ) {
+				if( x != NULL ) { this->mX = *x; }
+				if( y != NULL ) { this->mY = *y; }
+				if( z != NULL ) { this->mZ = *z; }
+				return 0;
+			}
+			int addX( double x ) { this->mX += x; }
+			int addY( double y ) { this->mY += y; }
+			int addZ( double z ) { this->mZ += z; }
 	};
 
 	class Facet {
 		public:
 			std::vector<Vertex> mVertices;
+
+			bool bMinMax;
+			double fMinX, fMaxX, fMinY, fMaxY, fMinZ, fMaxZ;
 
 			int add( Vertex& vertex ) {
 				this->mVertices.push_back( vertex );
@@ -42,7 +54,7 @@ namespace Spider3d {
 				this->mVertices.clear();
 			}
 
-			Facet() {
+			Facet() : bMinMax(false) {
 				; // std::cout << "Constructor for Facet\n";
 			}
 			~Facet() {
@@ -59,7 +71,10 @@ namespace Spider3d {
 			std::string sNotes;
 			bool bSelected;
 
-			std::map<time_t,Operation*> operations;
+			bool bMinMax;
+			double fMinX, fMaxX, fMinY, fMaxY, fMinZ, fMaxZ;
+
+			std::map<time_t,Operation*> operations; // Operations associated with the model
 
 			int add( Facet& facet ) {
 				this->mFacets.push_back( facet );
@@ -79,11 +94,11 @@ namespace Spider3d {
 				return this->mFacets.size(); 
 			}
 
-			Model() : bSelected(false) {
+			Model() : bSelected(false), bMinMax(false) {
 				; // std::cout << "Constructor for Model\n";
 			}
 
-			Model( std::string code ) : sCode(code), bSelected(false) {
+			Model( std::string code ) : sCode(code), bSelected(false), bMinMax(false) {
 				; // std::cout << "Constructor for Model\n";
 			}
 

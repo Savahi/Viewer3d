@@ -158,35 +158,77 @@ namespace Spider3d {
                 Facet facet;
                 Vertex vertex;
                 vertex.setXYZ( xLeft, yBottom, zNear ); facet.add(vertex);
-                vertex.setXYZ( xRight, yBottom, zNear ); facet.add(vertex);
-                vertex.setXYZ( xRight, yTop, zNear ); facet.add(vertex);
                 vertex.setXYZ( xLeft, yTop, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zNear ); facet.add(vertex);
                 model.add(facet);
+                facet.clear();
                 vertex.setXYZ( xLeft, yBottom, zFar ); facet.add(vertex);
-                vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
-                vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
                 vertex.setXYZ( xRight, yBottom, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
                 model.add(facet);
+                facet.clear();
                 vertex.setXYZ( xLeft, yBottom, zNear ); facet.add(vertex);
                 vertex.setXYZ( xLeft, yBottom, zFar ); facet.add(vertex);
                 vertex.setXYZ( xRight, yBottom, zFar ); facet.add(vertex);
                 vertex.setXYZ( xRight, yBottom, zNear ); facet.add(vertex);
                 model.add(facet);
+                facet.clear();
                 vertex.setXYZ( xLeft, yTop, zNear ); facet.add(vertex);
                 vertex.setXYZ( xRight, yTop, zNear ); facet.add(vertex);
                 vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
                 vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
                 model.add(facet);
+                facet.clear();
                 vertex.setXYZ( xLeft, yBottom, zNear ); facet.add(vertex);
-                vertex.setXYZ( xLeft, yTop, zNear ); facet.add(vertex);
-                vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
                 vertex.setXYZ( xLeft, yBottom, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xLeft, yTop, zNear ); facet.add(vertex);
                 model.add(facet);
+                facet.clear();
                 vertex.setXYZ( xRight, yBottom, zNear ); facet.add(vertex);
-                vertex.setXYZ( xRight, yBottom, zFar ); facet.add(vertex);
-                vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
                 vertex.setXYZ( xRight, yTop, zNear ); facet.add(vertex);
+                vertex.setXYZ( xRight, yTop, zFar ); facet.add(vertex);
+                vertex.setXYZ( xRight, yBottom, zFar ); facet.add(vertex);
                 model.add(facet);
+
+            }
+        }
+
+        // Calculating min & max
+        model.bMinMax = false;
+        for( std::vector<Facet>::iterator facet = model.mFacets.begin() ; facet != model.mFacets.end() ; ++facet ) {
+            facet->bMinMax=false;
+            for( std::vector<Vertex>::iterator ve = facet->mVertices.begin() ; ve != facet->mVertices.end() ; ++ve ) {
+                if( !facet->bMinMax ) {
+                    facet->fMinX = facet->fMaxX = ve->mX; facet->fMinY = facet->fMaxY = ve->mY; facet->fMinZ = facet->fMaxZ = ve->mZ;
+                    facet->bMinMax = true;
+                } else {
+                    if( ve->mX < facet->fMinX ) { facet->fMinX = ve->mX; }
+                    if( ve->mX > facet->fMaxX ) { facet->fMaxX = ve->mX; }
+                    if( ve->mY < facet->fMinY ) { facet->fMinY = ve->mY; }
+                    if( ve->mY > facet->fMaxY ) { facet->fMaxY = ve->mY; }
+                    if( ve->mZ < facet->fMinZ ) { facet->fMinZ = ve->mZ; }
+                    if( ve->mZ > facet->fMaxZ ) { facet->fMaxZ = ve->mZ; }
+                }
+            }
+            if( !facet->bMinMax ) {
+                continue;
+            }
+
+            if( !model.bMinMax ) {
+                model.fMinX = facet->fMinX; model.fMaxX = facet->fMaxX; 
+                model.fMinY = facet->fMinY; model.fMaxY = facet->fMaxY; 
+                model.fMinZ = facet->fMinZ; model.fMaxZ = facet->fMaxZ; 
+                model.bMinMax = true;
+            } else {
+                if( facet->fMinX < model.fMinX ) { model.fMinX = facet->fMinX; }
+                if( facet->fMaxX > model.fMaxX ) { model.fMaxX = facet->fMaxX; }
+                if( facet->fMinY < model.fMinY ) { model.fMinY = facet->fMinY; }
+                if( facet->fMaxY > model.fMaxY ) { model.fMaxY = facet->fMaxY; }
+                if( facet->fMinZ < model.fMinZ ) { model.fMinZ = facet->fMinZ; }
+                if( facet->fMaxZ > model.fMaxZ ) { model.fMaxZ = facet->fMaxZ; }
             }
         }
         return 0;
