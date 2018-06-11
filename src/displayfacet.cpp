@@ -27,7 +27,7 @@ namespace Spider3d {
 			glEnable( GL_BLEND );
 			glBlendEquation( GL_FUNC_ADD );
 			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-			glColor4f( fR, fG, fB, dProgress );
+			glColor4f( fR, fG, fB, 0.5+(dProgress*0.5) );
 			glBegin(GL_POLYGON);
 
 			if( iOrder == 0 and false ) {

@@ -7,8 +7,6 @@
 #IncludeRegexTransform: 
 
 ../include/display.hpp
-models.hpp
--
 
 ../include/helpers.hpp
 stdio.h
@@ -41,6 +39,8 @@ ctime
 -
 helpers.hpp
 ../include/helpers.hpp
+optypes.hpp
+../include/optypes.hpp
 
 ../include/optypes.hpp
 vector
@@ -87,6 +87,38 @@ math.h
 -
 GL/glut.h
 -
+models.hpp
+/home/user/Desktop/spider/Viewer3d/src/models.hpp
+display.hpp
+/home/user/Desktop/spider/Viewer3d/src/display.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp
+GL/glut.h
+-
+string.h
+-
+ctime
+-
+operations.hpp
+/home/user/Desktop/spider/Viewer3d/src/operations.hpp
+optypes.hpp
+/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
+models.hpp
+/home/user/Desktop/spider/Viewer3d/src/models.hpp
+display.hpp
+/home/user/Desktop/spider/Viewer3d/src/display.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp
+GL/glut.h
+-
+string.h
+-
+ctime
+-
+operations.hpp
+/home/user/Desktop/spider/Viewer3d/src/operations.hpp
+optypes.hpp
+/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
 models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 display.hpp

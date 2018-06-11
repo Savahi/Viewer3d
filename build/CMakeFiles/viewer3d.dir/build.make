@@ -105,9 +105,57 @@ CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o.provides: CMakeFiles/viewer3d.dir
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o.provides.build: CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o
 
 
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: CMakeFiles/viewer3d.dir/flags.make
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../src/displayselectedmodelinfo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp
+
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp > CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.i
+
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp -o CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.s
+
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.requires:
+
+.PHONY : CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.requires
+
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.provides: CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.requires
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.provides.build
+.PHONY : CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.provides
+
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.provides.build: CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o
+
+
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: CMakeFiles/viewer3d.dir/flags.make
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../src/displaytimescale.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp
+
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp > CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.i
+
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp -o CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.s
+
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.requires:
+
+.PHONY : CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.requires
+
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.provides: CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.requires
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.provides.build
+.PHONY : CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.provides
+
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.provides.build: CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o
+
+
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: CMakeFiles/viewer3d.dir/flags.make
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../src/helpers.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/viewer3d.dir/src/helpers.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/viewer3d.dir/src/helpers.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/helpers.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/helpers.cpp
 
 CMakeFiles/viewer3d.dir/src/helpers.cpp.i: cmake_force
@@ -131,7 +179,7 @@ CMakeFiles/viewer3d.dir/src/helpers.cpp.o.provides.build: CMakeFiles/viewer3d.di
 
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: CMakeFiles/viewer3d.dir/flags.make
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../src/loadmodels.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp
 
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.i: cmake_force
@@ -155,7 +203,7 @@ CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o.provides.build: CMakeFiles/viewer3d
 
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: CMakeFiles/viewer3d.dir/flags.make
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../src/loadoperations.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp
 
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.i: cmake_force
@@ -179,7 +227,7 @@ CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o.provides.build: CMakeFiles/view
 
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: CMakeFiles/viewer3d.dir/flags.make
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../src/loadoptypes.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp
 
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.i: cmake_force
@@ -203,7 +251,7 @@ CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o.provides.build: CMakeFiles/viewer3
 
 CMakeFiles/viewer3d.dir/src/models.cpp.o: CMakeFiles/viewer3d.dir/flags.make
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../src/models.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/viewer3d.dir/src/models.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/viewer3d.dir/src/models.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/models.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/models.cpp
 
 CMakeFiles/viewer3d.dir/src/models.cpp.i: cmake_force
@@ -227,7 +275,7 @@ CMakeFiles/viewer3d.dir/src/models.cpp.o.provides.build: CMakeFiles/viewer3d.dir
 
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: CMakeFiles/viewer3d.dir/flags.make
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../src/operations.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/viewer3d.dir/src/operations.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/viewer3d.dir/src/operations.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/operations.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/operations.cpp
 
 CMakeFiles/viewer3d.dir/src/operations.cpp.i: cmake_force
@@ -251,7 +299,7 @@ CMakeFiles/viewer3d.dir/src/operations.cpp.o.provides.build: CMakeFiles/viewer3d
 
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: CMakeFiles/viewer3d.dir/flags.make
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: ../src/viewer3d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/viewer3d.cpp
 
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.i: cmake_force
@@ -277,6 +325,8 @@ CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o.provides.build: CMakeFiles/viewer3d.d
 viewer3d_OBJECTS = \
 "CMakeFiles/viewer3d.dir/src/display.cpp.o" \
 "CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o" \
+"CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o" \
+"CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o" \
 "CMakeFiles/viewer3d.dir/src/helpers.cpp.o" \
 "CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o" \
 "CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o" \
@@ -290,6 +340,8 @@ viewer3d_EXTERNAL_OBJECTS =
 
 viewer3d: CMakeFiles/viewer3d.dir/src/display.cpp.o
 viewer3d: CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o
+viewer3d: CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o
+viewer3d: CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o
 viewer3d: CMakeFiles/viewer3d.dir/src/helpers.cpp.o
 viewer3d: CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o
 viewer3d: CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o
@@ -302,7 +354,7 @@ viewer3d: /usr/lib/x86_64-linux-gnu/libglut.so
 viewer3d: /usr/lib/x86_64-linux-gnu/libGL.so
 viewer3d: /usr/lib/x86_64-linux-gnu/libGLU.so
 viewer3d: CMakeFiles/viewer3d.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable viewer3d"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable viewer3d"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/viewer3d.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -312,6 +364,8 @@ CMakeFiles/viewer3d.dir/build: viewer3d
 
 CMakeFiles/viewer3d.dir/requires: CMakeFiles/viewer3d.dir/src/display.cpp.o.requires
 CMakeFiles/viewer3d.dir/requires: CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o.requires
+CMakeFiles/viewer3d.dir/requires: CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o.requires
+CMakeFiles/viewer3d.dir/requires: CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o.requires
 CMakeFiles/viewer3d.dir/requires: CMakeFiles/viewer3d.dir/src/helpers.cpp.o.requires
 CMakeFiles/viewer3d.dir/requires: CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o.requires
 CMakeFiles/viewer3d.dir/requires: CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o.requires

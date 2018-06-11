@@ -13,7 +13,22 @@ CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/models.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/optypes.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../src/displayfacet.cpp
+
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/display.hpp
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/helpers.hpp
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/models.hpp
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/optypes.hpp
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../src/displayselectedmodelinfo.cpp
+
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/display.hpp
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/helpers.hpp
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/models.hpp
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/optypes.hpp
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../src/displaytimescale.cpp
 
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../src/helpers.cpp
@@ -21,10 +36,12 @@ CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../src/helpers.cpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/models.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/optypes.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../src/loadmodels.cpp
 
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/optypes.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../src/loadoperations.cpp
 
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/helpers.hpp
@@ -34,10 +51,12 @@ CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../src/loadoptypes.cpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/models.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/optypes.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../src/models.cpp
 
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/optypes.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../src/operations.cpp
 
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: ../include/helpers.hpp

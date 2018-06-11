@@ -19,27 +19,27 @@ namespace Spider3d {
 
 	static void displayFunc( void );
 	static void displayModelsWithZeroProgress( void );	
-	static void displayOperations( void );
-
-	static void displaySelectedModelInfo( void );
-	static int getOpTypeDetails( std::string& sCode, std::string *sName=NULL, float *fR=NULL, float *fG=NULL, float *fB=NULL );	
+	static void displayModelsWithOperations( void );
 
 	static void displayModel( Model& model, int iOrder, double dProgress=0.0, float fR=0.8, float fG=0.8, float fB=0.8f );	
 
 	static void displayAxis( void );
 
-	static void displayKeys( int key, int x, int y );
-	static void displayMouse ( int button, int state, int x, int y );
-	static void displayReshape( GLsizei width, GLsizei height );
+	static void catchKeys( int key, int x, int y );
+	static void catchMouse ( int button, int state, int x, int y );
+	static void catchReshape( GLsizei width, GLsizei height );
 
 	static Models *_models;
 	static Operations *_operations;
 	static OpTypes *_opTypes;
 	static Model *_modelSelected=NULL;
 
-	static GLsizei _iWindowWidth, _iWindowHeight;
+	GLsizei _iWindowWidth, _iWindowHeight;
+	double _fWindowRight, _fWindowTop;
+	double _fModelAreaLeft, _fModelAreaRight, _fModelAreaBottom, _fModelAreaTop;
 
-	static float _fModelsW, _fModelsL, _fModelsH, _fModelsMinX, _fModelsMaxX, _fModelsMinY, _fModelsMaxY, _fModelsMinZ, _fModelsMaxZ;
+	static double _fModelsMinX=0, _fModelsMaxX=0, _fModelsMinY=0, _fModelsMaxY=0, _fModelsMinZ=0, _fModelsMaxZ=0;
+	static double _fModelsW=0, _fModelsL=0, _fModelsH=0;
 	static int _iModelsRotateX, _iModelsRotateY;
 	static time_t _tTimeNow;
 	static time_t _tDisplayTime;
@@ -66,42 +66,40 @@ namespace Spider3d {
 				_tOperationsFinish = op->tActualFinish;
 			}
 		}
-		
+
 		bool bFirst = true;	
 		for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {
-		    for( std::vector<Facet>::iterator fa = model->mFacets.begin() ; fa != model->mFacets.end() ; ++fa ) {	
-			    for( std::vector<Vertex>::iterator ve = fa->mVertices.begin() ; ve != fa->mVertices.end() ; ++ve ) {
-			    	float x = (*ve).mX;
-			    	float y = (*ve).mY;
-			    	float z = (*ve).mZ;
-
-			    	if( bFirst ) {
-			    		_fModelsMinX = _fModelsMaxX = x;
-			    		_fModelsMinY = _fModelsMaxY = y;
-			    		_fModelsMinZ = _fModelsMaxZ = z;
-			    		bFirst = false;
-			    	} else {
-			    		if( x < _fModelsMinX ) {
-			    			_fModelsMinX = x;
-			    		}
-			    		if( x > _fModelsMaxX ) {
-			    			_fModelsMaxX = x;
-			    		}
-			    		if( y < _fModelsMinY ) {
-			    			_fModelsMinY = y;
-			    		}
-			    		if( y > _fModelsMaxY ) {
-			    			_fModelsMaxY = y;
-			    		}
-			    		if( z < _fModelsMinZ ) {
-			    			_fModelsMinZ = z;
-			    		}
-			    		if( z > _fModelsMaxZ ) {
-			    			_fModelsMaxZ = z;
-			    		}
-			    	}
-			    }
+			if( !model->bMinMax ) {
+				continue;
 			}
+	    	if( bFirst ) {
+	    		_fModelsMinX = model->fMinX;
+	    		_fModelsMaxX = model->fMaxX;
+	    		_fModelsMinY = model->fMinY;
+	    		_fModelsMaxY = model->fMaxY;
+	    		_fModelsMinZ = model->fMinZ;
+	    		_fModelsMaxZ = model->fMaxZ;
+	    		bFirst = false;
+	    	} else {
+	    		if( model->fMinX < _fModelsMinX ) {
+	    			_fModelsMinX = model->fMinX;
+	    		}
+	    		if( model->fMaxX > _fModelsMaxX ) {
+	    			_fModelsMaxX = model->fMaxX;
+	    		}
+	    		if( model->fMinY < _fModelsMinY ) {
+	    			_fModelsMinY = model->fMinY;
+	    		}
+	    		if( model->fMaxY > _fModelsMaxY ) {
+	    			_fModelsMaxY = model->fMaxY;
+	    		}
+	    		if( model->fMinZ < _fModelsMinZ ) {
+	    			_fModelsMinZ = model->fMinZ;
+	    		}
+	    		if( model->fMaxZ > _fModelsMaxZ ) {
+	    			_fModelsMaxZ = model->fMaxZ;
+	    		}
+	    	}
 		}
 		_fModelsW = _fModelsMaxX - _fModelsMinX;
 		_fModelsH = _fModelsMaxY - _fModelsMinY;
@@ -113,8 +111,15 @@ namespace Spider3d {
 				if( model->sCode.compare( op->sModelCode) != 0 ) {
 					continue;
 				}
-				// std::cout << "c=" << model->sCode << " c2=" << op->sModelCode << "\n";				
     			model->operations.insert( std::pair<time_t,Operation*>( op->tActualStart, &(*op) ) );
+
+    			// Searching for the corresponding opType and assining a pointer to.
+				for( std::vector<OpType>::iterator opType = _opTypes->mOpTypes.begin() ; opType != _opTypes->mOpTypes.end() ; ++opType ) {
+					if( op->sType.compare( opType->sCode ) == 0 ) {
+						(*op).opType = &(*opType);
+						break;
+					}
+				}
     		}
     	}
 	}
@@ -131,7 +136,7 @@ namespace Spider3d {
 
 		glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH ); // Request double buffered true color window with Z-buffer
 
-		glutInitWindowSize(640, 480);   // Set the window's initial width & height
+		glutInitWindowSize(800, 600);   // Set the window's initial width & height
 		glutInitWindowPosition(50, 50); // Position the window's initial top-left corner  
 		glutCreateWindow("How the Building has been being Built...");
 
@@ -139,41 +144,43 @@ namespace Spider3d {
 
 		// Callback functions
 		glutDisplayFunc(displayFunc);
-		glutSpecialFunc(displayKeys);
-		glutMouseFunc(displayMouse);
-		glutReshapeFunc(displayReshape);       // Register callback handler for window re-size event
+		glutSpecialFunc(catchKeys);
+		glutMouseFunc(catchMouse);
+		glutReshapeFunc(catchReshape);       // Register callback handler for window re-size event
 
 		//  Pass control to GLUT for events
 		glutMainLoop();
 	}
 
 
-	static void displayReshape( GLsizei width, GLsizei height ) {
-
-		if( width > height ) {
-			width = height;
-		} else {
-			height = width;
-		}
-
-		// Set the viewport to cover the whole window
-		glViewport(0, 0, width, height);
-
-		glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
-		glLoadIdentity();             // Reset
-
-		float fMarginX = _fModelsW*1.0;
-		float fMarginY = _fModelsH*1.0;
-		float fMarginZ = _fModelsL*1.0;
-		glOrtho( _fModelsMinX-fMarginX, _fModelsMaxX+fMarginX, 
-			_fModelsMinY-fMarginY, _fModelsMaxY+fMarginY, _fModelsMinZ-fMarginZ, _fModelsMaxZ+fMarginZ );
+	static void catchReshape( GLsizei width, GLsizei height ) {
 		_iWindowWidth = width;
 		_iWindowHeight = height;
+		// Set the viewport to cover the whole window
+		//glViewport( 0, 0, _iWindowWidth * DISPLAY_MODEL_W, _iWindowHeight * DISPLAY_MODEL_H );
+		glViewport( 0, 0, _iWindowWidth, _iWindowHeight );
 	}
 
 
 	static void displayFunc( void ) { 
+
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );   //  Clear screen and Z-buffer
+
+		displaySelectedModelInfo( _modelSelected, _tDisplayTime );
+
+		displayTimeScale( _tDisplayTime, _tOperationsStart, _tOperationsFinish, _tTimeNow );
+
+		glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
+		glLoadIdentity();             // Reset
+
+		_fModelAreaLeft = _fModelsMinX - _fModelsW*0.75;
+		_fModelAreaRight = _fModelsMaxX + _fModelsW*0.75;
+		_fWindowRight = _fModelAreaRight + _fModelsW * DISPLAY_AREA_RIGHT_PANE;
+		_fModelAreaBottom = _fModelsMinY - _fModelsH*0.5;
+		_fModelAreaTop = _fModelsMaxY + _fModelsH*0.5;
+		_fWindowTop = _fModelAreaTop + _fModelsH * DISPLAY_AREA_TOP_PANE;
+		double fMarginZ = _fModelsL*0.75;
+		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, _fModelsMinZ - fMarginZ, _fModelsMaxZ + fMarginZ );
 		
 		glMatrixMode(GL_MODELVIEW);     // To operate on model-view matrix
 	 
@@ -190,20 +197,11 @@ namespace Spider3d {
 		glTranslatef( 0.0, -(_fModelsMinY + _fModelsH/2.0), -(_fModelsMinZ + _fModelsL/2.0) );
 
 		displayAxis();
-		
-		/*
-		glTranslatef( (_fModelsMinX + _fModelsW/2.0), (_fModelsMinY + _fModelsH/2.0), (_fModelsMinZ + _fModelsL/2.0) );  
-		glRotatef( _iModelsRotateY, 0.0, 1.0, 0.0 );
-		glRotatef( _iModelsRotateX, 1.0, 0.0, 0.0 );	
-		glTranslatef( -(_fModelsMinX + _fModelsW/2.0), -(_fModelsMinY + _fModelsH/2.0), -(_fModelsMinZ + _fModelsL/2.0) );  
-		*/
 
-		displayOperations();
+		displayModelsWithOperations();
 	    displayModelsWithZeroProgress();
-		displaySelectedModelInfo();
 
 		glPopMatrix();
-		//glFlush();
 		glutSwapBuffers(); 
 	}
 
@@ -213,10 +211,8 @@ namespace Spider3d {
 	    }	
 	}
 
-	static void displayOperations( void ) {
+	static void displayModelsWithOperations( void ) {
 		for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {    	
-
-			printf("\n\n");
 
 			int iOrder = 0;
 		    std::map<time_t,Operation*>::iterator opPair=model->operations.begin();
@@ -234,95 +230,17 @@ namespace Spider3d {
 		    	} else {
 		    		dProgress = dAfterStart / (dAfterStart-dAfterFinish);	
 		    	}
-		    	printf( "%s: %g/%d\n", (op->sName).c_str(), dProgress, iOrder );
+		    	//printf( "%s: %g/%d\n", (op->sName).c_str(), dProgress, iOrder );
 		    	if( dProgress > 0.0 ) {
 		    		float fR=0.8, fG=0.8, fB=0.8;
-					getOpTypeDetails( op->sType, NULL, &fR, &fG, &fB );
+		    		if( op->opType != NULL ) {
+		    			fR = op->opType->fR; fG = op->opType->fG; fB = op->opType->fB;
+		    		}
 		    		displayModel( (*model), model->operations.size()-iOrder-1, dProgress, fR, fG, fB );
 		    	}
         	}
         }
     }
-
-	static void displaySelectedModelInfo() {
-		if( _modelSelected ) {
-			Model *m = _modelSelected;
-			char caOp[200], caOpType[40], caDTText[80], caDT[41];
-			int iOpPair;
-
-			glMatrixMode( GL_PROJECTION );
-			glPushMatrix();
-			glLoadIdentity();
-			gluOrtho2D( 0, _iWindowWidth, 0, _iWindowHeight );
-			glMatrixMode( GL_MODELVIEW );
-			glPushMatrix();
-			glLoadIdentity();
-
-			iOpPair = 0;
-			std::map<time_t,Operation*>::reverse_iterator opPair = m->operations.rbegin();
-		    for( ; opPair != m->operations.rend() ; ++opPair, ++iOpPair ) {
-		    	
-		    	Operation *op = opPair->second;
-
-				if( _tDisplayTime < op->tActualStart ) {
-					timetToStr( op->tActualStart, caDT, 40, false );
-					sprintf( caDTText, "To start on: %s", caDT );
-				} else if ( _tDisplayTime > op->tActualFinish ) {
-					timetToStr( op->tActualFinish, caDT, 40, false );
-					sprintf( caDTText, "Finished on: %s", caDT );
-				} else {
-					timetToStr( op->tActualStart, caDT, 40, false );
-					int pct = int( ( (_tDisplayTime - op->tActualStart)*100 ) / (op->tActualFinish - op->tActualStart) );  
-					sprintf( caDTText, "Started on %s is under way now with %d%% done.", caDT, pct );
-				}
-
-				std::string opTypeName;
-				int iStatus = getOpTypeDetails( op->sType, &opTypeName, NULL, NULL, NULL );
-				if( iStatus == 0 && opTypeName.size() < 40 ) {
-					sprintf( caOpType, " (%s)", opTypeName.c_str() );
-				} else {
-					strcpy( caOpType, "" );
-				}
-
-				sprintf( caOp, "%s%s: %s", op->sName.c_str(), caOpType, caDTText );
-
-				glColor3f( 1.0f, 1.0f, 1.0f );
-				glRasterPos2i( _iWindowWidth * 0.6, _iWindowHeight - 20 - iOpPair*12 );
-				for( int i = 0 ; caOp[i] != '\x0' ; ++i ) {
-				    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, caOp[i] );
-				}
-			}
-
-			glPopMatrix();
-			glMatrixMode( GL_PROJECTION );
-			glPopMatrix();
-			glMatrixMode( GL_MODELVIEW );
-			
-			glutSwapBuffers();
-		}
-	}
-
-	static int getOpTypeDetails( std::string& sCode, std::string *sName, float *fR, float *fG, float *fB ) {
-
-		for( std::vector<OpType>::iterator opType = _opTypes->mOpTypes.begin() ; opType != _opTypes->mOpTypes.end() ; ++opType ) {
-			if( sCode.compare( opType->sCode ) == 0 ) {
-				if( sName != NULL ) {
-					sName->assign( opType->sName );					
-				}
-				if( fR != NULL ) {
-					*fR = opType->fR;
-				}
-				if( fG != NULL ) {
-					*fG = opType->fG;
-				}
-				if( fB != NULL ) {
-					*fB = opType->fB;
-				}
-				return 0;
-			}
-		}
-		return -1;
-	}
 
 	static void displayModel( Model& model, int iOrder, double dProgress, float fR, float fG, float fB ) {
     	bool selected = (_modelSelected == &model) ? true : false;
@@ -349,7 +267,7 @@ namespace Spider3d {
 	}
 
 
-	static void displayKeys( int key, int x, int y ) {
+	static void catchKeys( int key, int x, int y ) {
 	 
 		switch(key) {
 			case GLUT_KEY_RIGHT:
@@ -383,7 +301,7 @@ namespace Spider3d {
 	  glutPostRedisplay();
 	}
 
-	static void displayMouse ( int button, int state, int x, int y ) {
+	static void catchMouse ( int button, int state, int x, int y ) {
 		if( button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) { 
 			double objx, objy, objz;
 			double modelview[16], projection[16];
@@ -396,10 +314,13 @@ namespace Spider3d {
 			glGetDoublev( GL_PROJECTION_MATRIX, projection );
 			// get the viewport		
 			glGetIntegerv( GL_VIEWPORT, viewport );
+			printf( "x=%d, y=%d, l=%d, b=%d, w=%d, h=%d\n", x, y, viewport[0], viewport[1], viewport[2], viewport[3] );
 			// Read the window z coordinate (the z value on that point in unit cube)		
-			glReadPixels( x, viewport[3]-y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
+			//int vpY = viewport[3] - y + (_iWindowHeight * (1.0 - DISPLAY_MODEL_H));
+			glReadPixels( x, viewport[3] - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
+			printf("COLOR: %f\n", z );
 			// Unproject the window coordinates to find the world coordinates.
-			gluUnProject( x, viewport[3]-y, z, modelview, projection, viewport, &objx, &objy, &objz ); 
+			gluUnProject( x, viewport[3] - y, z, modelview, projection, viewport, &objx, &objy, &objz ); 
 
 			// std::cout << objx << " , " << objy << " , " << objz << "\n";
 

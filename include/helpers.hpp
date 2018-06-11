@@ -23,7 +23,7 @@ namespace Spider3d {
 
     char *trimString( char *cp );
 
-    int timetToStr( time_t timetDT, char *cpBuffer, int iBufferSize=0, bool bAscTime=false );
+    int timetToStr( time_t timetDT, char *cpBuffer, int iBufferSize=0, bool bAscTime=false, bool bHHMM=true );
 
     int parseFileHeader( FILE *fp, int, char **, int ** );
     char *parseFileLine( FILE *fp, int, int **, int **, int * );

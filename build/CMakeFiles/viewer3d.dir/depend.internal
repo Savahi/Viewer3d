@@ -14,7 +14,22 @@ CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o
  ../include/helpers.hpp
  ../include/models.hpp
  ../include/operations.hpp
+ ../include/optypes.hpp
  /home/user/Desktop/spider/Viewer3d/src/displayfacet.cpp
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o
+ ../include/display.hpp
+ ../include/helpers.hpp
+ ../include/models.hpp
+ ../include/operations.hpp
+ ../include/optypes.hpp
+ /home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o
+ ../include/display.hpp
+ ../include/helpers.hpp
+ ../include/models.hpp
+ ../include/operations.hpp
+ ../include/optypes.hpp
+ /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o
  ../include/helpers.hpp
  /home/user/Desktop/spider/Viewer3d/src/helpers.cpp
@@ -22,10 +37,12 @@ CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o
  ../include/helpers.hpp
  ../include/models.hpp
  ../include/operations.hpp
+ ../include/optypes.hpp
  /home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o
  ../include/helpers.hpp
  ../include/operations.hpp
+ ../include/optypes.hpp
  /home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o
  ../include/helpers.hpp
@@ -35,10 +52,12 @@ CMakeFiles/viewer3d.dir/src/models.cpp.o
  ../include/helpers.hpp
  ../include/models.hpp
  ../include/operations.hpp
+ ../include/optypes.hpp
  /home/user/Desktop/spider/Viewer3d/src/models.cpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o
  ../include/helpers.hpp
  ../include/operations.hpp
+ ../include/optypes.hpp
  /home/user/Desktop/spider/Viewer3d/src/operations.cpp
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o
  ../include/helpers.hpp

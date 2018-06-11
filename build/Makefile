@@ -177,6 +177,60 @@ src/displayfacet.cpp.s:
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayfacet.cpp.s
 .PHONY : src/displayfacet.cpp.s
 
+src/displayselectedmodelinfo.o: src/displayselectedmodelinfo.cpp.o
+
+.PHONY : src/displayselectedmodelinfo.o
+
+# target to build an object file
+src/displayselectedmodelinfo.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o
+.PHONY : src/displayselectedmodelinfo.cpp.o
+
+src/displayselectedmodelinfo.i: src/displayselectedmodelinfo.cpp.i
+
+.PHONY : src/displayselectedmodelinfo.i
+
+# target to preprocess a source file
+src/displayselectedmodelinfo.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.i
+.PHONY : src/displayselectedmodelinfo.cpp.i
+
+src/displayselectedmodelinfo.s: src/displayselectedmodelinfo.cpp.s
+
+.PHONY : src/displayselectedmodelinfo.s
+
+# target to generate assembly for a file
+src/displayselectedmodelinfo.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.s
+.PHONY : src/displayselectedmodelinfo.cpp.s
+
+src/displaytimescale.o: src/displaytimescale.cpp.o
+
+.PHONY : src/displaytimescale.o
+
+# target to build an object file
+src/displaytimescale.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o
+.PHONY : src/displaytimescale.cpp.o
+
+src/displaytimescale.i: src/displaytimescale.cpp.i
+
+.PHONY : src/displaytimescale.i
+
+# target to preprocess a source file
+src/displaytimescale.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.i
+.PHONY : src/displaytimescale.cpp.i
+
+src/displaytimescale.s: src/displaytimescale.cpp.s
+
+.PHONY : src/displaytimescale.s
+
+# target to generate assembly for a file
+src/displaytimescale.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.s
+.PHONY : src/displaytimescale.cpp.s
+
 src/helpers.o: src/helpers.cpp.o
 
 .PHONY : src/helpers.o
@@ -381,6 +435,12 @@ help:
 	@echo "... src/displayfacet.o"
 	@echo "... src/displayfacet.i"
 	@echo "... src/displayfacet.s"
+	@echo "... src/displayselectedmodelinfo.o"
+	@echo "... src/displayselectedmodelinfo.i"
+	@echo "... src/displayselectedmodelinfo.s"
+	@echo "... src/displaytimescale.o"
+	@echo "... src/displaytimescale.i"
+	@echo "... src/displaytimescale.s"
 	@echo "... src/helpers.o"
 	@echo "... src/helpers.i"
 	@echo "... src/helpers.s"

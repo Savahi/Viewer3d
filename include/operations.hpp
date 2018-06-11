@@ -4,6 +4,7 @@
 #include <string>
 #include <ctime>
 #include "helpers.hpp"
+#include "optypes.hpp"
 	
 namespace Spider3d {
 
@@ -19,14 +20,8 @@ namespace Spider3d {
 			std::string sType;
 			std::string sModelCode;
 
-			/*
-			int iProgress;
+			OpType *opType;
 
-			int setProgress( int progress ) {
-				this->iProgress == progress;
-				return 0;
-			}
-			*/
 			void setModelCode( std::string& sCode ) { this->sModelCode = sCode; }
 			void setModelCode( char *cpCode ) { this->sModelCode = std::string(cpCode); }
 
@@ -39,7 +34,7 @@ namespace Spider3d {
 			void setType( std::string& sType ) { this->sType = sType; }
 			void setType( char *cpType ) { this->sType = std::string( cpType ); }
 
-			Operation() : bDatesInitialized(false) {
+			Operation() : bDatesInitialized(false), opType(NULL) {
 				; // std::cout << "Constructor for Operation\n";
 			}
 
