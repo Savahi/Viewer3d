@@ -35,15 +35,15 @@ namespace Spider3d {
 	static Model *_modelSelected=NULL;
 
 	GLsizei _iWindowWidth, _iWindowHeight;
-	double _fWindowRight, _fWindowTop;
+	double _fWindowLeft, _fWindowRight, _fWindowBottom, _fWindowTop, _fWindowWidth, _fWindowHeight;
 	double _fModelAreaLeft, _fModelAreaRight, _fModelAreaBottom, _fModelAreaTop;
 
 	static double _fModelsMinX=0, _fModelsMaxX=0, _fModelsMinY=0, _fModelsMaxY=0, _fModelsMinZ=0, _fModelsMaxZ=0;
 	static double _fModelsW=0, _fModelsL=0, _fModelsH=0;
 	static int _iModelsRotateX, _iModelsRotateY;
-	static time_t _tTimeNow;
-	static time_t _tDisplayTime;
-	static time_t _tOperationsStart, _tOperationsFinish; 
+	time_t _tDisplayTimeActual;
+	time_t _tDisplayTime;
+	time_t _tDisplayTimeMin, _tDisplayTimeMax; 
 
 	static int _iDateScaleRate = 50;
 
@@ -51,19 +51,19 @@ namespace Spider3d {
 
 	  	_iModelsRotateX = 15;
 	  	_iModelsRotateY = 15;
-	  	_tTimeNow = _tDisplayTime = time(0);
-	  	_tOperationsStart = _tOperationsFinish = -1.0;
+	  	_tDisplayTimeActual = _tDisplayTime = time(0);
+	  	_tDisplayTimeMin = _tDisplayTimeMax = -1.0;
 
 		for( std::vector<Operation>::iterator op = _operations->mOperations.begin() ; op != _operations->mOperations.end() ; ++op ) {
-			if( _tOperationsStart < 0.0 ) { 
-				_tOperationsStart = op->tActualStart;
-			} else if( op->tActualStart < _tOperationsStart ) {
-				_tOperationsStart = op->tActualStart;
+			if( _tDisplayTimeMin < 0.0 ) { 
+				_tDisplayTimeMin = op->tActualStart;
+			} else if( op->tActualStart < _tDisplayTimeMin ) {
+				_tDisplayTimeMin = op->tActualStart;
 			} 
-			if( _tOperationsFinish < 0.0 ) {
-				_tOperationsFinish = op->tActualFinish;			
-			} else if ( op->tActualFinish > _tOperationsFinish ) {
-				_tOperationsFinish = op->tActualFinish;
+			if( _tDisplayTimeMax < 0.0 ) {
+				_tDisplayTimeMax = op->tActualFinish;			
+			} else if ( op->tActualFinish > _tDisplayTimeMax ) {
+				_tDisplayTimeMax = op->tActualFinish;
 			}
 		}
 
@@ -168,17 +168,21 @@ namespace Spider3d {
 
 		displaySelectedModelInfo( _modelSelected, _tDisplayTime );
 
-		displayTimeScale( _tDisplayTime, _tOperationsStart, _tOperationsFinish, _tTimeNow );
+		displayTimeScale();
 
 		glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
 		glLoadIdentity();             // Reset
 
 		_fModelAreaLeft = _fModelsMinX - _fModelsW*0.75;
 		_fModelAreaRight = _fModelsMaxX + _fModelsW*0.75;
-		_fWindowRight = _fModelAreaRight + _fModelsW * DISPLAY_AREA_RIGHT_PANE;
 		_fModelAreaBottom = _fModelsMinY - _fModelsH*0.5;
 		_fModelAreaTop = _fModelsMaxY + _fModelsH*0.5;
+		_fWindowLeft = _fModelAreaLeft;
+		_fWindowRight = _fModelAreaRight + _fModelsW * DISPLAY_AREA_RIGHT_PANE;
+		_fWindowWidth = _fWindowRight - +_fWindowLeft;
+		_fWindowBottom = _fModelAreaBottom;
 		_fWindowTop = _fModelAreaTop + _fModelsH * DISPLAY_AREA_TOP_PANE;
+		_fWindowHeight = _fWindowTop - _fWindowBottom;
 		double fMarginZ = _fModelsL*0.75;
 		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, _fModelsMinZ - fMarginZ, _fModelsMaxZ + fMarginZ );
 		
@@ -283,17 +287,17 @@ namespace Spider3d {
 				_iModelsRotateX -= 5;
 				break;
 			case GLUT_KEY_PAGE_UP:
-				if( _tDisplayTime < _tOperationsFinish ) {
-					_tDisplayTime += (_tOperationsFinish - _tOperationsStart)/_iDateScaleRate;
-				} else if( _tDisplayTime < _tTimeNow ) {
-					_tDisplayTime = _tTimeNow;
+				if( _tDisplayTime < _tDisplayTimeMax ) {
+					_tDisplayTime += (_tDisplayTimeMax - _tDisplayTimeMin)/_iDateScaleRate;
+				} else if( _tDisplayTime < _tDisplayTimeActual ) {
+					_tDisplayTime = _tDisplayTimeActual;
 				}
 				break;
 			case GLUT_KEY_PAGE_DOWN:
-				if( _tDisplayTime > _tOperationsFinish ) {
-					_tDisplayTime = _tOperationsFinish;
-				} else if( _tDisplayTime > _tOperationsStart ) {
-					_tDisplayTime -= (_tOperationsFinish - _tOperationsStart)/_iDateScaleRate;
+				if( _tDisplayTime > _tDisplayTimeMax ) {
+					_tDisplayTime = _tDisplayTimeMax;
+				} else if( _tDisplayTime > _tDisplayTimeMin ) {
+					_tDisplayTime -= (_tDisplayTimeMax - _tDisplayTimeMin)/_iDateScaleRate;
 				}
 				break;
 		} 
@@ -302,73 +306,81 @@ namespace Spider3d {
 	}
 
 	static void catchMouse ( int button, int state, int x, int y ) {
-		if( button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) { 
-			double objx, objy, objz;
-			double modelview[16], projection[16];
-			int viewport[4];
-			float z;
 
-			// get the modelview matrix		
-			glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
-			// get the projection matrix
-			glGetDoublev( GL_PROJECTION_MATRIX, projection );
-			// get the viewport		
-			glGetIntegerv( GL_VIEWPORT, viewport );
-			printf( "x=%d, y=%d, l=%d, b=%d, w=%d, h=%d\n", x, y, viewport[0], viewport[1], viewport[2], viewport[3] );
-			// Read the window z coordinate (the z value on that point in unit cube)		
-			//int vpY = viewport[3] - y + (_iWindowHeight * (1.0 - DISPLAY_MODEL_H));
-			glReadPixels( x, viewport[3] - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
-			printf("COLOR: %f\n", z );
-			// Unproject the window coordinates to find the world coordinates.
-			gluUnProject( x, viewport[3] - y, z, modelview, projection, viewport, &objx, &objy, &objz ); 
+		if( catchMouseInTimeScale( button, state, x, y ) ) {
+			glutPostRedisplay();
+			return;
+		}
+		
+		if( !(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) ) { 
+			return;
+		}
 
-			// std::cout << objx << " , " << objy << " , " << objz << "\n";
+		double objx, objy, objz;
+		double modelview[16], projection[16];
+		int viewport[4];
+		float z;
 
-			Model *modelToSelect = NULL;
-			for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {
-			    double minX, maxX, minY, maxY, minZ, maxZ;
-			    bool coordsInitialized = false;
-			    for( std::vector<Facet>::iterator fa = (*model).mFacets.begin() ; fa != (*model).mFacets.end() ; ++fa ) {	
-				    for( std::vector<Vertex>::iterator ve = (*fa).mVertices.begin() ; ve != (*fa).mVertices.end() ; ++ve ) {
-				    	if( !coordsInitialized ) {
-				    		minX = maxX = ve->mX;
-				    		minY = maxY = ve->mY;
-				    		minZ = maxZ = ve->mZ;
-				    		coordsInitialized = true;
-				    	} else {
-				    		if( ve->mX < minX) { minX = ve->mX; }
-				    		if( ve->mX > maxX ) { maxX = ve->mX; }
-				    		if( ve->mY < minY ) { minY = ve->mY; }
-				    		if( ve->mY > maxY ) { maxY = ve->mY; }
-				    		if( ve->mZ < minZ ) { minZ = ve->mZ; }
-				    		if( ve->mZ > maxZ ) { maxZ = ve->mZ; }
-				    	}
-				    }
-				}
+		// get the modelview matrix		
+		glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+		// get the projection matrix
+		glGetDoublev( GL_PROJECTION_MATRIX, projection );
+		// get the viewport		
+		glGetIntegerv( GL_VIEWPORT, viewport );
+		printf( "x=%d, y=%d, l=%d, b=%d, w=%d, h=%d\n", x, y, viewport[0], viewport[1], viewport[2], viewport[3] );
+		// Read the window z coordinate (the z value on that point in unit cube)		
+		//int vpY = viewport[3] - y + (_iWindowHeight * (1.0 - DISPLAY_MODEL_H));
+		glReadPixels( x, viewport[3] - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
+		printf("COLOR: %f\n", z );
+		// Unproject the window coordinates to find the world coordinates.
+		gluUnProject( x, viewport[3] - y, z, modelview, projection, viewport, &objx, &objy, &objz ); 
 
-				if( modelToSelect == NULL ) {
-					if( coordsInitialized ) {
-						if( !(objx < minX) && !(objx > maxX) && !(objy < minY) && !(objy > maxY) && !(objz < minZ) && !(objz > maxZ) ) {
-							if( _modelSelected != &(*model) ) {
-								modelToSelect = &(*model);
-							}
+		// std::cout << objx << " , " << objy << " , " << objz << "\n";
+
+		Model *modelToSelect = NULL;
+		for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {
+		    double minX, maxX, minY, maxY, minZ, maxZ;
+		    bool coordsInitialized = false;
+		    for( std::vector<Facet>::iterator fa = (*model).mFacets.begin() ; fa != (*model).mFacets.end() ; ++fa ) {	
+			    for( std::vector<Vertex>::iterator ve = (*fa).mVertices.begin() ; ve != (*fa).mVertices.end() ; ++ve ) {
+			    	if( !coordsInitialized ) {
+			    		minX = maxX = ve->mX;
+			    		minY = maxY = ve->mY;
+			    		minZ = maxZ = ve->mZ;
+			    		coordsInitialized = true;
+			    	} else {
+			    		if( ve->mX < minX) { minX = ve->mX; }
+			    		if( ve->mX > maxX ) { maxX = ve->mX; }
+			    		if( ve->mY < minY ) { minY = ve->mY; }
+			    		if( ve->mY > maxY ) { maxY = ve->mY; }
+			    		if( ve->mZ < minZ ) { minZ = ve->mZ; }
+			    		if( ve->mZ > maxZ ) { maxZ = ve->mZ; }
+			    	}
+			    }
+			}
+
+			if( modelToSelect == NULL ) {
+				if( coordsInitialized ) {
+					if( !(objx < minX) && !(objx > maxX) && !(objy < minY) && !(objy > maxY) && !(objz < minZ) && !(objz > maxZ) ) {
+						if( _modelSelected != &(*model) ) {
+							modelToSelect = &(*model);
 						}
 					}
 				}
 			}
+		}
 
-			if( modelToSelect ) {
-				if( _modelSelected != modelToSelect ) {
-					_modelSelected = modelToSelect;
-					glutPostRedisplay();
-				}
-			} else {
-				if( _modelSelected != NULL ) {
-					_modelSelected = NULL;
-					glutPostRedisplay();
-				}
+		if( modelToSelect ) {
+			if( _modelSelected != modelToSelect ) {
+				_modelSelected = modelToSelect;
+				glutPostRedisplay();
 			}
-		}	
+		} else {
+			if( _modelSelected != NULL ) {
+				_modelSelected = NULL;
+				glutPostRedisplay();
+			}
+		}
 	}
 
-}
+} // The end of the namespace
