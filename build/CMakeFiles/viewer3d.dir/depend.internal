@@ -9,6 +9,13 @@ CMakeFiles/viewer3d.dir/src/display.cpp.o
  ../include/optypes.hpp
  ../include/viewer3d.hpp
  /home/user/Desktop/spider/Viewer3d/src/display.cpp
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o
+ ../include/display.hpp
+ ../include/helpers.hpp
+ ../include/models.hpp
+ ../include/operations.hpp
+ ../include/optypes.hpp
+ /home/user/Desktop/spider/Viewer3d/src/displayaxis.cpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o
  ../include/display.hpp
  ../include/helpers.hpp

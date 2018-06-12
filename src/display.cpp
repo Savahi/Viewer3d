@@ -23,8 +23,6 @@ namespace Spider3d {
 
 	static void displayModel( Model& model, int iOrder, double dProgress=0.0, float fR=0.8, float fG=0.8, float fB=0.8f );	
 
-	static void displayAxis( void );
-
 	static void catchKeys( int key, int x, int y );
 	static void catchMouse ( int button, int state, int x, int y );
 	static void catchReshape( GLsizei width, GLsizei height );
@@ -32,14 +30,16 @@ namespace Spider3d {
 	static Models *_models;
 	static Operations *_operations;
 	static OpTypes *_opTypes;
-	static Model *_modelSelected=NULL;
+	Model *_modelSelected=NULL;
+
+	GLfloat _faDisplayMatrix[16];
 
 	GLsizei _iWindowWidth, _iWindowHeight;
 	double _fWindowLeft, _fWindowRight, _fWindowBottom, _fWindowTop, _fWindowWidth, _fWindowHeight;
 	double _fModelAreaLeft, _fModelAreaRight, _fModelAreaBottom, _fModelAreaTop;
 
-	static double _fModelsMinX=0, _fModelsMaxX=0, _fModelsMinY=0, _fModelsMaxY=0, _fModelsMinZ=0, _fModelsMaxZ=0;
-	static double _fModelsW=0, _fModelsL=0, _fModelsH=0;
+	double _fModelsMinX=0, _fModelsMaxX=0, _fModelsMinY=0, _fModelsMaxY=0, _fModelsMinZ=0, _fModelsMaxZ=0;
+	double _fModelsW=0, _fModelsL=0, _fModelsH=0;
 	static int _iModelsRotateX, _iModelsRotateY;
 	time_t _tDisplayTimeActual;
 	time_t _tDisplayTime;
@@ -166,8 +166,6 @@ namespace Spider3d {
 
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );   //  Clear screen and Z-buffer
 
-		displaySelectedModelInfo( _modelSelected, _tDisplayTime );
-
 		displayTimeScale();
 
 		glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
@@ -186,7 +184,7 @@ namespace Spider3d {
 		double fMarginZ = _fModelsL*0.75;
 		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, _fModelsMinZ - fMarginZ, _fModelsMaxZ + fMarginZ );
 		
-		glMatrixMode(GL_MODELVIEW);     // To operate on model-view matrix
+		glMatrixMode(GL_MODELVIEW); // To operate on model-view matrix
 	 
 	 	glLoadIdentity(); // Reset transformations
 	  
@@ -200,12 +198,18 @@ namespace Spider3d {
 		glRotatef( _iModelsRotateX, 1.0, 0.0, 0.0 );
 		glTranslatef( 0.0, -(_fModelsMinY + _fModelsH/2.0), -(_fModelsMinZ + _fModelsL/2.0) );
 
+		glGetFloatv( GL_MODELVIEW_MATRIX, _faDisplayMatrix );
+
 		displayAxis();
 
 		displayModelsWithOperations();
+
 	    displayModelsWithZeroProgress();
 
 		glPopMatrix();
+
+		displaySelectedModelInfo();
+
 		glutSwapBuffers(); 
 	}
 
@@ -252,24 +256,6 @@ namespace Spider3d {
         	displayFacet( *fa, model, iOrder, dProgress, fR, fG, fB, selected );
 		}
 	}
-
-	static void displayAxis( void ) {
-		float cx = _fModelsMinX - _fModelsW*0.25;
-		float cy = _fModelsMinY - _fModelsH*0.01;
-		float cz = _fModelsMinZ - _fModelsL*0.25;
-		glBegin(GL_LINES);
-		glColor3f( 1.0, 0.0, 1.0 );
-		glVertex3f( cx, cy, cz );
-		glVertex3f( cx, _fModelsMaxY, cz );
-
-		glVertex3f( cx, cy, cz );
-		glVertex3f( _fModelsMaxX, cy, cz );
-
-		glVertex3f( cx, cy, cz );
-		glVertex3f( cx, cy, _fModelsMaxZ );
-		glEnd();
-	}
-
 
 	static void catchKeys( int key, int x, int y ) {
 	 

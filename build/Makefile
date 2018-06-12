@@ -150,6 +150,33 @@ src/display.cpp.s:
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/display.cpp.s
 .PHONY : src/display.cpp.s
 
+src/displayaxis.o: src/displayaxis.cpp.o
+
+.PHONY : src/displayaxis.o
+
+# target to build an object file
+src/displayaxis.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o
+.PHONY : src/displayaxis.cpp.o
+
+src/displayaxis.i: src/displayaxis.cpp.i
+
+.PHONY : src/displayaxis.i
+
+# target to preprocess a source file
+src/displayaxis.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayaxis.cpp.i
+.PHONY : src/displayaxis.cpp.i
+
+src/displayaxis.s: src/displayaxis.cpp.s
+
+.PHONY : src/displayaxis.s
+
+# target to generate assembly for a file
+src/displayaxis.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displayaxis.cpp.s
+.PHONY : src/displayaxis.cpp.s
+
 src/displayfacet.o: src/displayfacet.cpp.o
 
 .PHONY : src/displayfacet.o
@@ -432,6 +459,9 @@ help:
 	@echo "... src/display.o"
 	@echo "... src/display.i"
 	@echo "... src/display.s"
+	@echo "... src/displayaxis.o"
+	@echo "... src/displayaxis.i"
+	@echo "... src/displayaxis.s"
 	@echo "... src/displayfacet.o"
 	@echo "... src/displayfacet.i"
 	@echo "... src/displayfacet.s"

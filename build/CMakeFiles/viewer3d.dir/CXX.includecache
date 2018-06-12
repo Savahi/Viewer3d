@@ -7,6 +7,10 @@
 #IncludeRegexTransform: 
 
 ../include/display.hpp
+GL/glut.h
+-
+models.hpp
+../include/models.hpp
 
 ../include/helpers.hpp
 stdio.h
@@ -81,6 +85,10 @@ display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
 viewer3d.hpp
 /home/user/Desktop/spider/Viewer3d/src/viewer3d.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/displayaxis.cpp
+display.hpp
+/home/user/Desktop/spider/Viewer3d/src/display.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/displayfacet.cpp
 math.h

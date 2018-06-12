@@ -9,6 +9,13 @@ CMakeFiles/viewer3d.dir/src/display.cpp.o: ../include/optypes.hpp
 CMakeFiles/viewer3d.dir/src/display.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/display.cpp.o: ../src/display.cpp
 
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/display.hpp
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/helpers.hpp
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/models.hpp
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/operations.hpp
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/optypes.hpp
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../src/displayaxis.cpp
+
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/models.hpp
