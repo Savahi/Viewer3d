@@ -10,7 +10,7 @@ namespace Spider3d {
 		float yAxisEnd = _fModelsMaxY*1.5;
 		float zAxisEnd = _fModelsMaxZ*1.5;
 		glBegin(GL_LINES);
-		glColor3f( 0.25, 0.25, 0.25 );
+		glColor3f( 0.20, 0.20, 0.20 );
 		glVertex3f( cx, cy, cz );
 		glVertex3f( cx, yAxisEnd, cz );
 

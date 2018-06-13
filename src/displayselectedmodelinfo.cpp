@@ -24,7 +24,7 @@ namespace Spider3d {
 
 		calcMinMax( m );
 
-		char caOp[200], caOpType[40], caDTText[80], caDT[41];
+		char caOp[200], caOpType[40], caDTText[80], caDT[41], caDT2[41];
 		int iOpPair;
 
 		_fLeft = _fModelAreaRight;
@@ -49,15 +49,18 @@ namespace Spider3d {
 	    	Operation *op = opPair->second;
 
 			if( _tDisplayTime < op->tActualStart ) {
-				timetToStr( op->tActualStart, caDT, 40, false );
-				sprintf( caDTText, "To start on: %s", caDT );
+				timetToStr( op->tActualStart, caDT, 40, false, false );
+				timetToStr( op->tActualFinish, caDT2, 40, false, false );
+				sprintf( caDTText, "[0%%]: %s - %s", caDT, caDT2 );
 			} else if ( _tDisplayTime > op->tActualFinish ) {
-				timetToStr( op->tActualFinish, caDT, 40, false );
-				sprintf( caDTText, "Finished on: %s", caDT );
+				timetToStr( op->tActualStart, caDT, 40, false, false );
+				timetToStr( op->tActualFinish, caDT2, 40, false, false );
+				sprintf( caDTText, "[100%%]: %s - %s", caDT, caDT2 );
 			} else {
-				timetToStr( op->tActualStart, caDT, 40, false );
+				timetToStr( op->tActualStart, caDT, 40, false, false );
+				timetToStr( op->tActualFinish, caDT2, 40, false, false );
 				int pct = int( ( (_tDisplayTime - op->tActualStart)*100 ) / (op->tActualFinish - op->tActualStart) );  
-				sprintf( caDTText, "Started on %s is under way now with %d%% done.", caDT, pct );
+				sprintf( caDTText, "[%d%%] %s - %s", pct, caDT, caDT2 );
 			}
 
 			std::string opTypeName;
@@ -72,7 +75,9 @@ namespace Spider3d {
 			double fUpperMargin = _fH*0.25;
 			double fBetweenLines = _fH*0.01;
 
-			glColor3f( 1.0f, 1.0f, 1.0f );
+			//glColor3f( 1.0f, 1.0f, 1.0f );
+			glColor3f( op->opType->fR, op->opType->fG, op->opType->fB );
+
 			const char *cpOpName = op->sName.c_str();
 			//glRasterPos2f( _fLeft, _fTop - fUpperMargin - (double)(iOpPair*4)*fBetweenLines );
 			glRasterPos2f( _fMaxX, _fMaxY - (double)(iOpPair*4)*fBetweenLines );

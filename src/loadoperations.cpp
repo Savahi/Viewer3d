@@ -160,7 +160,7 @@ namespace Spider3d {
     static int parseDate( char *cpDatetime, struct tm& tmDatetime ) {
         int iStatus;
         for( int i = 0 ; cpDatetime[i] != '\x0' ; i++ ) {
-            if( cpDatetime[i] == '.' || cpDatetime[i] == ':' ) {
+            if( cpDatetime[i] == '.' || cpDatetime[i] == '-' || cpDatetime[i] == ':' ) {
                 cpDatetime[i] = ' ';
             }
         }
