@@ -2,13 +2,15 @@
 	
 namespace Spider3d {
 
+	static void drawText( const char *cpText, double x, double y, double z );
+
 	void displayAxis( void ) {
 		float cx = _fModelsMinX - _fModelsW*0.25;
 		float cy = _fModelsMinY - _fModelsH*0.05;
 		float cz = _fModelsMinZ - _fModelsL*0.25;
-		float xAxisEnd = _fModelsMaxX*1.5;
-		float yAxisEnd = _fModelsMaxY*1.5;
-		float zAxisEnd = _fModelsMaxZ*1.5;
+		float xAxisEnd = _fModelsMaxX + _fModelsW*0.25;
+		float yAxisEnd = _fModelsMaxY + _fModelsH*0.05;
+		float zAxisEnd = _fModelsMaxZ + _fModelsL*0.25;
 
 		double fR, fG, fB;
 		double fGridR, fGridG, fGridB;
@@ -42,5 +44,19 @@ namespace Spider3d {
 			glVertex3f( cx + _fModelsW * (double)i*0.25, cy, zAxisEnd );
 		}		
 		glEnd();
+
+		glColor3f( fR, fG, fB );
+		drawText( "X", xAxisEnd + _fModelsW*0.001, cy, cz );
+		drawText( "Y", cx, yAxisEnd + _fModelsH*0.001, cz );
+		drawText( "Z", cx, cy, zAxisEnd + _fModelsL*0.001 );
 	}
+
+	static void drawText( const char *cpText, double x, double y, double z ) {
+		glRasterPos3f( x, y, z );
+
+		for( int i = 0 ; cpText[i] != '\x0' ; ++i ) {
+		    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, cpText[i] );
+		}
+	}
+
 }

@@ -23,16 +23,22 @@ namespace Spider3d {
 
 	static void catchKeys( int key, int x, int y );
 	static void catchMouse ( int button, int state, int x, int y );
-	static bool catchMouseInModelArea( int button, int state, int x, int y );
+	static bool catchMouseInModelArea( int button, int state, int x, int y, double fX, double fY );
 	static void catchMouseMotion( int x, int y );
 	static void catchMousePassiveMotion( int x, int y );
 
 	static void catchReshape( GLsizei width, GLsizei height );
 
+	static double screenXToWorld( int x );
+	static double screenYToWorld( int y );
+
+	static void incrementRotationAngle( int& angle, int inc );
+
 	static Models *_models;
 	static Operations *_operations;
 	static OpTypes *_opTypes;
-	Model *_modelSelected=NULL;
+	Model *_modelSelected = NULL;
+	Model *_modelTouched = NULL;
 
 	GLdouble _faDisplayMVMatrix[16];
 	GLdouble _faDisplayPrjMatrix[16];
@@ -275,8 +281,9 @@ namespace Spider3d {
 
 	static void displayModel( Model& model, int iOrder, double dProgress, float fR, float fG, float fB ) {
     	bool selected = (_modelSelected == &model) ? true : false;
+    	bool touched = (_modelTouched == &model) ? true : false;
         for( std::vector<Facet>::iterator fa = model.mFacets.begin() ; fa != model.mFacets.end() ; ++fa ) {
-        	displayFacet( *fa, model, iOrder, dProgress, fR, fG, fB, selected );
+        	displayFacet( *fa, model, iOrder, dProgress, fR, fG, fB, selected, touched );
 		}
 	}
 
@@ -284,16 +291,16 @@ namespace Spider3d {
 	 
 		switch(key) {
 			case GLUT_KEY_RIGHT:
-				_iModelsRotateY += 5;
+				incrementRotationAngle( _iModelsRotateY, 5 );
 				break;
 			case GLUT_KEY_LEFT:
-				_iModelsRotateY -= 5;
+				incrementRotationAngle( _iModelsRotateY, -5 );
 				break;
 			case GLUT_KEY_UP:
-				_iModelsRotateX += 5;
+				incrementRotationAngle( _iModelsRotateX, 5 );
 				break;
 			case GLUT_KEY_DOWN:
-				_iModelsRotateX -= 5;
+				incrementRotationAngle( _iModelsRotateX, -5 );
 				break;
 			case GLUT_KEY_PAGE_UP:
 				if( _tDisplayTime < _tDisplayTimeMax ) {
@@ -315,58 +322,51 @@ namespace Spider3d {
 	}
 
 	static void catchMouseMotion( int x, int y ) {
-		if( catchMouseInTimeScale( -1, MOUSE_MOVES_PRESSED, x, y ) ) {
+		bool bRedisplay = false;
+		bRedisplay = catchMouseInTimeScale( -1, MOUSE_MOVES_PRESSED, x, y, screenXToWorld(x), screenYToWorld(y) );
+		bRedisplay = bRedisplay | catchMouseInModelArea( -1, MOUSE_MOVES_PRESSED, x, y, screenXToWorld(x), screenYToWorld(y) ); 		
+		if( bRedisplay ) {
 			glutPostRedisplay();
-			return;
 		}		
-		if( catchMouseInModelArea( -1, MOUSE_MOVES_PRESSED, x, y ) ) {
-			glutPostRedisplay();
-			return;
-		}
 	}
 
 	static void catchMousePassiveMotion( int x, int y ) {
-		if( catchMouseInTimeScale( -1, MOUSE_MOVES_NOT_PRESSED, x, y ) ) {
+		bool bRedisplay = false;
+		bRedisplay = catchMouseInTimeScale( -1, MOUSE_MOVES_NOT_PRESSED, x, y, screenXToWorld(x), screenYToWorld(y) );
+		bRedisplay = bRedisplay | catchMouseInModelArea( -1, MOUSE_MOVES_NOT_PRESSED, x, y, screenXToWorld(x), screenYToWorld(y) );
+		if( bRedisplay ) {
 			glutPostRedisplay();
-			return;
-		}		
-		if( catchMouseInModelArea( -1, MOUSE_MOVES_NOT_PRESSED, x, y ) ) {
-			glutPostRedisplay();
-			return;
 		}
 	}
 
 	static void catchMouse ( int button, int state, int x, int y ) {
+		bool bRedisplay = false;
 
-		if( catchMouseInTimeScale( button, state, x, y ) ) {
-			glutPostRedisplay();
-			return;
-		}
-		
-		if( catchMouseInTools( button, state, x, y ) ) {
-			glutPostRedisplay();
-			return;
-		}
-
-		if( catchMouseInModelArea( button, state, x, y ) ) {
+		bRedisplay = catchMouseInTimeScale( button, state, x, y, screenXToWorld(x), screenYToWorld(y) );
+		bRedisplay = bRedisplay | catchMouseInTools( button, state, x, y, screenXToWorld(x), screenYToWorld(y) );
+		bRedisplay = bRedisplay | catchMouseInModelArea( button, state, x, y, screenXToWorld(x), screenYToWorld(y) );
+		if( bRedisplay ) {
 			glutPostRedisplay();
 		}
 	}
 
 	static int _xPrev, _yPrev;
 
-	static bool catchMouseInModelArea( int button, int state, int x, int y ) {
+	static bool catchMouseInModelArea( int button, int state, int x, int y, double fX, double fY ) {
 
-		double fY = _fWindowBottom + ( 1.0 - (double)y/(double)_iWindowHeight ) * _fWindowHeight;
-		double fX = _fWindowLeft + ( (double)x / (double)_iWindowWidth ) * _fWindowWidth;
 		if( fY > _fModelAreaTop || fX > _fModelAreaRight ) {
+			bool bReturn = false;
 			if( state == MOUSE_MOVES_PRESSED || state == MOUSE_MOVES_NOT_PRESSED ) { // Active or passive motion outside the bounds of the scale.
 				if( _bDisplayAxisActive ) {
 					_bDisplayAxisActive = false;
-					return true; // Redraw.
+					bReturn = true; // Redraw.
+				}
+				if( _modelTouched ) {
+					_modelTouched = NULL;
+					bReturn = true; // Redraw.
 				}
 			}
-			return false; // Do not redraw.
+			return bReturn; 
 		}
 
 		GLdouble objx, objy, objz;
@@ -427,23 +427,30 @@ namespace Spider3d {
 				_bDisplayAxisActive = false;
 				bReturn = true;
 			}
-
 			if( _modelSelected != modelToSelect && button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) {
 				_modelSelected = modelToSelect;
 				bReturn = true;
 			} else if( _modelSelected == modelToSelect && button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) {
 				_modelSelected = NULL;				
 				bReturn = true;
+			} else if( state == MOUSE_MOVES_NOT_PRESSED ) {
+				_modelTouched = modelToSelect;
+				bReturn = true;
 			}
 		} else { // The mouse cursor hovers above the axis
+			if( state == MOUSE_MOVES_NOT_PRESSED ) {
+				_modelTouched = NULL;
+				bReturn = true;		
+			}	
 			if( state == MOUSE_MOVES_PRESSED && _bDisplayAxisActive ) {
 				if( x != _xPrev || y != _yPrev ) {
-					_iModelsRotateY += ( x - _xPrev );
-					_iModelsRotateX += ( _yPrev - y );
+					// _iModelsRotateY += ( x - _xPrev );
+					// _iModelsRotateX += ( _yPrev - y );
+					incrementRotationAngle( _iModelsRotateY, x -_xPrev );
+					incrementRotationAngle( _iModelsRotateX, y - _yPrev );
 					bReturn = true;					
 				}
 			}
-
 			if( !_bDisplayAxisActive ) {
 				_bDisplayAxisActive = true;
 				bReturn = true;
@@ -453,6 +460,22 @@ namespace Spider3d {
 			_yPrev = y;
 		}
 		return bReturn;
+	}
+
+	static double screenXToWorld( int x ) {
+		return _fWindowLeft + ( (double)x / (double)_iWindowWidth ) * _fWindowWidth;
+	}
+	static double screenYToWorld( int y ) {
+		return _fWindowBottom + ( 1.0 - (double)y/(double)_iWindowHeight ) * _fWindowHeight;
+	}
+
+	static void incrementRotationAngle( int& angle, int inc ) {
+		angle += inc;
+		if( angle > 180 ) {
+			angle = angle - 360;
+		} else if( angle < -180 ) {
+			angle = 360 + angle;
+		}
 	}
 
 } // The end of the namespace

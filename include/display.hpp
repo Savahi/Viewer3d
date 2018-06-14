@@ -29,15 +29,15 @@ namespace Spider3d {
 	extern time_t _tDisplayTimeMin, _tDisplayTimeMax;;
 
 	void displayFacet( Facet& facet, Model& model, int iOrder, double progress=0, 
-		float fR=0.8, float fB=0.8, float fG=0.8, bool selected=false );
+		float fR=0.8, float fB=0.8, float fG=0.8, bool selected=false, bool touched=false );
 
 	void displaySelectedModelInfo( void );
 
 	void displayTimeScale( void );
-	bool catchMouseInTimeScale( int button, int state, int x, int y );
+	bool catchMouseInTimeScale( int button, int state, int x, int y, double fX, double fY );
 
 	void displayTools( void );
-	bool catchMouseInTools( int button, int state, int x, int y );
+	bool catchMouseInTools( int button, int state, int x, int y, double fX, double fY );
 
 	void displayAxis( void );
 

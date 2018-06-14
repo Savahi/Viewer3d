@@ -96,7 +96,7 @@ namespace Spider3d {
 	}
 
 
-	bool catchMouseInTools( int button, int state, int x, int y ) {
+	bool catchMouseInTools( int button, int state, int x, int y, double fX, double fY ) {
 
 		if( button == GLUT_LEFT_BUTTON ) {
 			if( state == GLUT_UP ) {
@@ -107,9 +107,6 @@ namespace Spider3d {
 			}
 
 			if( state == GLUT_DOWN ) {
-				double fY = _fWindowBottom + ( 1.0 - (double)y/(double)_iWindowHeight ) * _fWindowHeight;
-				double fX = _fWindowLeft + ( (double)x / (double)_iWindowWidth ) * _fWindowWidth;
-
 				for( int i = 0 ; i < _nButtons ; i++ ) {
 					if( (fX < _faButtonXs[i]) || (fX > _faButtonXs[i]+_fButtonW) || (fY < _faButtonYs[i]) || (fY > _faButtonYs[i]+_fButtonH) ) {
 						continue;

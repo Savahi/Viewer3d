@@ -13,7 +13,8 @@ namespace Spider3d {
 	static void calcNorm( double v1X, double v1Y, double v1Z, double v2X, double v2Y, double v2Z, double& kX, double& kY, double& kZ );
 	static bool getNorm( Facet& facet, double& kX, double& kY, double&kZ );
 
-	void displayFacet( Facet& facet, Model& model, int iOrder, double dProgress, float fR, float fG, float fB, bool selected ) {
+	void displayFacet( Facet& facet, Model& model, int iOrder, double dProgress, 
+		float fR, float fG, float fB, bool selected, bool touched ) {
 		// Facet
 		int nVertices = facet.mVertices.size();
 		if( nVertices < 3 ) {
@@ -131,10 +132,14 @@ namespace Spider3d {
 		}
 
 		// Ribs only
-		if( !selected ) {
-			glColor3f( 0.5, 0.5, 0.5 );     
-		} else {
+		if( selected ) {
 			glColor3f( 1.0, 1.0, 1.0 );
+		} else if( touched ) {
+			//glLineStipple( 1, 0x8888 );
+			//glEnable( GL_LINE_STIPPLE );
+			glColor3f( 0.75, 0.75, 0.75 );
+		} else {
+			glColor3f( 0.5, 0.5, 0.5 );     
 		}
 		bool firstVertex = false;
 		bool prevVertex = false;
@@ -153,6 +158,10 @@ namespace Spider3d {
 		if( firstVertex && prevVertex ) {
 			displayRib( prevX, prevY, prevZ, firstX, firstY, firstZ );
 		}
+
+		//if( touched ) {
+		//	glDisable( GL_LINE_STIPPLE );
+		//}
 	
 	}
 

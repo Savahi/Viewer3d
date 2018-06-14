@@ -106,20 +106,12 @@ namespace Spider3d {
 	}	
 
 
-	bool catchMouseInTimeScale( int button, int state, int x, int y ) {
+	bool catchMouseInTimeScale( int button, int state, int x, int y, double fX, double fY ) {
 
-		if( !(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) && !(state==MOUSE_MOVES_PRESSED) && !(state==MOUSE_MOVES_NOT_PRESSED) ) {
-			return false;
-		}
-
-		double fY = _fWindowBottom + ( 1.0 - (double)y/(double)_iWindowHeight ) * _fWindowHeight;
-		double fX = _fWindowLeft + ( (double)x / (double)_iWindowWidth ) * _fWindowWidth;
 		if( fY < _fScaleAreaBottom || fX > _fScaleAreaRight ) {
-			if( state == MOUSE_MOVES_PRESSED || state == MOUSE_MOVES_NOT_PRESSED ) { // Active or passive motion outside the bounds of the scale.
-				if( _bScaleActive ) {
-					_bScaleActive = false;
-					return true; // Redraw.
-				}
+			if( _bScaleActive ) {
+				_bScaleActive = false;
+				return true; // Redraw.
 			}
 			return false; // Do not redraw.
 		}
