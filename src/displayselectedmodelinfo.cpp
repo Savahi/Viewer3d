@@ -1,7 +1,6 @@
-#include <GL/glut.h>
 #include <string.h>
 #include <ctime>
-
+#include <GL/glut.h>
 #include "operations.hpp"
 #include "optypes.hpp"
 #include "models.hpp"
@@ -15,7 +14,6 @@ namespace Spider3d {
 
 	static void calcMinMax( Model *m );
 
-
 	void displaySelectedModelInfo( void ) {
 		if( _modelSelected == NULL ) {
 			return;
@@ -24,7 +22,7 @@ namespace Spider3d {
 
 		calcMinMax( m );
 
-		char caOp[200], caOpType[40], caDTText[80], caDT[41], caDT2[41];
+		char caOpDates[80], caOpDate1[41], caOpDate2[41];
 		int iOpPair;
 
 		_fLeft = _fModelAreaRight;
@@ -34,6 +32,11 @@ namespace Spider3d {
 		_fW = _fRight - _fLeft;
 		_fH = _fTop - _fBottom;
 
+
+		double fLineHeight = 12.0 * _fWindowHeight / (double)_iWindowHeight;
+		double fBetweenLines = fLineHeight*1.25;
+
+/*
 		glMatrixMode( GL_PROJECTION );
 		glPushMatrix();
 		glLoadIdentity();
@@ -41,7 +44,7 @@ namespace Spider3d {
 		glMatrixMode( GL_MODELVIEW );
 		glPushMatrix();
 		glLoadIdentity();
-
+*/
 		iOpPair = 0;
 		std::map<time_t,Operation*>::reverse_iterator opPair = m->operations.rbegin();
 	    for( ; opPair != m->operations.rend() ; ++opPair, ++iOpPair ) {
@@ -49,67 +52,57 @@ namespace Spider3d {
 	    	Operation *op = opPair->second;
 
 			if( _tDisplayTime < op->tActualStart ) {
-				timetToStr( op->tActualStart, caDT, 40, false, false );
-				timetToStr( op->tActualFinish, caDT2, 40, false, false );
-				sprintf( caDTText, "[0%%]: %s - %s", caDT, caDT2 );
+				timetToStr( op->tActualStart, caOpDate1, 40, false, false );
+				timetToStr( op->tActualFinish, caOpDate2, 40, false, false );
+				sprintf( caOpDates, "[0%%]: %s - %s", caOpDate1, caOpDate1 );
 			} else if ( _tDisplayTime > op->tActualFinish ) {
-				timetToStr( op->tActualStart, caDT, 40, false, false );
-				timetToStr( op->tActualFinish, caDT2, 40, false, false );
-				sprintf( caDTText, "[100%%]: %s - %s", caDT, caDT2 );
+				timetToStr( op->tActualStart, caOpDate1, 40, false, false );
+				timetToStr( op->tActualFinish, caOpDate2, 40, false, false );
+				sprintf( caOpDates, "[100%%]: %s - %s", caOpDate1, caOpDate2 );
 			} else {
-				timetToStr( op->tActualStart, caDT, 40, false, false );
-				timetToStr( op->tActualFinish, caDT2, 40, false, false );
-				int pct = int( ( (_tDisplayTime - op->tActualStart)*100 ) / (op->tActualFinish - op->tActualStart) );  
-				sprintf( caDTText, "[%d%%] %s - %s", pct, caDT, caDT2 );
+				timetToStr( op->tActualStart, caOpDate1, 40, false, false );
+				timetToStr( op->tActualFinish, caOpDate2, 40, false, false );
+				int iPct = int( ( (_tDisplayTime - op->tActualStart)*100 ) / (op->tActualFinish - op->tActualStart) );  
+				sprintf( caOpDates, "[%d%%] %s - %s", iPct, caOpDate1, caOpDate2 );
 			}
-
-			std::string opTypeName;
-			if( op->opType != NULL ) {
-				strncpy( caOpType, opTypeName.c_str(), 40 );
-			} else {
-				strcpy( caOpType, "" );
-			}
-
-			//sprintf( caOp, "%s%s: %s", op->sName.c_str(), caOpType, caDTText );
-
-			double fUpperMargin = _fH*0.25;
-			double fBetweenLines = _fH*0.01;
 
 			//glColor3f( 1.0f, 1.0f, 1.0f );
 			glColor3f( op->opType->fR, op->opType->fG, op->opType->fB );
 
 			const char *cpOpName = op->sName.c_str();
 			//glRasterPos2f( _fLeft, _fTop - fUpperMargin - (double)(iOpPair*4)*fBetweenLines );
-			glRasterPos2f( _fMaxX, _fMaxY - (double)(iOpPair*4)*fBetweenLines );
+			glRasterPos3f( _fMaxX, _fMaxY - (double)(iOpPair*4)*fBetweenLines, _fMaxZ );
 			for( int i = 0 ; cpOpName[i] != '\x0' ; ++i ) {
 			    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, cpOpName[i] );
 			}
 			// glRasterPos2f( _fLeft, _fTop - fUpperMargin - (double)(iOpPair*4+1)*fBetweenLines );
-			glRasterPos2f( _fMaxX, _fMaxY - (double)(iOpPair*4+1)*fBetweenLines );
-			for( int i = 0 ; caOpType[i] != '\x0' ; ++i ) {
-			    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, caOpType[i] );
+			const char *cpOpType = op->opType->sName.c_str();
+			glRasterPos3f( _fMaxX, _fMaxY - (double)(iOpPair*4+1)*fBetweenLines, _fMaxZ );
+			for( int i = 0 ; cpOpType[i] != '\x0' ; ++i ) {
+			    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, cpOpType[i] );
 			}
 			//glRasterPos2f( _fLeft, _fTop - fUpperMargin - (double)(iOpPair*4+2)*fBetweenLines );
-			glRasterPos2f( _fMaxX, _fMaxY - (double)(iOpPair*4+2)*fBetweenLines );
-			for( int i = 0 ; caDTText[i] != '\x0' ; ++i ) {
-			    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, caDTText[i] );
+			glRasterPos3f( _fMaxX, _fMaxY - (double)(iOpPair*4+2)*fBetweenLines, _fMaxZ );
+			for( int i = 0 ; caOpDates[i] != '\x0' ; ++i ) {
+			    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, caOpDates[i] );
 			}
 		}
-
+/*
 		glPopMatrix();
 		glMatrixMode( GL_PROJECTION );
 		glPopMatrix();
 		glMatrixMode( GL_MODELVIEW );
 		//glutSwapBuffers();
+*/
 	}
 
 	static void calcMinMax( Model *m ) {		
 		bool bFirst = true;	    
 	    for( std::vector<Facet>::iterator fa = m->mFacets.begin() ; fa != m->mFacets.end() ; ++fa ) {
 		    for( std::vector<Vertex>::iterator ve = fa->mVertices.begin() ; ve != fa->mVertices.end() ; ++ve ) {
-				double x = (_faDisplayMatrix[0] * ve->mX) + (_faDisplayMatrix[4] * ve->mY) + (_faDisplayMatrix[8] * ve->mZ);
-			    double y = (_faDisplayMatrix[1] * ve->mX) + (_faDisplayMatrix[5] * ve->mY) + (_faDisplayMatrix[9] * ve->mZ);
-			    double z = (_faDisplayMatrix[2] * ve->mX) + (_faDisplayMatrix[6] * ve->mY) + (_faDisplayMatrix[10] * ve->mZ);
+				double x = (_faDisplayMVMatrix[0] * ve->mX) + (_faDisplayMVMatrix[4] * ve->mY) + (_faDisplayMVMatrix[8] * ve->mZ);
+			    double y = (_faDisplayMVMatrix[1] * ve->mX) + (_faDisplayMVMatrix[5] * ve->mY) + (_faDisplayMVMatrix[9] * ve->mZ);
+			    double z = (_faDisplayMVMatrix[2] * ve->mX) + (_faDisplayMVMatrix[6] * ve->mY) + (_faDisplayMVMatrix[10] * ve->mZ);
 			    if( bFirst ) {
 			    	_fMinX = _fMaxX = x; _fMinY = _fMaxY = y; _fMinZ = _fMaxZ = z;
 			    	bFirst = false;

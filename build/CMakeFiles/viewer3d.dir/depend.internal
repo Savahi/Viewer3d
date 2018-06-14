@@ -37,6 +37,13 @@ CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o
  ../include/operations.hpp
  ../include/optypes.hpp
  /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp
+CMakeFiles/viewer3d.dir/src/displaytools.cpp.o
+ ../include/display.hpp
+ ../include/helpers.hpp
+ ../include/models.hpp
+ ../include/operations.hpp
+ ../include/optypes.hpp
+ /home/user/Desktop/spider/Viewer3d/src/displaytools.cpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o
  ../include/helpers.hpp
  /home/user/Desktop/spider/Viewer3d/src/helpers.cpp

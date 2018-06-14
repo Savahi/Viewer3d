@@ -7,7 +7,10 @@ namespace Spider3d {
 	#define DISPLAY_AREA_RIGHT_PANE 0.75
 	#define DISPLAY_AREA_TOP_PANE 0.2
 
-	extern GLfloat _faDisplayMatrix[];
+	#define MOUSE_MOVES_PRESSED -100
+	#define MOUSE_MOVES_NOT_PRESSED -101
+
+	extern GLdouble _faDisplayMVMatrix[];
 
 	extern GLsizei _iWindowWidth, _iWindowHeight;
 
@@ -16,6 +19,8 @@ namespace Spider3d {
 
 	extern double _fModelsMinX, _fModelsMaxX, _fModelsMinY, _fModelsMaxY, _fModelsMinZ, _fModelsMaxZ;
 	extern double _fModelsW, _fModelsL, _fModelsH;
+
+	extern int _iModelsRotateX, _iModelsRotateY;
 
 	extern Model *_modelSelected;
 
@@ -31,5 +36,10 @@ namespace Spider3d {
 	void displayTimeScale( void );
 	bool catchMouseInTimeScale( int button, int state, int x, int y );
 
+	void displayTools( void );
+	bool catchMouseInTools( int button, int state, int x, int y );
+
 	void displayAxis( void );
+
+	extern bool _bDisplayAxisActive;
 }

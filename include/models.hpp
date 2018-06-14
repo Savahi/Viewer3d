@@ -1,5 +1,4 @@
 #pragma once 
-
 #include <string>
 #include <vector>
 #include <ctime>
@@ -50,7 +49,7 @@ namespace Spider3d {
 				return 0;
 			}
 
-			int clear( void ) {
+			void clear( void ) {
 				this->mVertices.clear();
 			}
 

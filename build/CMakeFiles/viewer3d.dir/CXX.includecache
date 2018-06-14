@@ -101,11 +101,11 @@ display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp
-GL/glut.h
--
 string.h
 -
 ctime
+-
+GL/glut.h
 -
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
@@ -117,11 +117,27 @@ display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp
-GL/glut.h
--
 string.h
 -
 ctime
+-
+GL/glut.h
+-
+operations.hpp
+/home/user/Desktop/spider/Viewer3d/src/operations.hpp
+optypes.hpp
+/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
+models.hpp
+/home/user/Desktop/spider/Viewer3d/src/models.hpp
+display.hpp
+/home/user/Desktop/spider/Viewer3d/src/display.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/displaytools.cpp
+string.h
+-
+ctime
+-
+GL/glut.h
 -
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp

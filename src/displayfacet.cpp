@@ -1,7 +1,5 @@
 
 #include <math.h>
-
-#define GL_GLEX_tPROTOTYPES
 #include <GL/glut.h>
 
 #include "models.hpp"
@@ -22,7 +20,7 @@ namespace Spider3d {
 			return;
 		}
 
-		if( !(dProgress < 1.0) or dProgress > 0.0 ) { 
+		if( !(dProgress < 1.0) || dProgress > 0.0 ) { 
 
 			glEnable( GL_BLEND );
 			glBlendEquation( GL_FUNC_ADD );
@@ -30,7 +28,7 @@ namespace Spider3d {
 			glColor4f( fR, fG, fB, 0.5+(dProgress*0.5) );
 			glBegin(GL_POLYGON);
 
-			if( iOrder == 0 and false ) {
+			if( iOrder == 0 && false ) {
 			    for( std::vector<Vertex>::iterator ve = facet.mVertices.begin() ; ve != facet.mVertices.end() ; ++ve ) {
 					glVertex3f( ve->mX, ve->mY, ve->mZ );
 			    }

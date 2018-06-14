@@ -155,7 +155,7 @@ namespace Spider3d {
     }
 
 
-    int timetToStr( time_t timetDT, char *cpBuffer, int iBufferSize, bool bAscTime, bool bHHMM ) {
+    int timetToStr( time_t timetDT, char *cpBuffer, int iBufferSize, bool bAscTime, bool bHHMM, char cDMYDelim ) {
         int iReturn = -1;
 
         strcpy( cpBuffer, "" );
@@ -175,9 +175,10 @@ namespace Spider3d {
                     (tmDT->tm_min >= 0) && (tmDT->tm_min <= 60) && iBufferSize > 28 ) 
         {
             if( (tmDT->tm_hour > 0 || tmDT->tm_min > 0) && bHHMM ) {
-                sprintf( cpBuffer, "%02d.%02d.%4d %02d:%02d", tmDT->tm_mday, (tmDT->tm_mon+1), (tmDT->tm_year+1900), tmDT->tm_hour, tmDT->tm_min );
+                sprintf( cpBuffer, "%02d%c%02d%c%4d %02d:%02d", 
+                    tmDT->tm_mday, cDMYDelim, (tmDT->tm_mon+1), cDMYDelim, (tmDT->tm_year+1900), tmDT->tm_hour, tmDT->tm_min );
             } else {
-                sprintf( cpBuffer, "%02d-%02d-%4d", tmDT->tm_mday, (tmDT->tm_mon+1), (tmDT->tm_year+1900) );            
+                sprintf( cpBuffer, "%02d%c%02d%c%4d", tmDT->tm_mday, cDMYDelim, (tmDT->tm_mon+1), cDMYDelim, (tmDT->tm_year+1900) );            
             }
             iReturn = 0;
         }

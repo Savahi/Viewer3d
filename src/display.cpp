@@ -3,8 +3,6 @@
 #include <stdio.h> 
 #include <string.h>
 #include <math.h>
-
-#define GL_GLEX_tPROTOTYPES
 #include <GL/glut.h>
 
 #include "models.hpp"
@@ -25,6 +23,10 @@ namespace Spider3d {
 
 	static void catchKeys( int key, int x, int y );
 	static void catchMouse ( int button, int state, int x, int y );
+	static bool catchMouseInModelArea( int button, int state, int x, int y );
+	static void catchMouseMotion( int x, int y );
+	static void catchMousePassiveMotion( int x, int y );
+
 	static void catchReshape( GLsizei width, GLsizei height );
 
 	static Models *_models;
@@ -32,7 +34,9 @@ namespace Spider3d {
 	static OpTypes *_opTypes;
 	Model *_modelSelected=NULL;
 
-	GLfloat _faDisplayMatrix[16];
+	GLdouble _faDisplayMVMatrix[16];
+	GLdouble _faDisplayPrjMatrix[16];
+	GLint _iaDisplayViewport[4];
 
 	GLsizei _iWindowWidth, _iWindowHeight;
 	double _fWindowLeft, _fWindowRight, _fWindowBottom, _fWindowTop, _fWindowWidth, _fWindowHeight;
@@ -40,12 +44,14 @@ namespace Spider3d {
 
 	double _fModelsMinX=0, _fModelsMaxX=0, _fModelsMinY=0, _fModelsMaxY=0, _fModelsMinZ=0, _fModelsMaxZ=0;
 	double _fModelsW=0, _fModelsL=0, _fModelsH=0;
-	static int _iModelsRotateX, _iModelsRotateY;
+	int _iModelsRotateX, _iModelsRotateY;
 	time_t _tDisplayTimeActual;
 	time_t _tDisplayTime;
 	time_t _tDisplayTimeMin, _tDisplayTimeMax; 
 
 	static int _iDateScaleRate = 50;
+
+	bool _bDisplayAxisActive = false;
 
 	static void displayInitializer( void ) {
 
@@ -138,15 +144,20 @@ namespace Spider3d {
 
 		glutInitWindowSize(800, 600);   // Set the window's initial width & height
 		glutInitWindowPosition(50, 50); // Position the window's initial top-left corner  
-		glutCreateWindow("How the Building has been being Built...");
+		glutCreateWindow("Viewer3d");
 
 		glEnable( GL_DEPTH_TEST ); // Enable Z-buffer depth test
 
+		glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
+		glLoadIdentity();             // Reset
+
 		// Callback functions
+		glutReshapeFunc(catchReshape);       // Register callback handler for window re-size event
 		glutDisplayFunc(displayFunc);
 		glutSpecialFunc(catchKeys);
 		glutMouseFunc(catchMouse);
-		glutReshapeFunc(catchReshape);       // Register callback handler for window re-size event
+		glutMotionFunc(catchMouseMotion);
+		glutPassiveMotionFunc(catchMousePassiveMotion);
 
 		//  Pass control to GLUT for events
 		glutMainLoop();
@@ -156,20 +167,10 @@ namespace Spider3d {
 	static void catchReshape( GLsizei width, GLsizei height ) {
 		_iWindowWidth = width;
 		_iWindowHeight = height;
-		// Set the viewport to cover the whole window
-		//glViewport( 0, 0, _iWindowWidth * DISPLAY_MODEL_W, _iWindowHeight * DISPLAY_MODEL_H );
+
+		// Seting the viewport to cover the whole window
 		glViewport( 0, 0, _iWindowWidth, _iWindowHeight );
-	}
-
-
-	static void displayFunc( void ) { 
-
-		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );   //  Clear screen and Z-buffer
-
-		displayTimeScale();
-
-		glMatrixMode(GL_PROJECTION);  // To operate on the Projection matrix
-		glLoadIdentity();             // Reset
+		glGetIntegerv( GL_VIEWPORT, _iaDisplayViewport );
 
 		_fModelAreaLeft = _fModelsMinX - _fModelsW*0.75;
 		_fModelAreaRight = _fModelsMaxX + _fModelsW*0.75;
@@ -181,15 +182,28 @@ namespace Spider3d {
 		_fWindowBottom = _fModelAreaBottom;
 		_fWindowTop = _fModelAreaTop + _fModelsH * DISPLAY_AREA_TOP_PANE;
 		_fWindowHeight = _fWindowTop - _fWindowBottom;
-		double fMarginZ = _fModelsL*0.75;
-		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, _fModelsMinZ - fMarginZ, _fModelsMaxZ + fMarginZ );
-		
-		glMatrixMode(GL_MODELVIEW); // To operate on model-view matrix
-	 
-	 	glLoadIdentity(); // Reset transformations
-	  
-		glPushMatrix();
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();		
+		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, _fModelsMinZ-_fModelsL*0.75, _fModelsMaxZ+_fModelsL*0.75 );
+		glGetDoublev( GL_PROJECTION_MATRIX, _faDisplayPrjMatrix );
+		/*
+		printf( "\nPRJ:[ %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g ]", 
+			_faDisplayPrjMatrix[0], _faDisplayPrjMatrix[1], _faDisplayPrjMatrix[2], _faDisplayPrjMatrix[3], 
+			_faDisplayPrjMatrix[4], _faDisplayPrjMatrix[5], _faDisplayPrjMatrix[6], _faDisplayPrjMatrix[7], 
+			_faDisplayPrjMatrix[8], _faDisplayPrjMatrix[9], _faDisplayPrjMatrix[10], _faDisplayPrjMatrix[11], 
+			_faDisplayPrjMatrix[12], _faDisplayPrjMatrix[13], _faDisplayPrjMatrix[14], _faDisplayPrjMatrix[15] );
+		*/		
+	}
 
+
+	static void displayFunc( void ) { 
+
+		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );   //  Clear screen and Z-buffer
+		
+		glMatrixMode(GL_MODELVIEW); // To operate on model-view matrix	 
+	 	glLoadIdentity(); // Reset transformations
+		glPushMatrix();
+	  
 		glTranslatef( (_fModelsMinX + _fModelsW/2.0), 0.0, (_fModelsMinZ + _fModelsL/2.0) );  
 		glRotatef( _iModelsRotateY, 0.0, 1.0, 0.0 );
 		glTranslatef( -(_fModelsMinX + _fModelsW/2.0), 0.0, -(_fModelsMinZ + _fModelsL/2.0) );  
@@ -198,19 +212,28 @@ namespace Spider3d {
 		glRotatef( _iModelsRotateX, 1.0, 0.0, 0.0 );
 		glTranslatef( 0.0, -(_fModelsMinY + _fModelsH/2.0), -(_fModelsMinZ + _fModelsL/2.0) );
 
-		glGetFloatv( GL_MODELVIEW_MATRIX, _faDisplayMatrix );
-
-		displayAxis();
-
+		glGetDoublev( GL_MODELVIEW_MATRIX, _faDisplayMVMatrix );
+		/*
+		printf( "\nMV: [ %g, %g, %g, %g, %g, %g, %g, %g,  %g, %g, %g, %g, %g, %g, %g, %g  ]", _faDisplayMVMatrix[0], _faDisplayMVMatrix[1],
+		 _faDisplayMVMatrix[2], _faDisplayMVMatrix[3], _faDisplayMVMatrix[4], _faDisplayMVMatrix[5], _faDisplayMVMatrix[6], 
+		 _faDisplayMVMatrix[7], _faDisplayMVMatrix[8], _faDisplayMVMatrix[9], _faDisplayMVMatrix[10], _faDisplayMVMatrix[11], 
+		 _faDisplayMVMatrix[12], _faDisplayMVMatrix[13], _faDisplayMVMatrix[14], _faDisplayMVMatrix[15] );
+		*/
 		displayModelsWithOperations();
 
 	    displayModelsWithZeroProgress();
 
+		displayAxis();
+
 		glPopMatrix();
+
+		displayTimeScale();
 
 		displaySelectedModelInfo();
 
-		glutSwapBuffers(); 
+		displayTools();
+
+		glutSwapBuffers(); 		
 	}
 
 	static void displayModelsWithZeroProgress() {
@@ -291,6 +314,28 @@ namespace Spider3d {
 	  glutPostRedisplay();
 	}
 
+	static void catchMouseMotion( int x, int y ) {
+		if( catchMouseInTimeScale( -1, MOUSE_MOVES_PRESSED, x, y ) ) {
+			glutPostRedisplay();
+			return;
+		}		
+		if( catchMouseInModelArea( -1, MOUSE_MOVES_PRESSED, x, y ) ) {
+			glutPostRedisplay();
+			return;
+		}
+	}
+
+	static void catchMousePassiveMotion( int x, int y ) {
+		if( catchMouseInTimeScale( -1, MOUSE_MOVES_NOT_PRESSED, x, y ) ) {
+			glutPostRedisplay();
+			return;
+		}		
+		if( catchMouseInModelArea( -1, MOUSE_MOVES_NOT_PRESSED, x, y ) ) {
+			glutPostRedisplay();
+			return;
+		}
+	}
+
 	static void catchMouse ( int button, int state, int x, int y ) {
 
 		if( catchMouseInTimeScale( button, state, x, y ) ) {
@@ -298,34 +343,45 @@ namespace Spider3d {
 			return;
 		}
 		
-		if( !(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) ) { 
+		if( catchMouseInTools( button, state, x, y ) ) {
+			glutPostRedisplay();
 			return;
 		}
 
-		double objx, objy, objz;
-		double modelview[16], projection[16];
-		int viewport[4];
-		float z;
+		if( catchMouseInModelArea( button, state, x, y ) ) {
+			glutPostRedisplay();
+		}
+	}
 
-		// get the modelview matrix		
-		glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
-		// get the projection matrix
-		glGetDoublev( GL_PROJECTION_MATRIX, projection );
-		// get the viewport		
-		glGetIntegerv( GL_VIEWPORT, viewport );
-		printf( "x=%d, y=%d, l=%d, b=%d, w=%d, h=%d\n", x, y, viewport[0], viewport[1], viewport[2], viewport[3] );
-		// Read the window z coordinate (the z value on that point in unit cube)		
-		//int vpY = viewport[3] - y + (_iWindowHeight * (1.0 - DISPLAY_MODEL_H));
-		glReadPixels( x, viewport[3] - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
-		printf("COLOR: %f\n", z );
+	static int _xPrev, _yPrev;
+
+	static bool catchMouseInModelArea( int button, int state, int x, int y ) {
+
+		double fY = _fWindowBottom + ( 1.0 - (double)y/(double)_iWindowHeight ) * _fWindowHeight;
+		double fX = _fWindowLeft + ( (double)x / (double)_iWindowWidth ) * _fWindowWidth;
+		if( fY > _fModelAreaTop || fX > _fModelAreaRight ) {
+			if( state == MOUSE_MOVES_PRESSED || state == MOUSE_MOVES_NOT_PRESSED ) { // Active or passive motion outside the bounds of the scale.
+				if( _bDisplayAxisActive ) {
+					_bDisplayAxisActive = false;
+					return true; // Redraw.
+				}
+			}
+			return false; // Do not redraw.
+		}
+
+		GLdouble objx, objy, objz;
+		GLfloat z;
+
+		glReadPixels( x, _iaDisplayViewport[3] - y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z );
+		//printf("Z-depth: %f\n", z );
 		// Unproject the window coordinates to find the world coordinates.
-		gluUnProject( x, viewport[3] - y, z, modelview, projection, viewport, &objx, &objy, &objz ); 
-
-		// std::cout << objx << " , " << objy << " , " << objz << "\n";
+		gluUnProject( x, _iaDisplayViewport[3] - y, z, _faDisplayMVMatrix, _faDisplayPrjMatrix, _iaDisplayViewport, &objx, &objy, &objz ); 
+		//printf( "Obj: %g,  %g,  %g\n", objx, objy, objz );        
 
 		Model *modelToSelect = NULL;
 		for( std::vector<Model>::iterator model = _models->mModels.begin() ; model != _models->mModels.end() ; ++model ) {
 		    double minX, maxX, minY, maxY, minZ, maxZ;
+		    
 		    bool coordsInitialized = false;
 		    for( std::vector<Facet>::iterator fa = (*model).mFacets.begin() ; fa != (*model).mFacets.end() ; ++fa ) {	
 			    for( std::vector<Vertex>::iterator ve = (*fa).mVertices.begin() ; ve != (*fa).mVertices.end() ; ++ve ) {
@@ -344,29 +400,59 @@ namespace Spider3d {
 			    	}
 			    }
 			}
-
+			if( !coordsInitialized ) {
+				continue;
+			}
+			
 			if( modelToSelect == NULL ) {
-				if( coordsInitialized ) {
-					if( !(objx < minX) && !(objx > maxX) && !(objy < minY) && !(objy > maxY) && !(objz < minZ) && !(objz > maxZ) ) {
-						if( _modelSelected != &(*model) ) {
-							modelToSelect = &(*model);
-						}
-					}
+				double dX=maxX-minX; 
+				double dY=maxY-minY;
+				double dZ=maxZ-minZ;
+				if( !(objx < minX - dX*0.01) && !(objx > maxX + dX*0.01) && 
+					!(objy < minY - dY*0.01) && !(objy > maxY + dY*0.01) && 
+					!(objz < minZ - dZ*0.01) && !(objz > maxZ + dZ*0.01) ) {
+					//if( _modelSelected != &(*model) ) {
+					//	modelToSelect = &(*model);
+					//	break;
+					//}
+					modelToSelect = &(*model);
+					break;
 				}
 			}
 		}
 
-		if( modelToSelect ) {
-			if( _modelSelected != modelToSelect ) {
+		bool bReturn = false;
+		if( modelToSelect ) { // The mouse cursor hovers above one of the models 
+			if( _bDisplayAxisActive ) {
+				_bDisplayAxisActive = false;
+				bReturn = true;
+			}
+
+			if( _modelSelected != modelToSelect && button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) {
 				_modelSelected = modelToSelect;
-				glutPostRedisplay();
+				bReturn = true;
+			} else if( _modelSelected == modelToSelect && button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) {
+				_modelSelected = NULL;				
+				bReturn = true;
 			}
-		} else {
-			if( _modelSelected != NULL ) {
-				_modelSelected = NULL;
-				glutPostRedisplay();
+		} else { // The mouse cursor hovers above the axis
+			if( state == MOUSE_MOVES_PRESSED && _bDisplayAxisActive ) {
+				if( x != _xPrev || y != _yPrev ) {
+					_iModelsRotateY += ( x - _xPrev );
+					_iModelsRotateX += ( _yPrev - y );
+					bReturn = true;					
+				}
 			}
+
+			if( !_bDisplayAxisActive ) {
+				_bDisplayAxisActive = true;
+				bReturn = true;
+			}
+
+			_xPrev = x;
+			_yPrev = y;
 		}
+		return bReturn;
 	}
 
 } // The end of the namespace

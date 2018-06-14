@@ -1,8 +1,6 @@
-
-#define GL_GLEX_tPROTOTYPES
-#include <GL/glut.h>
 #include <string.h>
 #include <ctime>
+#include <GL/glut.h>
 
 #include "operations.hpp"
 #include "optypes.hpp"
@@ -11,7 +9,7 @@
 
 namespace Spider3d {
 
-	static void drawText( time_t time, const char *cpText, int yPct=50, int align=0 );
+	static void drawText( time_t time, const char *cpText, int yPct=50, double fR=0.7, double fG=0.7, double fB=0.7 );
 	static void drawLine( double fX1, double fY1, double fX2, double fY2, double fR=1.0, double fG=1.0, double fB=1.0, double fO=1.0 );
 
 	static double timeToX( time_t time );
@@ -20,6 +18,8 @@ namespace Spider3d {
 
 	static double _fScaleAreaLeft, _fScaleAreaRight, _fScaleAreaBottom, _fScaleAreaTop, _fScaleAreaW, _fScaleAreaH;
 	static double _fScaleLeft, _fScaleRight, _fScaleW, _fScaleY, _fScaleExtra;
+
+	static bool _bScaleActive = false;
 
 	void displayTimeScale( void ) 
 	{
@@ -40,10 +40,10 @@ namespace Spider3d {
 
 		_fScaleY = _fScaleAreaBottom + _fScaleAreaH/2.0;
 
-		glMatrixMode( GL_PROJECTION );
-		glPushMatrix();
-		glLoadIdentity();
-		gluOrtho2D( _fWindowLeft, _fWindowRight, _fWindowBottom, _fWindowTop );
+		//glMatrixMode( GL_PROJECTION );
+		//glPushMatrix();
+		//glLoadIdentity();
+		//gluOrtho2D( _fWindowLeft, _fWindowRight, _fWindowBottom, _fWindowTop );
 		glMatrixMode( GL_MODELVIEW );
 		glPushMatrix();
 		glLoadIdentity();
@@ -52,31 +52,33 @@ namespace Spider3d {
 		_tScaleMax = _tDisplayTimeMax;
 		
 		// Drawing the scale
-		drawLine( _fScaleLeft - _fScaleExtra, _fScaleY, _fScaleRight + _fScaleExtra, _fScaleY );
+		double fR, fG, fB;
+		if( !_bScaleActive ) { fR = 0.5; fG=0.5; fB = 0.5; }
+		else { fR = 0.9; fG=0.9; fB = 0.9; }
+		drawLine( _fScaleLeft - _fScaleExtra, _fScaleY, _fScaleRight + _fScaleExtra, _fScaleY, fR, fB, fG );
 		double fScaleMark = _fScaleAreaH/20.0;
-		drawLine( _fScaleLeft, _fScaleY-fScaleMark, _fScaleLeft, _fScaleY+fScaleMark ); // _tDisplayTimeMin
-		drawLine( _fScaleRight, _fScaleY-fScaleMark, _fScaleRight, _fScaleY+fScaleMark ); // _tDisplayTimeMax
+		drawLine( _fScaleLeft, _fScaleY-fScaleMark, _fScaleLeft, _fScaleY+fScaleMark, fR, fB, fG ); // _tDisplayTimeMin
+		drawLine( _fScaleRight, _fScaleY-fScaleMark, _fScaleRight, _fScaleY+fScaleMark, fR, fB, fG ); // _tDisplayTimeMax
 		double xDisplayTime = timeToX( _tDisplayTime ); // _tDisplayTime
-		drawLine( xDisplayTime, _fScaleY - fScaleMark*2.0, xDisplayTime, _fScaleY+fScaleMark*2.0, 1.0, 0.0, 0.0, 0.5 ); // _tDisplayTime
+		drawLine( xDisplayTime, _fScaleY - fScaleMark*2.0, xDisplayTime, _fScaleY+fScaleMark*2.0, 1.0, 0.0, 0.0, 0.75 ); // _tDisplayTime
 
 		timetToStr( _tScaleMin, caBuffer, 40, false, false );
-		drawText( _tDisplayTimeMin, caBuffer, 60 );
+		drawText( _tDisplayTimeMin, caBuffer, 60, fR, fB, fG );
 		timetToStr( _tScaleMax, caBuffer, 40, false, false );
-		drawText( _tDisplayTimeMax, caBuffer, 60 );
+		drawText( _tDisplayTimeMax, caBuffer, 60, fR, fB, fG );
 
 		timetToStr( _tDisplayTime, caBuffer, 60, false, false );
-		drawText( _tDisplayTime, caBuffer, 5 );
+		drawText( _tDisplayTime, caBuffer, 5, fR, fB, fG );
 		//drawText( _tDisplayTimeActual, "" );
 
 		glPopMatrix();
-		glMatrixMode( GL_PROJECTION );
-		glPopMatrix();
-		glMatrixMode( GL_MODELVIEW );
+		//glMatrixMode( GL_PROJECTION );
+		//glPopMatrix();
 	}
 
-	static void drawText( time_t time, const char *cpText, int yPct, int align ) {
+	static void drawText( time_t time, const char *cpText, int yPct, double fR, double fG, double fB ) {
 		double x = timeToX( time );
-		glColor3f( 1.0f, 1.0f, 1.0f );
+		glColor3f( fR, fG, fB );
 		double y = _fScaleAreaBottom + _fScaleAreaH * (double)yPct / 100.0;
 		glRasterPos2f( x, y );
 
@@ -106,16 +108,27 @@ namespace Spider3d {
 
 	bool catchMouseInTimeScale( int button, int state, int x, int y ) {
 
-		if( !(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) ) {
+		if( !(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) && !(state==MOUSE_MOVES_PRESSED) && !(state==MOUSE_MOVES_NOT_PRESSED) ) {
 			return false;
 		}
 
 		double fY = _fWindowBottom + ( 1.0 - (double)y/(double)_iWindowHeight ) * _fWindowHeight;
-		if( fY < _fScaleAreaBottom ) {
-			return false;
-		}
 		double fX = _fWindowLeft + ( (double)x / (double)_iWindowWidth ) * _fWindowWidth;
-		if( fX > _fScaleAreaRight ) {
+		if( fY < _fScaleAreaBottom || fX > _fScaleAreaRight ) {
+			if( state == MOUSE_MOVES_PRESSED || state == MOUSE_MOVES_NOT_PRESSED ) { // Active or passive motion outside the bounds of the scale.
+				if( _bScaleActive ) {
+					_bScaleActive = false;
+					return true; // Redraw.
+				}
+			}
+			return false; // Do not redraw.
+		}
+
+		if( state == MOUSE_MOVES_NOT_PRESSED ) { // Passive motion over the scale
+			if( _bScaleActive == false ) { // The scale is not active yet.
+				_bScaleActive = true;
+				return true;
+			}
 			return false;
 		}
 

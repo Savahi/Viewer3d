@@ -258,6 +258,33 @@ src/displaytimescale.cpp.s:
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.s
 .PHONY : src/displaytimescale.cpp.s
 
+src/displaytools.o: src/displaytools.cpp.o
+
+.PHONY : src/displaytools.o
+
+# target to build an object file
+src/displaytools.cpp.o:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytools.cpp.o
+.PHONY : src/displaytools.cpp.o
+
+src/displaytools.i: src/displaytools.cpp.i
+
+.PHONY : src/displaytools.i
+
+# target to preprocess a source file
+src/displaytools.cpp.i:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytools.cpp.i
+.PHONY : src/displaytools.cpp.i
+
+src/displaytools.s: src/displaytools.cpp.s
+
+.PHONY : src/displaytools.s
+
+# target to generate assembly for a file
+src/displaytools.cpp.s:
+	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/displaytools.cpp.s
+.PHONY : src/displaytools.cpp.s
+
 src/helpers.o: src/helpers.cpp.o
 
 .PHONY : src/helpers.o
@@ -471,6 +498,9 @@ help:
 	@echo "... src/displaytimescale.o"
 	@echo "... src/displaytimescale.i"
 	@echo "... src/displaytimescale.s"
+	@echo "... src/displaytools.o"
+	@echo "... src/displaytools.i"
+	@echo "... src/displaytools.s"
 	@echo "... src/helpers.o"
 	@echo "... src/helpers.i"
 	@echo "... src/helpers.s"
