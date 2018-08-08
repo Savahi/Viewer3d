@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/Viewer3d.dir/src/Helpers.cpp.o CMakeFiles/Viewer3d.dir/src/Model3d.cpp.o CMakeFiles/Viewer3d.dir/src/Viewer3d.cpp.o  -o Viewer3d -lglut -lGL -lGLU 

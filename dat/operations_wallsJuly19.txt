@@ -1,0 +1,16 @@
+Code ; Name ; Type ; FactStart ; FactFin ; AsapStart ; AsapFin ; Model
+somecode1 ; Operation 1111 ; sometype1 ; 09.01.2007  08:00 ; 15.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 3Pfsc0h6P61v2EycUD0gqN
+somecode2 ; Operation 2222 ; sometype2 ; 15.01.2007  08:00 ; 20.01.2007  16:00 ; 10.01.2007  08:00 ; 21.01.2007  10:00 ; 2JuXRljVH1lAVD85_X3iHh
+somecode3 ; Operation 3333 ; sometype1 ; 15.01.2007  08:00 ; 25.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 2JuXRljVH1lAVD85_X3iM3
+somecode4 ; Operation 4444 ; sometype2 ; 25.01.2007  08:00 ; 30.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 2JuXRljVH1lAVD85_X3iKy
+somecode5 ; Operation 5555 ; sometype2 ; 25.01.2007  08:00 ; 05.02.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 2JuXRljVH1lAVD85_X3iKL
+somecode6 ; Operation 6666 ; sometype1 ; 20.02.2007  08:00 ; 30.02.2007  16:00 ; 20.01.2007  08:00 ; 30.01.2007  10:00 ; 005Zuk9110axXeKE0kulOg
+somecode7 ; Operation 7777 ; sometype1 ; 09.01.2007  08:00 ; 15.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 005Zuk9110axXeKE0kulMy
+somecode8 ; Operation 8888 ; sometype2 ; 15.01.2007  08:00 ; 20.01.2007  16:00 ; 10.01.2007  08:00 ; 21.01.2007  10:00 ; 1JmC8d7t19Ve0s7aURIkgZ
+somecode9 ; Operation 9999 ; sometype1 ; 15.01.2007  08:00 ; 25.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 1JmC8d7t19Ve0s7aURIkl9
+somecode10; Operation 1010 ; sometype2 ; 25.01.2007  08:00 ; 30.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 1JmC8d7t19Ve0s7aURIkje
+somecode11; Operation 1111 ; sometype2 ; 25.01.2007  08:00 ; 05.02.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 1JmC8d7t19Ve0s7aURIkiJ
+somecode12; Operation 1212 ; sometype1 ; 20.02.2007  08:00 ; 30.02.2007  16:00 ; 20.01.2007  08:00 ; 30.01.2007  10:00 ; 1JmC8d7t19Ve0s7aURIkpV
+somecode13; Operation 1313 ; sometype1 ; 09.01.2007  08:00 ; 15.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 3Pfsc0h6P61v2EycUD0gyu
+somecode14; Operation 1414 ; sometype2 ; 15.01.2007  08:00 ; 20.01.2007  16:00 ; 10.01.2007  08:00 ; 21.01.2007  10:00 ; 3Pfsc0h6P61v2EycUD0gmv
+somecode15; Operation 1515 ; sometype1 ; 15.01.2007  08:00 ; 25.01.2007  16:00 ; 30.01.2007  08:00 ; 31.01.2007  10:00 ; 3Pfsc0h6P61v2EycUD0g8r

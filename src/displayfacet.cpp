@@ -1,9 +1,7 @@
-
 #include <math.h>
-#include <GL/glut.h>
-
 #include "models.hpp"
 #include "display.hpp"
+#include <GL/glut.h>
 
 namespace Spider3d {
 	

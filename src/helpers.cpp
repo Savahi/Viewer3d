@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <string>
+#include <iostream>
 #include <ctype.h>
 #include "helpers.hpp"
 
@@ -116,7 +117,7 @@ namespace Spider3d {
         if( iStatus == 1 ) {
             iPosition = 0;
             for( i = 0 ; i < iStart ; i++ ) {
-                if( cpBuffer[i] == ';' ) {
+                if( cpBuffer[i] == '\t' ) {
                     iPosition++;
                 }
             }

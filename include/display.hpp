@@ -1,6 +1,6 @@
 #pragma once
-#include <GL/glut.h>
 #include "models.hpp"
+#include <GL/glut.h>
 
 namespace Spider3d {
 

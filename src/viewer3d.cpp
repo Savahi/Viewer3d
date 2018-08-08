@@ -15,17 +15,21 @@ static int loadIni( const char *configFile, std::map<std::string, std::string>& 
     std::ifstream infile( configFile );
     std::string line;
 
-    while( std::getline( infile, line ) )   {
-        std::istringstream iss_line( line );
-        std::string key;
-        if( std::getline( iss_line, key, '=' ) ) {
-            std::string value;
-            if( std::getline(iss_line, value ) ) {
-                configParameters[key] = value;
+    if( infile.is_open() ) {
+        while( std::getline( infile, line ) )   {
+            std::istringstream iss_line( line );
+            std::string key;
+            if( std::getline( iss_line, key, '=' ) ) {
+                std::string value;
+                if( std::getline(iss_line, value ) ) {
+                    configParameters[key] = value;
+                }
             }
         }
+        infile.close();
+        return 0;
     }
-    return 0;
+    return -1;
 }
 
 

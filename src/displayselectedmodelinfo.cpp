@@ -1,10 +1,10 @@
 #include <string.h>
 #include <ctime>
-#include <GL/glut.h>
 #include "operations.hpp"
 #include "optypes.hpp"
 #include "models.hpp"
 #include "display.hpp"
+#include <GL/glut.h>
 
 namespace Spider3d {
 

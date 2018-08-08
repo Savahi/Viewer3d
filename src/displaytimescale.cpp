@@ -1,11 +1,10 @@
 #include <string.h>
 #include <ctime>
-#include <GL/glut.h>
-
 #include "operations.hpp"
 #include "optypes.hpp"
 #include "models.hpp"
 #include "display.hpp"
+#include <GL/glut.h>
 
 namespace Spider3d {
 
@@ -80,7 +79,7 @@ namespace Spider3d {
 		double x = timeToX( time );
 		glColor3f( fR, fG, fB );
 		double y = _fScaleAreaBottom + _fScaleAreaH * (double)yPct / 100.0;
-		glRasterPos2f( x, y );
+		glRasterPos3f( x, y, 0 );
 
 		for( int i = 0 ; cpText[i] != '\x0' ; ++i ) {
 		    glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, cpText[i] );
@@ -90,8 +89,8 @@ namespace Spider3d {
 	static void drawLine( double fX1, double fY1, double fX2, double fY2, double fR, double fG, double fB, double fO  ) {
 		glColor4f( fR, fG, fB, fO );
 		glBegin(GL_LINES);
-		glVertex2f( fX1,fY1 );
-		glVertex2f( fX2,fY2 );
+		glVertex3f( fX1, fY1, 0 );
+		glVertex3f( fX2, fY2, 0  );
 		glEnd();
 	}
 
@@ -123,6 +122,9 @@ namespace Spider3d {
 			}
 			return false;
 		}
+		if( button == 3 or button == 4 ) {
+			return false;
+		}
 
 		time_t timeToSet = _tScaleMin + (fX - _fScaleLeft) * (_tScaleMax - _tScaleMin) / _fScaleW; 
 		if( timeToSet < _tDisplayTimeMin ) {
@@ -141,4 +143,37 @@ namespace Spider3d {
 		_tDisplayTime = timeToSet;
 	}
 
+/*
+			if( _tDisplayTime < _tDisplayTimeMin ) {
+				_tDisplayTime = _tDisplayTimeMin;				
+			} else { 
+				if( _tDisplayTime == _tDisplayTimeMax ) {
+					if( _tDisplayTime < _tDisplayTimeActual ) { 
+						_tDisplayTime = _tDisplayTimeActual; 
+					}
+				} else if( _tDisplayTime < _tDisplayTimeMax ) {
+					printf( "BEFORE: time=%ld, timeMax=%ld, timeActual=%ld\n", _tDisplayTime, _tDisplayTimeMax, _tDisplayTimeActual );					
+					_tDisplayTime += (_tDisplayTimeMax - _tDisplayTimeMin)/_iDateScaleRate;	
+					printf( "AFTER: time=%ld, timeMax=%ld, timeActual=%ld\n", _tDisplayTime, _tDisplayTimeMax, _tDisplayTimeActual );					
+					if( _tDisplayTime > _tDisplayTimeMax ) { 
+						_tDisplayTime = _tDisplayTimeMax; 
+						printf( "AND AFTER: time=%ld, timeMax=%ld, timeActual=%ld\n", _tDisplayTime, _tDisplayTimeMax, _tDisplayTimeActual );						
+					}
+				}
+			}
+			if ( _tDisplayTime > _tDisplayTimeMax ) { 
+				_tDisplayTime = _tDisplayTimeMax;
+			} else {
+				if( _tDisplayTime == _tDisplayTimeMin ) {
+					if( _tDisplayTime > _tDisplayTimeActual ) { 
+						_tDisplayTime = _tDisplayTimeActual; 
+					}
+				} else if( _tDisplayTime > _tDisplayTimeMin ) {
+					_tDisplayTime -= (_tDisplayTimeMax - _tDisplayTimeMin)/_iDateScaleRate;
+					if( _tDisplayTime < _tDisplayTimeMin ) { 
+						_tDisplayTime = _tDisplayTimeMin; 
+					} 
+				} 
+			}
+*/
 } // The end of the namespace

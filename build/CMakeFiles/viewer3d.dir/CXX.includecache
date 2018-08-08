@@ -7,10 +7,10 @@
 #IncludeRegexTransform: 
 
 ../include/display.hpp
-GL/glut.h
--
 models.hpp
 ../include/models.hpp
+GL/glut.h
+-
 
 ../include/helpers.hpp
 stdio.h
@@ -73,8 +73,6 @@ string.h
 -
 math.h
 -
-GL/glut.h
--
 models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 optypes.hpp
@@ -85,6 +83,8 @@ display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
 viewer3d.hpp
 /home/user/Desktop/spider/Viewer3d/src/viewer3d.hpp
+GL/glut.h
+-
 
 /home/user/Desktop/spider/Viewer3d/src/displayaxis.cpp
 display.hpp
@@ -93,20 +93,18 @@ display.hpp
 /home/user/Desktop/spider/Viewer3d/src/displayfacet.cpp
 math.h
 -
-GL/glut.h
--
 models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
+GL/glut.h
+-
 
 /home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp
 string.h
 -
 ctime
 -
-GL/glut.h
--
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
 optypes.hpp
@@ -115,14 +113,14 @@ models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
+GL/glut.h
+-
 
 /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp
 string.h
 -
 ctime
 -
-GL/glut.h
--
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
 optypes.hpp
@@ -131,14 +129,14 @@ models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
+GL/glut.h
+-
 
 /home/user/Desktop/spider/Viewer3d/src/displaytools.cpp
 string.h
 -
 ctime
 -
-GL/glut.h
--
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
 optypes.hpp
@@ -147,6 +145,8 @@ models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
+GL/glut.h
+-
 
 /home/user/Desktop/spider/Viewer3d/src/helpers.cpp
 stdio.h
@@ -156,6 +156,8 @@ string.h
 stdlib.h
 -
 string
+-
+iostream
 -
 ctype.h
 -
@@ -180,6 +182,8 @@ stdio.h
 stdlib.h
 -
 string.h
+-
+iostream
 -
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp

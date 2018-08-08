@@ -3,13 +3,12 @@
 #include <stdio.h> 
 #include <string.h>
 #include <math.h>
-#include <GL/glut.h>
-
 #include "models.hpp"
 #include "optypes.hpp"
 #include "operations.hpp"
 #include "display.hpp"
 #include "viewer3d.hpp"
+#include <GL/glut.h>
 
 namespace Spider3d {
 
@@ -55,7 +54,7 @@ namespace Spider3d {
 	time_t _tDisplayTime;
 	time_t _tDisplayTimeMin, _tDisplayTimeMax; 
 
-	static int _iDateScaleRate = 50;
+	static int _iDateScaleRate = 200;
 
 	bool _bDisplayAxisActive = false;
 
@@ -178,6 +177,44 @@ namespace Spider3d {
 		glViewport( 0, 0, _iWindowWidth, _iWindowHeight );
 		glGetIntegerv( GL_VIEWPORT, _iaDisplayViewport );
 
+		double minX, maxX, minZ, maxZ;
+		if( (_fModelsMaxX - _fModelsMinX) > (_fModelsMaxZ - _fModelsMinZ) ) {
+			minX = _fModelsMinX; maxX = _fModelsMaxX;
+			minZ = _fModelsMinZ; maxZ = _fModelsMaxZ;
+		} else {
+			minX = _fModelsMinZ; maxX = _fModelsMaxZ;
+			minZ = _fModelsMinX; maxZ = _fModelsMaxX;			
+		}
+		double minY = _fModelsMinY, maxY = _fModelsMaxY;
+		double windowProportions = (double)_iWindowHeight / (double)_iWindowWidth;
+		double modelsDeltaY = maxY - minY;
+		double modelsDeltaX = maxX - minX;
+		if( modelsDeltaY / modelsDeltaX > windowProportions ) {
+			double modelsDeltaXNew = modelsDeltaY / windowProportions;
+			minX = minX - ( modelsDeltaXNew - modelsDeltaX )/2.0;
+			maxX = maxX + ( modelsDeltaXNew - modelsDeltaX )/2.0;
+		} else {
+			double modelsDeltaYNew = modelsDeltaX * windowProportions;
+			minY = minY - ( modelsDeltaYNew - modelsDeltaY )/2.0;
+			maxY = maxY + ( modelsDeltaYNew - modelsDeltaY )/2.0;			
+		}
+
+		_fModelAreaLeft = minX - (maxX-minX)*0.75;
+		_fModelAreaRight = maxX + (maxX-minX)*0.75;
+		_fModelAreaBottom = minY - (maxY-minY)*0.75;
+		_fModelAreaTop = maxY + (maxY-minY)*0.75;
+		_fWindowLeft = _fModelAreaLeft;
+		_fWindowRight = _fModelAreaRight + (maxX-minX) * DISPLAY_AREA_RIGHT_PANE;
+		_fWindowWidth = _fWindowRight - _fWindowLeft;
+		_fWindowBottom = _fModelAreaBottom;
+		_fWindowTop = _fModelAreaTop + (maxY-minY) * DISPLAY_AREA_TOP_PANE;
+		_fWindowHeight = _fWindowTop - _fWindowBottom;
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();		
+		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, -(minX-(maxX-minX)*0.75), -(maxX+(maxX-minX)*0.75) );
+		glGetDoublev( GL_PROJECTION_MATRIX, _faDisplayPrjMatrix );
+
+		/*
 		_fModelAreaLeft = _fModelsMinX - _fModelsW*0.75;
 		_fModelAreaRight = _fModelsMaxX + _fModelsW*0.75;
 		_fModelAreaBottom = _fModelsMinY - _fModelsH*0.5;
@@ -190,8 +227,9 @@ namespace Spider3d {
 		_fWindowHeight = _fWindowTop - _fWindowBottom;
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();		
-		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, _fModelsMinZ-_fModelsL*0.75, _fModelsMaxZ+_fModelsL*0.75 );
+		glOrtho( _fModelAreaLeft, _fWindowRight, _fModelAreaBottom, _fWindowTop, -(_fModelsMinZ-_fModelsL*0.75), -(_fModelsMaxZ+_fModelsL*0.75) );
 		glGetDoublev( GL_PROJECTION_MATRIX, _faDisplayPrjMatrix );
+		*/
 		/*
 		printf( "\nPRJ:[ %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g, %g ]", 
 			_faDisplayPrjMatrix[0], _faDisplayPrjMatrix[1], _faDisplayPrjMatrix[2], _faDisplayPrjMatrix[3], 
@@ -350,11 +388,12 @@ namespace Spider3d {
 		}
 	}
 
-	static int _xPrev, _yPrev;
+	static int _fAxisAreaPrevX, _fAxisAreaPrevY;
+	static bool _bAxisAreaCaptured = false;
 
 	static bool catchMouseInModelArea( int button, int state, int x, int y, double fX, double fY ) {
 
-		if( fY > _fModelAreaTop || fX > _fModelAreaRight ) {
+		if( fY > _fModelAreaTop || fX > _fModelAreaRight ) { // The mouse cursor is outside the model area
 			bool bReturn = false;
 			if( state == MOUSE_MOVES_PRESSED || state == MOUSE_MOVES_NOT_PRESSED ) { // Active or passive motion outside the bounds of the scale.
 				if( _bDisplayAxisActive ) {
@@ -365,6 +404,9 @@ namespace Spider3d {
 					_modelTouched = NULL;
 					bReturn = true; // Redraw.
 				}
+			}
+			if( _bAxisAreaCaptured ) {
+				_bAxisAreaCaptured = false;
 			}
 			return bReturn; 
 		}
@@ -427,6 +469,9 @@ namespace Spider3d {
 				_bDisplayAxisActive = false;
 				bReturn = true;
 			}
+			if( _bAxisAreaCaptured ) {
+				_bAxisAreaCaptured = false;
+			}
 			if( _modelSelected != modelToSelect && button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) {
 				_modelSelected = modelToSelect;
 				bReturn = true;
@@ -438,16 +483,24 @@ namespace Spider3d {
 				bReturn = true;
 			}
 		} else { // The mouse cursor hovers above the axis
+			if( button == 4 ) { // A mouse wheel rotates up.
+				incrementRotationAngle( _iModelsRotateX, 1 );
+				return true;
+			}
+			if( button == 3 ) { // A mouse wheel rotates down.
+				incrementRotationAngle( _iModelsRotateX, -1 );
+				return true;
+			}			
 			if( state == MOUSE_MOVES_NOT_PRESSED ) {
 				_modelTouched = NULL;
 				bReturn = true;		
 			}	
-			if( state == MOUSE_MOVES_PRESSED && _bDisplayAxisActive ) {
-				if( x != _xPrev || y != _yPrev ) {
+			if( state == MOUSE_MOVES_PRESSED && _bDisplayAxisActive && _bAxisAreaCaptured ) {
+				if( x != _fAxisAreaPrevX || y != _fAxisAreaPrevY ) {
 					// _iModelsRotateY += ( x - _xPrev );
 					// _iModelsRotateX += ( _yPrev - y );
-					incrementRotationAngle( _iModelsRotateY, x -_xPrev );
-					incrementRotationAngle( _iModelsRotateX, y - _yPrev );
+					incrementRotationAngle( _iModelsRotateY, x -_fAxisAreaPrevX );
+					incrementRotationAngle( _iModelsRotateX, y - _fAxisAreaPrevY );
 					bReturn = true;					
 				}
 			}
@@ -456,8 +509,14 @@ namespace Spider3d {
 				bReturn = true;
 			}
 
-			_xPrev = x;
-			_yPrev = y;
+			if( button == GLUT_LEFT_BUTTON && state == GLUT_DOWN ) {
+				_bAxisAreaCaptured = true;	
+			} else if( button == GLUT_LEFT_BUTTON && state == GLUT_UP ) {
+				_bAxisAreaCaptured = false;	
+			}
+
+			_fAxisAreaPrevX = x;
+			_fAxisAreaPrevY = y;
 		}
 		return bReturn;
 	}

@@ -75,19 +75,19 @@ namespace Spider3d {
         if( cpLine == NULL ) {
             return -1;
         }
-
-        status = getValuesByColumnPos( cpLine, &codeIndex, &nameIndex, &descriptionIndex, &notesIndex );
-        if( status == 0 ) {
-            Model model;
-            parseModel( model, &cpLine[descriptionIndex] );
-            if( model.numFacets() > 0 ) {
-                model.setCode( trimString(&cpLine[codeIndex]) );
-                model.setName( &cpLine[nameIndex] );
-                model.setNotes( &cpLine[notesIndex] );
-                models.add(model);
+        if( cpLine[0] != '/' && cpLine[0] != '#' ) { // Not a comment
+            status = getValuesByColumnPos( cpLine, &codeIndex, &nameIndex, &descriptionIndex, &notesIndex );
+            if( status == 0 ) {
+                Model model;
+                parseModel( model, &cpLine[descriptionIndex] );
+                if( model.numFacets() > 0 ) {
+                    model.setCode( trimString(&cpLine[codeIndex]) );
+                    model.setName( &cpLine[nameIndex] );
+                    model.setNotes( &cpLine[notesIndex] );
+                    models.add(model);
+                }
             }
         }
-
         free(cpLine);
         return 0;
     }
@@ -102,6 +102,7 @@ namespace Spider3d {
 
         lenText = strlen( cpText );
 
+        // Searching for the faces and points inside
         facetEnd = 0;
         while(1) {
             status = findTagContent( cpText, "facet", facetEnd, lenText, &facetStart, &facetEnd );
@@ -127,7 +128,8 @@ namespace Spider3d {
                     numBuffered++;
                 }
                 caBuffer[ numBuffered ] = '\x0';
-                status = sscanf( caBuffer, " %f %f %f", &fX, &fY, &fZ );
+                //status = sscanf( caBuffer, " %f %f %f", &fX, &fY, &fZ );
+                status = sscanf( caBuffer, " %f %f %f", &fX, &fZ, &fY ); // Y goes up in openGL
                 if( status == 3 ) {
                     Vertex vertex( fX, fY, fZ );
                     facet.add(vertex);
@@ -136,6 +138,7 @@ namespace Spider3d {
             model.add(facet);
         }
 
+        // Searchingfor the boxes
         boxEnd = 0;
         while(1) {
             status = findTagContent( cpText, "box", boxEnd, lenText, &boxStart, &boxEnd );
@@ -153,7 +156,8 @@ namespace Spider3d {
                 numBuffered++;
             }
             caBuffer[ numBuffered ] = '\x0'; 
-            status = sscanf( caBuffer, " %f %f %f %f %f %f", &xLeft, &yBottom, &zNear, &xRight, &yTop, &zFar );
+            //status = sscanf( caBuffer, " %f %f %f %f %f %f", &xLeft, &yBottom, &zNear, &xRight, &yTop, &zFar );
+            status = sscanf( caBuffer, " %f %f %f %f %f %f", &xLeft, &zNear, &yBottom, &xRight, &zFar, &yTop );
             if( status == 6 ) {
                 Facet facet;
                 Vertex vertex;

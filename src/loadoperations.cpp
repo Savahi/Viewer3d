@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 #include "helpers.hpp"
 #include "operations.hpp"
 
@@ -142,7 +143,7 @@ namespace Spider3d {
             } else if( iPos == _iModelPos && *ipModel == -1 ) {
                 *ipModel = i;
             } 
-            if( cpLine[i] == ';' ) {
+            if( cpLine[i] == '\t' ) {
                 iPos++;
                 cpLine[i] = '\x0';
             } else if( cpLine[i] == '\r' || cpLine[i] == '\n') {
@@ -179,31 +180,34 @@ namespace Spider3d {
         int iStatus;
 
         iStatus = parseDate( cpActualStart, operation.tmActualStart );
-        if( iStatus == -1 ) {
-            return -1;
+        if( iStatus != -1 ) {
+            operation.tActualStart = mktime( &(operation.tmActualStart) );
+        } else {
+            operation.tActualStart = 0;            
         }
-        operation.tActualStart = mktime( &(operation.tmActualStart) );
-
         iStatus = parseDate( cpActualFinish, operation.tmActualFinish );
-        if( iStatus == -1 ) {
-            return -1;
+        if( iStatus != -1 ) {
+            operation.tActualFinish = mktime( &(operation.tmActualFinish) );
+        } else {
+            operation.tActualFinish = 0;
         }
-        operation.tActualFinish = mktime( &(operation.tmActualFinish) );
         
         iStatus = parseDate( cpAsapStart, operation.tmAsapStart );
-        if( iStatus == -1 ) {
-            return -1;
+        if( iStatus != -1 ) {
+            operation.tAsapStart = mktime( &(operation.tmAsapStart) );
+        } else {
+            operation.tAsapStart = 0;
         }
-        operation.tAsapStart = mktime( &(operation.tmAsapStart) );
 
         iStatus = parseDate( cpAsapFinish, operation.tmAsapFinish );
-        if( iStatus == -1 ) {
-            return -1;
+        if( iStatus != -1 ) {
+            operation.tAsapFinish = mktime( &(operation.tmAsapFinish) );
+        } else {
+            operation.tAsapFinish = 0;            
         }
-        operation.tAsapFinish = mktime( &(operation.tmAsapFinish) );
         
         operation.bDatesInitialized = true;
-
+        
         return 0;
     }
 
