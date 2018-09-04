@@ -334,7 +334,6 @@ src/loadmodels.o: src/loadmodels.cpp.o
 
 # target to build an object file
 src/loadmodels.cpp.o:
-	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadmodels.cpp.o
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o
 .PHONY : src/loadmodels.cpp.o
 
@@ -344,7 +343,6 @@ src/loadmodels.i: src/loadmodels.cpp.i
 
 # target to preprocess a source file
 src/loadmodels.cpp.i:
-	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadmodels.cpp.i
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadmodels.cpp.i
 .PHONY : src/loadmodels.cpp.i
 
@@ -354,7 +352,6 @@ src/loadmodels.s: src/loadmodels.cpp.s
 
 # target to generate assembly for a file
 src/loadmodels.cpp.s:
-	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadmodels.cpp.s
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadmodels.cpp.s
 .PHONY : src/loadmodels.cpp.s
 
@@ -388,13 +385,66 @@ src/loadoperations.cpp.s:
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoperations.cpp.s
 .PHONY : src/loadoperations.cpp.s
 
+src/loadoplinks.o: src/loadoplinks.cpp.o
+
+.PHONY : src/loadoplinks.o
+
+# target to build an object file
+src/loadoplinks.cpp.o:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadoplinks.cpp.o
+.PHONY : src/loadoplinks.cpp.o
+
+src/loadoplinks.i: src/loadoplinks.cpp.i
+
+.PHONY : src/loadoplinks.i
+
+# target to preprocess a source file
+src/loadoplinks.cpp.i:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadoplinks.cpp.i
+.PHONY : src/loadoplinks.cpp.i
+
+src/loadoplinks.s: src/loadoplinks.cpp.s
+
+.PHONY : src/loadoplinks.s
+
+# target to generate assembly for a file
+src/loadoplinks.cpp.s:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadoplinks.cpp.s
+.PHONY : src/loadoplinks.cpp.s
+
+src/loadopresassignments.o: src/loadopresassignments.cpp.o
+
+.PHONY : src/loadopresassignments.o
+
+# target to build an object file
+src/loadopresassignments.cpp.o:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o
+.PHONY : src/loadopresassignments.cpp.o
+
+src/loadopresassignments.i: src/loadopresassignments.cpp.i
+
+.PHONY : src/loadopresassignments.i
+
+# target to preprocess a source file
+src/loadopresassignments.cpp.i:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadopresassignments.cpp.i
+.PHONY : src/loadopresassignments.cpp.i
+
+src/loadopresassignments.s: src/loadopresassignments.cpp.s
+
+.PHONY : src/loadopresassignments.s
+
+# target to generate assembly for a file
+src/loadopresassignments.cpp.s:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadopresassignments.cpp.s
+.PHONY : src/loadopresassignments.cpp.s
+
 src/loadoptypes.o: src/loadoptypes.cpp.o
 
 .PHONY : src/loadoptypes.o
 
 # target to build an object file
 src/loadoptypes.cpp.o:
-	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadoptypes.cpp.o
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o
 .PHONY : src/loadoptypes.cpp.o
 
@@ -404,7 +454,6 @@ src/loadoptypes.i: src/loadoptypes.cpp.i
 
 # target to preprocess a source file
 src/loadoptypes.cpp.i:
-	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadoptypes.cpp.i
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.i
 .PHONY : src/loadoptypes.cpp.i
 
@@ -414,9 +463,35 @@ src/loadoptypes.s: src/loadoptypes.cpp.s
 
 # target to generate assembly for a file
 src/loadoptypes.cpp.s:
-	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadoptypes.cpp.s
 	$(MAKE) -f CMakeFiles/viewer3d.dir/build.make CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.s
 .PHONY : src/loadoptypes.cpp.s
+
+src/loadresources.o: src/loadresources.cpp.o
+
+.PHONY : src/loadresources.o
+
+# target to build an object file
+src/loadresources.cpp.o:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadresources.cpp.o
+.PHONY : src/loadresources.cpp.o
+
+src/loadresources.i: src/loadresources.cpp.i
+
+.PHONY : src/loadresources.i
+
+# target to preprocess a source file
+src/loadresources.cpp.i:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadresources.cpp.i
+.PHONY : src/loadresources.cpp.i
+
+src/loadresources.s: src/loadresources.cpp.s
+
+.PHONY : src/loadresources.s
+
+# target to generate assembly for a file
+src/loadresources.cpp.s:
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadresources.cpp.s
+.PHONY : src/loadresources.cpp.s
 
 src/models.o: src/models.cpp.o
 
@@ -563,9 +638,18 @@ help:
 	@echo "... src/loadoperations.o"
 	@echo "... src/loadoperations.i"
 	@echo "... src/loadoperations.s"
+	@echo "... src/loadoplinks.o"
+	@echo "... src/loadoplinks.i"
+	@echo "... src/loadoplinks.s"
+	@echo "... src/loadopresassignments.o"
+	@echo "... src/loadopresassignments.i"
+	@echo "... src/loadopresassignments.s"
 	@echo "... src/loadoptypes.o"
 	@echo "... src/loadoptypes.i"
 	@echo "... src/loadoptypes.s"
+	@echo "... src/loadresources.o"
+	@echo "... src/loadresources.i"
+	@echo "... src/loadresources.s"
 	@echo "... src/models.o"
 	@echo "... src/models.i"
 	@echo "... src/models.s"

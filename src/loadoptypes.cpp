@@ -12,7 +12,7 @@ namespace Spider3d {
     static char caName[] = "Name";
     static char caColor[] = "Color";
 
-    int nFields = 3;
+    static int nFields = 3;
     static char *cpaFields[] = { caCode, caName, caColor };
     static int  *ipaFields[] = { &_iCodePos, &_iNamePos, &_iColorPos };
 

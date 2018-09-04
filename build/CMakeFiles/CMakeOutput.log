@@ -28,28 +28,28 @@ The CXX compiler identification is GNU, found in "/home/user/Desktop/spider/View
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_04700/fast"
-/usr/bin/make -f CMakeFiles/cmTC_04700.dir/build.make CMakeFiles/cmTC_04700.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_e884a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e884a.dir/build.make CMakeFiles/cmTC_e884a.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_04700.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_04700.dir/testCCompiler.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_04700
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_04700.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_04700.dir/testCCompiler.c.o  -o cmTC_04700 
+Building C object CMakeFiles/cmTC_e884a.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_e884a.dir/testCCompiler.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_e884a
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e884a.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_e884a.dir/testCCompiler.c.o  -o cmTC_e884a 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a3460/fast"
-/usr/bin/make -f CMakeFiles/cmTC_a3460.dir/build.make CMakeFiles/cmTC_a3460.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_46d1d/fast"
+/usr/bin/make -f CMakeFiles/cmTC_46d1d.dir/build.make CMakeFiles/cmTC_46d1d.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o   -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_a3460
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3460.dir/link.txt --verbose=1
-/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o  -o cmTC_a3460 
+Building C object CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o   -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_46d1d
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_46d1d.dir/link.txt --verbose=1
+/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o  -o cmTC_46d1d 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper
@@ -59,8 +59,8 @@ Thread model: posix
 gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.4) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_a3460' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_a3460 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_46d1d' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_46d1d /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
@@ -68,14 +68,14 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_a3460/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_a3460.dir/build.make CMakeFiles/cmTC_a3460.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_46d1d/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_46d1d.dir/build.make CMakeFiles/cmTC_46d1d.dir/build]
   ignore line: [make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o   -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_a3460]
-  ignore line: [/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a3460.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o  -o cmTC_a3460 ]
+  ignore line: [Building C object CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o   -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_46d1d]
+  ignore line: [/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_46d1d.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o  -o cmTC_46d1d ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper]
@@ -85,8 +85,8 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.4) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_a3460' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_a3460 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_46d1d' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_46d1d /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -100,7 +100,7 @@ Parsed C implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_a3460] ==> ignore
+    arg [cmTC_46d1d] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o] ==> ignore
@@ -112,7 +112,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..]
-    arg [CMakeFiles/cmTC_a3460.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_46d1d.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -142,14 +142,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_1f850/fast"
-/usr/bin/make -f CMakeFiles/cmTC_1f850.dir/build.make CMakeFiles/cmTC_1f850.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_e0a16/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e0a16.dir/build.make CMakeFiles/cmTC_e0a16.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_1f850.dir/feature_tests.c.o
-/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_1f850.dir/feature_tests.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_1f850
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1f850.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_1f850.dir/feature_tests.c.o  -o cmTC_1f850 
+Building C object CMakeFiles/cmTC_e0a16.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTC_e0a16.dir/feature_tests.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_e0a16
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e0a16.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_e0a16.dir/feature_tests.c.o  -o cmTC_e0a16 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
@@ -162,14 +162,14 @@ make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_fcaf8/fast"
-/usr/bin/make -f CMakeFiles/cmTC_fcaf8.dir/build.make CMakeFiles/cmTC_fcaf8.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_8bfd8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8bfd8.dir/build.make CMakeFiles/cmTC_8bfd8.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_fcaf8.dir/feature_tests.c.o
-/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_fcaf8.dir/feature_tests.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_fcaf8
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fcaf8.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_fcaf8.dir/feature_tests.c.o  -o cmTC_fcaf8 
+Building C object CMakeFiles/cmTC_8bfd8.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTC_8bfd8.dir/feature_tests.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_8bfd8
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8bfd8.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_8bfd8.dir/feature_tests.c.o  -o cmTC_8bfd8 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
@@ -182,14 +182,14 @@ make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_09bee/fast"
-/usr/bin/make -f CMakeFiles/cmTC_09bee.dir/build.make CMakeFiles/cmTC_09bee.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_6d7fb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_6d7fb.dir/build.make CMakeFiles/cmTC_6d7fb.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_09bee.dir/feature_tests.c.o
-/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_09bee.dir/feature_tests.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_09bee
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_09bee.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_09bee.dir/feature_tests.c.o  -o cmTC_09bee 
+Building C object CMakeFiles/cmTC_6d7fb.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTC_6d7fb.dir/feature_tests.c.o   -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_6d7fb
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6d7fb.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_6d7fb.dir/feature_tests.c.o  -o cmTC_6d7fb 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
@@ -200,28 +200,28 @@ make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_df6e6/fast"
-/usr/bin/make -f CMakeFiles/cmTC_df6e6.dir/build.make CMakeFiles/cmTC_df6e6.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_7d979/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7d979.dir/build.make CMakeFiles/cmTC_7d979.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_df6e6.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTC_df6e6.dir/testCXXCompiler.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_df6e6
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_df6e6.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_df6e6.dir/testCXXCompiler.cxx.o  -o cmTC_df6e6 
+Building CXX object CMakeFiles/cmTC_7d979.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTC_7d979.dir/testCXXCompiler.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_7d979
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7d979.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_7d979.dir/testCXXCompiler.cxx.o  -o cmTC_7d979 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f176a/fast"
-/usr/bin/make -f CMakeFiles/cmTC_f176a.dir/build.make CMakeFiles/cmTC_f176a.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_4b7e2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4b7e2.dir/build.make CMakeFiles/cmTC_4b7e2.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_f176a
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f176a.dir/link.txt --verbose=1
-/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_f176a 
+Building CXX object CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_4b7e2
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4b7e2.dir/link.txt --verbose=1
+/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_4b7e2 
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper
@@ -231,8 +231,8 @@ Thread model: posix
 gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.4) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_f176a' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_f176a /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_4b7e2' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_4b7e2 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
@@ -240,14 +240,14 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_f176a/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_f176a.dir/build.make CMakeFiles/cmTC_f176a.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_4b7e2/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_4b7e2.dir/build.make CMakeFiles/cmTC_4b7e2.dir/build]
   ignore line: [make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_f176a]
-  ignore line: [/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f176a.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_f176a ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o -c /home/user/Desktop/install/cmake/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_4b7e2]
+  ignore line: [/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4b7e2.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_4b7e2 ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.8/lto-wrapper]
@@ -257,8 +257,8 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.4) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.8/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_f176a' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_f176a /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_4b7e2' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.8/collect2 --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_4b7e2 /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.8 -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../.. CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.8/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -272,7 +272,7 @@ Parsed CXX implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_f176a] ==> ignore
+    arg [cmTC_4b7e2] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.8/crtbegin.o] ==> ignore
@@ -284,7 +284,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.8/../../..]
-    arg [CMakeFiles/cmTC_f176a.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_4b7e2.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -312,14 +312,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1y] compiler features compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_747f6/fast"
-/usr/bin/make -f CMakeFiles/cmTC_747f6.dir/build.make CMakeFiles/cmTC_747f6.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f26ff/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f26ff.dir/build.make CMakeFiles/cmTC_f26ff.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_747f6.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++1y -o CMakeFiles/cmTC_747f6.dir/feature_tests.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_747f6
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_747f6.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_747f6.dir/feature_tests.cxx.o  -o cmTC_747f6 
+Building CXX object CMakeFiles/cmTC_f26ff.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++1y -o CMakeFiles/cmTC_f26ff.dir/feature_tests.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_f26ff
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f26ff.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_f26ff.dir/feature_tests.cxx.o  -o cmTC_f26ff 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
@@ -385,14 +385,14 @@ make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_dcdd4/fast"
-/usr/bin/make -f CMakeFiles/cmTC_dcdd4.dir/build.make CMakeFiles/cmTC_dcdd4.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_a6e91/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a6e91.dir/build.make CMakeFiles/cmTC_a6e91.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_dcdd4.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_dcdd4.dir/feature_tests.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_dcdd4
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dcdd4.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_dcdd4.dir/feature_tests.cxx.o  -o cmTC_dcdd4 
+Building CXX object CMakeFiles/cmTC_a6e91.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTC_a6e91.dir/feature_tests.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_a6e91
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a6e91.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_a6e91.dir/feature_tests.cxx.o  -o cmTC_a6e91 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 
@@ -458,14 +458,14 @@ make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5e359/fast"
-/usr/bin/make -f CMakeFiles/cmTC_5e359.dir/build.make CMakeFiles/cmTC_5e359.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_acb60/fast"
+/usr/bin/make -f CMakeFiles/cmTC_acb60.dir/build.make CMakeFiles/cmTC_acb60.dir/build
 make[1]: Entering directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_5e359.dir/feature_tests.cxx.o
-/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_5e359.dir/feature_tests.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_5e359
-/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5e359.dir/link.txt --verbose=1
-/usr/bin/c++       -rdynamic CMakeFiles/cmTC_5e359.dir/feature_tests.cxx.o  -o cmTC_5e359 
+Building CXX object CMakeFiles/cmTC_acb60.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTC_acb60.dir/feature_tests.cxx.o -c /home/user/Desktop/spider/Viewer3d/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_acb60
+/home/user/Desktop/install/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_acb60.dir/link.txt --verbose=1
+/usr/bin/c++       -rdynamic CMakeFiles/cmTC_acb60.dir/feature_tests.cxx.o  -o cmTC_acb60 
 make[1]: Leaving directory `/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/CMakeTmp'
 
 

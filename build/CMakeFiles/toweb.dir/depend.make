@@ -4,25 +4,29 @@
 CMakeFiles/toweb.dir/src/helpers.cpp.o: ../include/helpers.hpp
 CMakeFiles/toweb.dir/src/helpers.cpp.o: ../src/helpers.cpp
 
-CMakeFiles/toweb.dir/src/loadmodels.cpp.o: ../include/helpers.hpp
-CMakeFiles/toweb.dir/src/loadmodels.cpp.o: ../include/models.hpp
-CMakeFiles/toweb.dir/src/loadmodels.cpp.o: ../include/operations.hpp
-CMakeFiles/toweb.dir/src/loadmodels.cpp.o: ../include/optypes.hpp
-CMakeFiles/toweb.dir/src/loadmodels.cpp.o: ../src/loadmodels.cpp
-
 CMakeFiles/toweb.dir/src/loadoperations.cpp.o: ../include/helpers.hpp
 CMakeFiles/toweb.dir/src/loadoperations.cpp.o: ../include/operations.hpp
 CMakeFiles/toweb.dir/src/loadoperations.cpp.o: ../include/optypes.hpp
 CMakeFiles/toweb.dir/src/loadoperations.cpp.o: ../src/loadoperations.cpp
 
-CMakeFiles/toweb.dir/src/loadoptypes.cpp.o: ../include/helpers.hpp
-CMakeFiles/toweb.dir/src/loadoptypes.cpp.o: ../include/optypes.hpp
-CMakeFiles/toweb.dir/src/loadoptypes.cpp.o: ../src/loadoptypes.cpp
+CMakeFiles/toweb.dir/src/loadoplinks.cpp.o: ../include/helpers.hpp
+CMakeFiles/toweb.dir/src/loadoplinks.cpp.o: ../include/oplinks.hpp
+CMakeFiles/toweb.dir/src/loadoplinks.cpp.o: ../src/loadoplinks.cpp
+
+CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o: ../include/helpers.hpp
+CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o: ../include/opresassignments.hpp
+CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o: ../src/loadopresassignments.cpp
+
+CMakeFiles/toweb.dir/src/loadresources.cpp.o: ../include/helpers.hpp
+CMakeFiles/toweb.dir/src/loadresources.cpp.o: ../include/resources.hpp
+CMakeFiles/toweb.dir/src/loadresources.cpp.o: ../src/loadresources.cpp
 
 CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/helpers.hpp
-CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/models.hpp
 CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/operations.hpp
+CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/oplinks.hpp
+CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/opresassignments.hpp
 CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/optypes.hpp
-CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/viewer3d.hpp
+CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/resources.hpp
+CMakeFiles/toweb.dir/src/toweb.cpp.o: ../include/toweb.hpp
 CMakeFiles/toweb.dir/src/toweb.cpp.o: ../src/toweb.cpp
 

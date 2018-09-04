@@ -4,21 +4,20 @@
 #include <sstream>
 #include <map>
 #include "helpers.hpp"
-#include "models.hpp"
-#include "operations.hpp"
-#include "optypes.hpp"
-#include "viewer3d.hpp"
+#include "toweb.hpp"
 
 using namespace Spider3d;
 
-static const char *cpOutputFileKey = "GanttFile";
+static const char *cpOutputPathKey = "GanttFilesDir";
 static const char *cpInputPathKey = "TextFilesDir";
 static int loadIni( const char *configFile, std::map<std::string, std::string>& configParameters );
 
-static std::string fileOper("oper.txt");
-static const char *cpFileMat = "mat.txt";
-static const char *cpFileMod = "model.txt";
-static const char *cpFileOperMat = "oper_mat.txt";
+static std::string fileOps("oper.txt");
+static std::string fileOpLinks("link.txt");
+static std::string fileAssignments("ass.txt");
+static std::string fileResources("res.txt");
+static std::string fileCosts("cost.txt");
+static std::string fileOpCosts("oper_cost.txt");
 
 int main( int argc, char* argv[] ) {
     int iStatus;
@@ -28,40 +27,31 @@ int main( int argc, char* argv[] ) {
         return 0;
     }
 
-    Models models;
-    OpTypes opTypes;
     Operations operations;
+    OpLinks opLinks;
+    OpResAssignments opResAssignments;
+    Resources resources;
 
     std::map<std::string, std::string> configParameters;
     loadIni( argv[1], configParameters );
-    if( configParameters.find(cpOutputFileKey)==configParameters.end() || 
+    if( configParameters.find(cpOutputPathKey)==configParameters.end() || 
         configParameters.find(cpInputPathKey)==configParameters.end() ) {
         std::cout << "The configuration file " << argv[1] << " is invalid.\nExiting...\n";
     }
 
-    loadOperations( operations, (configParameters[cpInputPathKey]+fileOper).c_str() );
-    if( operations.number() == 0 ) {
-        std::cout << "No operations found!\n.Exiting...\n" << (configParameters[cpInputPathKey]+fileOper) << std::endl << operations.number() << std::endl;
-        return 0;
-    }
+    loadOperations( operations, (configParameters[cpInputPathKey] + fileOps).c_str() );
 
-    loadOpTypes( opTypes, (configParameters["path"]+configParameters["types"]).c_str() );
-    if( opTypes.number() == 0 ) {
-        std::cout << "No types found!\n.Exiting...\n";
-        // return 0;
-    }
+    loadOpLinks( opLinks, (configParameters[cpInputPathKey] + fileOpLinks).c_str() );
 
-    loadModels( models, (configParameters["path"]+configParameters["models"]).c_str() );
-    if( models.number() == 0 ) {
-        std::cout << "No models found!\n.Exiting...\n";
-        // return 0;
-    }
+    loadResources( resources, (configParameters[cpInputPathKey] + fileResources).c_str() );
+
+    loadOpResAssignments( opResAssignments, (configParameters[cpInputPathKey] + fileAssignments).c_str() );
 
     // Writing output file
     std::ofstream fsOutput;
-    fsOutput.open( configParameters[cpOutputFileKey].c_str() );    
+    fsOutput.open( configParameters[cpOutputPathKey].c_str() );    
     if( fsOutput.fail() ) {
-        std::cout << "Can't write into the " << configParameters[cpOutputFileKey] << ".\nExiting..." << std::endl; 
+        std::cout << "Can't write into the " << configParameters[cpOutputPathKey] << ".\nExiting..." << std::endl; 
         return 0;
     }
     fsOutput.close();

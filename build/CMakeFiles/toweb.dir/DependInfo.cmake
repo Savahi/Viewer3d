@@ -5,9 +5,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/user/Desktop/spider/Viewer3d/src/helpers.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/helpers.cpp.o"
-  "/home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/loadmodels.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/loadoperations.cpp.o"
-  "/home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/loadoptypes.cpp.o"
+  "/home/user/Desktop/spider/Viewer3d/src/loadoplinks.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/loadoplinks.cpp.o"
+  "/home/user/Desktop/spider/Viewer3d/src/loadopresassignments.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o"
+  "/home/user/Desktop/spider/Viewer3d/src/loadresources.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/loadresources.cpp.o"
   "/home/user/Desktop/spider/Viewer3d/src/toweb.cpp" "/home/user/Desktop/spider/Viewer3d/build/CMakeFiles/toweb.dir/src/toweb.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

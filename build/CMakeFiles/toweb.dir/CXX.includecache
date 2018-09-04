@@ -14,20 +14,6 @@ string
 ctime
 -
 
-../include/models.hpp
-string
--
-vector
--
-ctime
--
-map
--
-helpers.hpp
-../include/helpers.hpp
-operations.hpp
-../include/operations.hpp
-
 ../include/operations.hpp
 vector
 -
@@ -40,6 +26,22 @@ helpers.hpp
 optypes.hpp
 ../include/optypes.hpp
 
+../include/oplinks.hpp
+vector
+-
+string
+-
+helpers.hpp
+../include/helpers.hpp
+
+../include/opresassignments.hpp
+vector
+-
+string
+-
+helpers.hpp
+../include/helpers.hpp
+
 ../include/optypes.hpp
 vector
 -
@@ -48,13 +50,23 @@ string
 helpers.hpp
 ../include/helpers.hpp
 
-../include/viewer3d.hpp
-models.hpp
-../include/models.hpp
-optypes.hpp
-../include/optypes.hpp
+../include/resources.hpp
+vector
+-
+string
+-
+helpers.hpp
+../include/helpers.hpp
+
+../include/toweb.hpp
 operations.hpp
 ../include/operations.hpp
+oplinks.hpp
+../include/oplinks.hpp
+resources.hpp
+../include/resources.hpp
+opresassignments.hpp
+../include/opresassignments.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/helpers.cpp
 stdio.h
@@ -72,18 +84,6 @@ ctype.h
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
 
-/home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
-
 /home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp
 stdio.h
 -
@@ -98,7 +98,7 @@ helpers.hpp
 operations.hpp
 /home/user/Desktop/spider/Viewer3d/src/operations.hpp
 
-/home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp
+/home/user/Desktop/spider/Viewer3d/src/loadoplinks.cpp
 stdio.h
 -
 stdlib.h
@@ -107,8 +107,32 @@ string.h
 -
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-optypes.hpp
-/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
+oplinks.hpp
+/home/user/Desktop/spider/Viewer3d/src/oplinks.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/loadopresassignments.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+helpers.hpp
+/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+opresassignments.hpp
+/home/user/Desktop/spider/Viewer3d/src/opresassignments.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/loadresources.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+helpers.hpp
+/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+resources.hpp
+/home/user/Desktop/spider/Viewer3d/src/resources.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/toweb.cpp
 string
@@ -123,12 +147,6 @@ map
 -
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
-optypes.hpp
-/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
-viewer3d.hpp
-/home/user/Desktop/spider/Viewer3d/src/viewer3d.hpp
+toweb.hpp
+/home/user/Desktop/spider/Viewer3d/src/toweb.hpp
 
