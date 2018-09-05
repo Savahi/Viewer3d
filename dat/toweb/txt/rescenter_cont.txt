@@ -1,0 +1,4 @@
+CentCode	ObjCode
+A	77
+A	bi
+A	me

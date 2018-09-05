@@ -30,11 +30,12 @@ namespace Spider3d {
             iStatus = parseFileHeader( fp, nFields, cpaFields, ipaFields );
             if( iStatus != -1 ) {
                 while(1) {
-                    cpLine = parseFileLine( fp, nFields, ipaFields, ipaFieldIndexes, &iStatus );
+                    int iParseFileLineStatus;
+                    cpLine = parseFileLine( fp, nFields, ipaFields, ipaFieldIndexes, &iParseFileLineStatus );
                     if( cpLine == NULL ) {
                         break;
                     }
-                    if( iStatus == 0 ) {
+                    if( iParseFileLineStatus == 0 ) {
                         OpType opType;
                         opType.sCode = std::string( trimString( &cpLine[_iCodeIndex] ) );
                         opType.sName = std::string( &cpLine[_iNameIndex] );
@@ -51,6 +52,7 @@ namespace Spider3d {
                     free(cpLine);
                 }
             }
+            fclose(fp);
         }
         return 0;
     }

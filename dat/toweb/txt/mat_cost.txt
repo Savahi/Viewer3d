@@ -1,0 +1,4 @@
+MatCode	CostCode	Fix
+A	sal	2
+B	sal	2
+C	sal	2

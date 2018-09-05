@@ -1,0 +1,1 @@
+OperCode	CentCode	CenterType	ResCode	AssIndex	Total	Start	Fin

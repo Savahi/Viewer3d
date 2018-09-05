@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+../include/costs.hpp
+vector
+-
+string
+-
+helpers.hpp
+../include/helpers.hpp
+
 ../include/helpers.hpp
 stdio.h
 -
@@ -13,6 +21,14 @@ string
 -
 ctime
 -
+
+../include/opcosts.hpp
+vector
+-
+string
+-
+helpers.hpp
+../include/helpers.hpp
 
 ../include/operations.hpp
 vector
@@ -50,6 +66,14 @@ string
 helpers.hpp
 ../include/helpers.hpp
 
+../include/project.hpp
+vector
+-
+string
+-
+helpers.hpp
+../include/helpers.hpp
+
 ../include/resources.hpp
 vector
 -
@@ -67,6 +91,12 @@ resources.hpp
 ../include/resources.hpp
 opresassignments.hpp
 ../include/opresassignments.hpp
+costs.hpp
+../include/costs.hpp
+opcosts.hpp
+../include/opcosts.hpp
+project.hpp
+../include/project.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/helpers.cpp
 stdio.h
@@ -83,6 +113,30 @@ ctype.h
 -
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/loadcosts.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+helpers.hpp
+/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+costs.hpp
+/home/user/Desktop/spider/Viewer3d/src/costs.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/loadopcosts.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+helpers.hpp
+/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+opcosts.hpp
+/home/user/Desktop/spider/Viewer3d/src/opcosts.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp
 stdio.h
@@ -105,6 +159,8 @@ stdlib.h
 -
 string.h
 -
+iostream
+-
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
 oplinks.hpp
@@ -121,6 +177,20 @@ helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
 opresassignments.hpp
 /home/user/Desktop/spider/Viewer3d/src/opresassignments.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/loadproject.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+iostream
+-
+helpers.hpp
+/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+project.hpp
+/home/user/Desktop/spider/Viewer3d/src/project.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/loadresources.cpp
 stdio.h

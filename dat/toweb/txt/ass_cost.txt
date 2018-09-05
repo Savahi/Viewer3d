@@ -1,0 +1,56 @@
+OperCode	CostCode	ResCode	AssIndex	Hour	Plan	Fact	Total	Fix	Contr	Risk	Prob	PerVolume
+spamrd01	ind	77				672	672					
+spamrd01	sal	77		2		560	560	2				2
+spamrd02	ind	bi				768	768					
+spamrd02	sal	bi		2		640	640	2				2
+spammr01	ind	77			672	1344	2016					
+spammr01	sal	77		2	132.666666666667	1120	1252.66666666667	2				2
+spammr02	ind	77			672		672					
+spammr02	sal	77		2	266		266	2				2
+spscsa03	ind	77			1680		1680					
+spscsa03	sal	77		2	172		172	2				2
+spscic01	ind	bi			1152		1152					
+spscic01	sal	bi		2	104		104	2				2
+spscic02	ind	77			504		504					
+spscic02	sal	77		2	56		56	2				2
+spscsa05	ind	bi			120		120					
+spscsa05	sal	bi		2	22		22	2				2
+spsc01	ind	me			1684.8		1684.8					
+spsc01	sal	me		2	314.32		314.32	2				2
+spamrd03	ind	bi			384	38400	38784					
+spamrd03	sal	bi		2	134	32000	32134	2				2
+spamrd03	ind	77			336	33600	33936					
+spamrd03	sal	77		2	134	28000	28134	2				2
+spamrd03	ind	me			480	24000	24480					
+spamrd03	sal	me		2	134	20000	20134	2				2
+spscnc01	ind	bi			384		384					
+spscnc01	sal	bi		2	38		38	2				2
+spscnc01	ind	77			336		336					
+spscnc01	sal	77		2	38		38	2				2
+spscnc01	ind	me			480		480					
+spscnc01	sal	me		2	38		38	2				2
+spscnc02	ind	bi			384		384					
+spscnc02	sal	bi		2	38		38	2				2
+spscnc02	ind	77			336		336					
+spscnc02	sal	77		2	38		38	2				2
+spscnc02	ind	me			480		480					
+spscnc02	sal	me		2	38		38	2				2
+spscnc03	ind	bi			768		768					
+spscnc03	sal	bi		2	266		266	2				2
+spscnc03	ind	77			672		672					
+spscnc03	sal	77		2	266		266	2				2
+spscnc03	ind	me			960		960					
+spscnc03	sal	me		2	266		266	2				2
+spscsa02	sal	bi		2				2				2
+spscsa02	ind	77			420		420					
+spscsa02	sal	77		2	52		52	2				2
+spamrd04	ind	bi			768		768					
+spamrd04	sal	bi		2	266		266	2				2
+spamrd04	ind	77			672		672					
+spamrd04	sal	77		2	266		266	2				2
+spamrd04	ind	me			960		960					
+spamrd04	sal	me		2	266		266	2				2
+spscsa04	ind	bi			768		768					
+spscsa04	sal	bi		2	72		72	2				2
+spscsa04	ind	77			672		672					
+spscsa04	sal	77		2	72		72	2				2

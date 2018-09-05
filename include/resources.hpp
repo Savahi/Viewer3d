@@ -8,12 +8,10 @@ namespace Spider3d {
 
 	class Resource {
 		public:
-			int iLevel;
-			bool bLevel;
 			std::string sCode;
 			std::string sName;
 			std::string sType;
-			int iNumber;
+			float fNumber;
 			bool bNumber;
 
 			Resource() {;}

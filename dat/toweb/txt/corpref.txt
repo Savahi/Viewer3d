@@ -1,0 +1,2 @@
+Code	Name	Notes	RefType	ObjCode	Version	Location	FilteredOnly	AddNewRows	f_UseFilter	f_FilterCode	f_FilterName	f_ToFiltered	Start	f_UniId	ObjType
+1	Справочник 1		Произвольный документ	doc	1	E:\Sp4\Release\	Нет	Полный перенос	Нет			Нет	18.12.2014  11:20	224	

@@ -1,0 +1,1 @@
+OperCode	ResCode	OperName	ResName	Notes	Number	OperMoment	Start	f_UniId	1	2	002	PF	NewWBS	D	E	B	C	A	F	G	H	I	J	K	FactPercent	L	M	N	O

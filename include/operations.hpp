@@ -9,15 +9,37 @@ namespace Spider3d {
 
 	class Operation {
 		public:
-
-			tm tmActualStart, tmActualFinish, tmAsapStart, tmAsapFinish;
-			time_t tActualStart, tActualFinish, tAsapStart, tAsapFinish;
-			bool bDatesInitialized;
+			std::string sLevel;
+			int iLevel;
+			bool bLevel;
 
 			std::string sCode;
 			std::string sName;
 			std::string sType;
 			std::string sModelCode;
+			
+			std::string sActualStart;
+			std::string sActualFinish;
+			std::string sAsapStart;
+			std::string sAsapFinish;
+			std::string sCompareStart;
+			std::string sCompareFinish;
+
+			int iCritical;
+			bool bCritical;
+
+			float fCostTotal;
+			bool bCostTotal;
+
+			float fVolSum;
+			bool bVolSum;
+
+			float fDurSumD;
+			bool bDurSumD;
+
+			tm tmActualStart, tmActualFinish, tmAsapStart, tmAsapFinish, tmCompareStart, tmCompareFinish;
+			time_t tActualStart, tActualFinish, tAsapStart, tAsapFinish, tCompareStart, tCompareFinish;
+			bool bDatesInitialized;
 
 			OpType *opType;
 

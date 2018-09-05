@@ -1,0 +1,4 @@
+Code	Name	Type	ShortName	Notes	Folder	Cost	f_pln_Supply	f_pln_Consum	f_pln_Total	f_act_Supply	f_act_Consum	f_act_Total	f_sum_Supply	f_sum_Consum	f_sum_Total	Discount	f_Capital	NotRecalc	ByFormula	f_CostByFormula	f_CalcAct	Formula	f_OutputFormNum	f_DoMC	f_UseInSched	f_UniId
+sal	Зарплата					1		6117.89333333333	6117.89333333333		82920	82920		89037.8933333333	89037.8933333333			Да	Да	Нет	Нет	If ("Пользовательское_Поле:J" = 'a' ; 1 ; 2)		Да	Нет	74
+ind	sd					1		16744.8	16744.8		99504	99504		116248.8	116248.8			Да	Нет	Нет	Нет			Да	Нет	75
+oth	Другие затраты					1		51.4	51.4		7.6	7.6		59	59			Да	Нет	Нет	Нет		0	Да	Нет	76

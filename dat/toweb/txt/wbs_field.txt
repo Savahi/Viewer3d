@@ -1,0 +1,110 @@
+StructCode	PhaseCode	Code	Value	Total	Fact	Risk	Contr	Prob
+1	main	NewWBS	sp	sp				
+1	main	D	0	0				
+1	main	B	No	No				
+1	main	J	555	555				
+1	main	FactPercent	50	50				
+1	main	L	1095216660735	1095216660735				
+1	main	O	09.01.2007  08:00	09.01.2007  08:00				
+1	Груша	1	1	1				
+1	Груша	2	3	3				
+1	Груша	PF	30.5084745762712	30.5084745762712				
+1	Груша	NewWBS	sp_spam	sp_spam				
+1	Груша	D	1	1				
+1	Груша	B	No	No				
+1	Груша	A	a	a				
+1	Груша	L	1095216660735	1095216660735				
+1	Груша	O	09.01.2007  08:00	09.01.2007  08:00				
+1	spamrd	1	1	1				
+1	spamrd	2	3	3				
+1	spamrd	PF	44.4444444444444	44.4444444444444				
+1	spamrd	NewWBS	sp_spam_spamrd	sp_spam_spamrd				
+1	spamrd	D	1.5	1.5				
+1	spamrd	B	No	No				
+1	spamrd	A	b	b				
+1	spamrd	L	1095216660735	1095216660735				
+1	spamrd	M	1	1				
+1	spamrd	O	09.01.2007  08:00	09.01.2007  08:00				
+1	spammr	1	2	2				
+1	spammr	2	3	3				
+1	spammr	PF	50	50				
+1	spammr	NewWBS	sp_spam_spammr	sp_spam_spammr				
+1	spammr	D	1.6	1.6				
+1	spammr	B	No	No				
+1	spammr	A	c	c				
+1	spammr	L	1095216660735	1095216660735				
+1	spammr	O	11.01.2007  08:00	11.01.2007  08:00				
+1	Яблоко	1	3	3				
+1	Яблоко	2	6	6				
+1	Яблоко	PF	69.4915254237288	69.4915254237288				
+1	Яблоко	NewWBS	sp_spsc	sp_spsc				
+1	Яблоко	D	2	2				
+1	Яблоко	B	No	No				
+1	Яблоко	A	d	d				
+1	Яблоко	L	1095216660735	1095216660735				
+1	Яблоко	O	17.01.2007  08:00	17.01.2007  08:00				
+1	spscsa	1	3	3				
+1	spscsa	2	4	4				
+1	spscsa	PF	53.6585365853659	53.6585365853659				
+1	spscsa	NewWBS	sp_spsc_spscsa	sp_spsc_spscsa				
+1	spscsa	D	2.2	2.2				
+1	spscsa	B	No	No				
+1	spscsa	A	e	e				
+1	spscsa	L	1095216660735	1095216660735				
+1	spscsa	N	2	2				
+1	spscsa	O	30.01.2007  08:00	30.01.2007  08:00				
+1	spscic	1	4	4				
+1	spscic	2	5	5				
+1	spscic	PF	7.31707317073171	7.31707317073171				
+1	spscic	NewWBS	sp_spsc_spscic	sp_spsc_spscic				
+1	spscic	D	2.3	2.3				
+1	spscic	B	No	No				
+1	spscic	C	65535	65535				
+1	spscic	A	f	f				
+1	spscic	L	1095216660735	1095216660735				
+1	spscic	O	08.02.2007  08:00	08.02.2007  08:00				
+1	spscnc	1	5	5				
+1	spscnc	2	6	6				
+1	spscnc	PF	29.2682926829268	29.2682926829268				
+1	spscnc	NewWBS	sp_spsc_spscnc	sp_spsc_spscnc				
+1	spscnc	D	2.4	2.4				
+1	spscnc	B	No	No				
+1	spscnc	A	g	g				
+1	spscnc	L	1095216660735	1095216660735				
+1	spscnc	N	2	2				
+1	spscnc	O	17.01.2007  08:00	17.01.2007  08:00				
+2	sp	002	Приобретение программы	Приобретение программы				
+2	sp	D	0	0				
+2	sp	C	Приобретение программы	Приобретение программы				
+2	11	1	1	1				
+2	11	2	5	5				
+2	11	D	3	3				
+2	11	C	Менеджер проекта	Менеджер проекта				
+2	8	D	5	5				
+2	8	C	Бизнес аналитик	Бизнес аналитик				
+2	9	D	5.1	5.1				
+2	9	C	Анализ	Анализ				
+2	10	D	5.2	5.2				
+2	10	C	Выбор	Выбор				
+2	1	D	4	4				
+2	1	C	IT Аналитик	IT Аналитик				
+2	2	D	4.1	4.1				
+2	2	C	Анализ	Анализ				
+2	3	D	4.2	4.2				
+2	3	C	Выбор	Выбор				
+2	##ComparedOnly##	D	8	8				
+2	##ComparedOnly##	C	Только в сравниваемом	Только в сравниваемом				
+2	##Absent##	D	7	7				
+2	##Absent##	C	Отсутствуют при сравнении	Отсутствуют при сравнении				
+2	##Absent_Activities##	D	6	6				
+2	##Absent_Activities##	C	Отсутствуют при сравнении	Отсутствуют при сравнении				
+2	12	D	5.2.7	5.2.7				
+2	12	C	Фаза12	Фаза12				
+2	13	D	5.2.6	5.2.6				
+2	13	C	Фаза13	Фаза13				
+3	sp	D	0	0				
+3	01	D	1	1				
+3	0	D	1.1	1.1				
+3	e	D	2	2				
+3	ea	D	2.1	2.1				
+3	eb	D	2.2	2.2				

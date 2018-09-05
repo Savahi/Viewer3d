@@ -1,0 +1,2 @@
+Code	Name	ShortName	Notes	IncSpend	IncProf	f_OutputFormNum	ContentCodes	ContentNames	f_AllMatsCostCent	f_DoMC	f_UseInSched	f_UniId
+1	Центр стоимостей1			Да	Да				Нет	Нет	Нет	252

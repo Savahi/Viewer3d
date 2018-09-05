@@ -9,6 +9,8 @@
 
 namespace Spider3d {
 
+    static char cDefaultTableFieldsSplitter = '\t';
+
     char *readLineFromFile( FILE *fp ) {
         int nAllocated, iAllocatedPtr;
         char cRead;
@@ -70,15 +72,15 @@ namespace Spider3d {
         }
 
         if( ipStart != NULL ) {
-            *ipStart = iOpenTagEnd+1;
+            *ipStart = iOpenTagEnd + 1;
         }
         if( ipEnd != NULL ) {
-            *ipEnd = iCloseTagStart-1;
+            *ipEnd = iCloseTagStart - 1;
         }
         return 1;
     }
 
-    int findSubstring( char *cpText, const char *cpSubstring, int iStartAt, int iStopAt, int *ipStart, int *ipEnd ) {
+    int findSubstring( char *cpText, const char *cpSubstring, int iStartAt, int iStopAt, int *ipStart, int *ipEnd, bool bWholeWordSearch ) {
         int iFound = 0;
         int i, iTextLen, iSubstringLen, iSubstringIndex;
 
@@ -92,6 +94,15 @@ namespace Spider3d {
             if( tolower(cpSubstring[iSubstringIndex]) == tolower(cpText[i]) ) {
                 iSubstringIndex++;
                 if( iSubstringIndex == iSubstringLen ) {
+                    if( bWholeWordSearch ) {
+                        if( i != iStopAt ) {
+                            if( cpText[i+1] != ' ' && cpText[i+1] != '\t' && cpText[i+1] != '\r' && cpText[i+1] != '\n' ) {
+                                iSubstringIndex = 0;
+                                continue;
+                            }
+                        }
+                    }
+
                     if( ipStart != NULL ) {
                         *ipStart = i-iSubstringLen+1;
                     }
@@ -117,7 +128,7 @@ namespace Spider3d {
         if( iStatus == 1 ) {
             iPosition = 0;
             for( i = 0 ; i < iStart ; i++ ) {
-                if( cpBuffer[i] == '\t' ) {
+                if( cpBuffer[i] == cDefaultTableFieldsSplitter ) {
                     iPosition++;
                 }
             }
@@ -187,7 +198,7 @@ namespace Spider3d {
     }
 
 
-    int parseFileHeader( FILE *fp, int nFields, char **cpaFields, int **ipaFields ) {
+    int parseFileHeader( FILE *fp, int nFields, char **cpaFields, int **ipaFields, bool allFieldsRequired ) {
         int iReturn=0;
         char *cpHeader;
 
@@ -198,7 +209,7 @@ namespace Spider3d {
 
         for( int i = 0 ; i < nFields ; i++ ) {
             int iPos = getPosByColumnName( cpHeader, cpaFields[i] );
-            if( iPos == -1 ) {
+            if( iPos == -1 && allFieldsRequired ) {
                 iReturn = -1;
                 break;
             }
@@ -209,27 +220,26 @@ namespace Spider3d {
         return iReturn;
     }
 
-    static int parseFileLineIntoFields( char *cpLine, int nFields, int **ipaFields, int **ipaFieldIndexes ); 
+    static int parseFileLineIntoFields( char *cpLine, int nFields, int **ipaFields, int **ipaFieldIndexes, bool allFieldsRequired ); 
 
-    char *parseFileLine( FILE *fp, int nFields, int **ipaFields, int **ipaFieldIndexes, int *ipStatus ) {
+    char *parseFileLine( FILE *fp, int nFields, int **ipaFields, int **ipaFieldIndexes, int *ipStatus, bool allFieldsRequired ) {
         char *cpLine; 
 
         cpLine = readLineFromFile(fp);
         if( cpLine == NULL ) {
             return NULL;
         }
-
-        *ipStatus = parseFileLineIntoFields( cpLine, nFields, ipaFields, ipaFieldIndexes );
+        *ipStatus = parseFileLineIntoFields( cpLine, nFields, ipaFields, ipaFieldIndexes, allFieldsRequired );
         return cpLine;
     }
 
 
-    static int parseFileLineIntoFields( char *cpLine, int nFields, int **ipaFields, int **ipaFieldIndexes ) 
+    static int parseFileLineIntoFields( char *cpLine, int nFields, int **ipaFields, int **ipaFieldIndexes, bool allFieldsRequired ) 
     {
         int iPos, iLineLen;
 
-        for( int i = 0 ; i < nFields ; i++ ) {
-            *ipaFieldIndexes[i] = -1;
+        for( int iF = 0 ; iF < nFields ; iF++ ) {
+            *ipaFieldIndexes[iF] = -1;
         }
 
         iLineLen = strlen( cpLine ); 
@@ -240,7 +250,7 @@ namespace Spider3d {
                     break;
                 }
             }
-            if( cpLine[i] == ';' ) {
+            if( cpLine[i] == cDefaultTableFieldsSplitter ) {
                 iPos++;
                 cpLine[i] = '\x0';
             } else if( cpLine[i] == '\r' || cpLine[i] == '\n') {
@@ -248,10 +258,12 @@ namespace Spider3d {
             }
         }
 
-        for( int i = 0 ; i < nFields ; i++ ) {
-            if( *ipaFieldIndexes[i] == -1 ) {
-                return -1;
-            }
+        if( allFieldsRequired ) {
+            for( int iF = 0 ; iF < nFields ; iF++ ) {
+                if( *ipaFieldIndexes[iF] == -1 ) {
+                    return -1;
+                }
+            }            
         }
         return 0;
     }

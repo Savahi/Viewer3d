@@ -24,6 +24,7 @@ namespace Spider3d {
         FILE *fp;
         char *cpLine;
         int iStatus;
+        int nScanned;
 
         fp = fopen( cpFile, "rb" );
         if( fp != NULL ) {
@@ -34,21 +35,21 @@ namespace Spider3d {
                     if( cpLine == NULL ) {
                         break;
                     }
-                    OpResAssignment opResAssignment;
-                    opResAssignment.sOperCode = std::string( trimString( &cpLine[iOperCodeIndex] ) );
-                    opResAssignment.sResCode = std::string( trimString( &cpLine[iResCodeIndex] ) );
-                    int iNumber;
-                    int nScanned = sscanf( &cpLine[iNumberIndex], "%d", &opResAssignment.iNumber );
-                    opResAssignment.bNumber = ( nScanned == 1 ) ? true : false;
-                    int iPrior;
-                    nScanned = sscanf( &cpLine[iPriorIndex], "%d", &opResAssignment.iPrior );
-                    opResAssignment.bPrior = ( nScanned == 1 ) ? true : false;
-                    
-                    opResAssignments.add(opResAssignment);
-
+                    if( iStatus == 0 ) {
+                        OpResAssignment opResAssignment;
+                        opResAssignment.sOperCode = std::string( trimString( &cpLine[iOperCodeIndex] ) );
+                        opResAssignment.sResCode = std::string( trimString( &cpLine[iResCodeIndex] ) );
+                        nScanned = sscanf( &cpLine[iNumberIndex], "%f", &opResAssignment.fNumber );
+                        opResAssignment.bNumber = ( nScanned == 1 ) ? true : false;
+                        nScanned = sscanf( &cpLine[iPriorIndex], "%f", &opResAssignment.fPrior );
+                        opResAssignment.bPrior = ( nScanned == 1 ) ? true : false;
+                        
+                        opResAssignments.add(opResAssignment);
+                    }
                     free(cpLine);
                 }
             }
+            fclose(fp);
         }
         return 0;
     }

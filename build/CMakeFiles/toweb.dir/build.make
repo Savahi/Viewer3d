@@ -177,9 +177,81 @@ CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o.provides: CMakeFiles/toweb.d
 CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o.provides.build: CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o
 
 
+CMakeFiles/toweb.dir/src/loadcosts.cpp.o: CMakeFiles/toweb.dir/flags.make
+CMakeFiles/toweb.dir/src/loadcosts.cpp.o: ../src/loadcosts.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/toweb.dir/src/loadcosts.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/toweb.dir/src/loadcosts.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/loadcosts.cpp
+
+CMakeFiles/toweb.dir/src/loadcosts.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/toweb.dir/src/loadcosts.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Desktop/spider/Viewer3d/src/loadcosts.cpp > CMakeFiles/toweb.dir/src/loadcosts.cpp.i
+
+CMakeFiles/toweb.dir/src/loadcosts.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/toweb.dir/src/loadcosts.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Desktop/spider/Viewer3d/src/loadcosts.cpp -o CMakeFiles/toweb.dir/src/loadcosts.cpp.s
+
+CMakeFiles/toweb.dir/src/loadcosts.cpp.o.requires:
+
+.PHONY : CMakeFiles/toweb.dir/src/loadcosts.cpp.o.requires
+
+CMakeFiles/toweb.dir/src/loadcosts.cpp.o.provides: CMakeFiles/toweb.dir/src/loadcosts.cpp.o.requires
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadcosts.cpp.o.provides.build
+.PHONY : CMakeFiles/toweb.dir/src/loadcosts.cpp.o.provides
+
+CMakeFiles/toweb.dir/src/loadcosts.cpp.o.provides.build: CMakeFiles/toweb.dir/src/loadcosts.cpp.o
+
+
+CMakeFiles/toweb.dir/src/loadopcosts.cpp.o: CMakeFiles/toweb.dir/flags.make
+CMakeFiles/toweb.dir/src/loadopcosts.cpp.o: ../src/loadopcosts.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/toweb.dir/src/loadopcosts.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/toweb.dir/src/loadopcosts.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/loadopcosts.cpp
+
+CMakeFiles/toweb.dir/src/loadopcosts.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/toweb.dir/src/loadopcosts.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Desktop/spider/Viewer3d/src/loadopcosts.cpp > CMakeFiles/toweb.dir/src/loadopcosts.cpp.i
+
+CMakeFiles/toweb.dir/src/loadopcosts.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/toweb.dir/src/loadopcosts.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Desktop/spider/Viewer3d/src/loadopcosts.cpp -o CMakeFiles/toweb.dir/src/loadopcosts.cpp.s
+
+CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.requires:
+
+.PHONY : CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.requires
+
+CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.provides: CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.requires
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.provides.build
+.PHONY : CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.provides
+
+CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.provides.build: CMakeFiles/toweb.dir/src/loadopcosts.cpp.o
+
+
+CMakeFiles/toweb.dir/src/loadproject.cpp.o: CMakeFiles/toweb.dir/flags.make
+CMakeFiles/toweb.dir/src/loadproject.cpp.o: ../src/loadproject.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/toweb.dir/src/loadproject.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/toweb.dir/src/loadproject.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/loadproject.cpp
+
+CMakeFiles/toweb.dir/src/loadproject.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/toweb.dir/src/loadproject.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/user/Desktop/spider/Viewer3d/src/loadproject.cpp > CMakeFiles/toweb.dir/src/loadproject.cpp.i
+
+CMakeFiles/toweb.dir/src/loadproject.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/toweb.dir/src/loadproject.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/user/Desktop/spider/Viewer3d/src/loadproject.cpp -o CMakeFiles/toweb.dir/src/loadproject.cpp.s
+
+CMakeFiles/toweb.dir/src/loadproject.cpp.o.requires:
+
+.PHONY : CMakeFiles/toweb.dir/src/loadproject.cpp.o.requires
+
+CMakeFiles/toweb.dir/src/loadproject.cpp.o.provides: CMakeFiles/toweb.dir/src/loadproject.cpp.o.requires
+	$(MAKE) -f CMakeFiles/toweb.dir/build.make CMakeFiles/toweb.dir/src/loadproject.cpp.o.provides.build
+.PHONY : CMakeFiles/toweb.dir/src/loadproject.cpp.o.provides
+
+CMakeFiles/toweb.dir/src/loadproject.cpp.o.provides.build: CMakeFiles/toweb.dir/src/loadproject.cpp.o
+
+
 CMakeFiles/toweb.dir/src/toweb.cpp.o: CMakeFiles/toweb.dir/flags.make
 CMakeFiles/toweb.dir/src/toweb.cpp.o: ../src/toweb.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/toweb.dir/src/toweb.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/toweb.dir/src/toweb.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/toweb.dir/src/toweb.cpp.o -c /home/user/Desktop/spider/Viewer3d/src/toweb.cpp
 
 CMakeFiles/toweb.dir/src/toweb.cpp.i: cmake_force
@@ -208,6 +280,9 @@ toweb_OBJECTS = \
 "CMakeFiles/toweb.dir/src/loadoplinks.cpp.o" \
 "CMakeFiles/toweb.dir/src/loadresources.cpp.o" \
 "CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o" \
+"CMakeFiles/toweb.dir/src/loadcosts.cpp.o" \
+"CMakeFiles/toweb.dir/src/loadopcosts.cpp.o" \
+"CMakeFiles/toweb.dir/src/loadproject.cpp.o" \
 "CMakeFiles/toweb.dir/src/toweb.cpp.o"
 
 # External object files for target toweb
@@ -218,10 +293,13 @@ toweb: CMakeFiles/toweb.dir/src/loadoperations.cpp.o
 toweb: CMakeFiles/toweb.dir/src/loadoplinks.cpp.o
 toweb: CMakeFiles/toweb.dir/src/loadresources.cpp.o
 toweb: CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o
+toweb: CMakeFiles/toweb.dir/src/loadcosts.cpp.o
+toweb: CMakeFiles/toweb.dir/src/loadopcosts.cpp.o
+toweb: CMakeFiles/toweb.dir/src/loadproject.cpp.o
 toweb: CMakeFiles/toweb.dir/src/toweb.cpp.o
 toweb: CMakeFiles/toweb.dir/build.make
 toweb: CMakeFiles/toweb.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable toweb"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/user/Desktop/spider/Viewer3d/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable toweb"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/toweb.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -234,6 +312,9 @@ CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/loadoperations.cpp.o.req
 CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/loadoplinks.cpp.o.requires
 CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/loadresources.cpp.o.requires
 CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o.requires
+CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/loadcosts.cpp.o.requires
+CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/loadopcosts.cpp.o.requires
+CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/loadproject.cpp.o.requires
 CMakeFiles/toweb.dir/requires: CMakeFiles/toweb.dir/src/toweb.cpp.o.requires
 
 .PHONY : CMakeFiles/toweb.dir/requires

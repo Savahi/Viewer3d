@@ -1,0 +1,2 @@
+Code	Name	Type	Notes	Folder	ContentCodes	ContentNames	f_Opers	f_UniId
+A	Мультиресурс A				1 2 P 100 	Роль ресурсов2		311

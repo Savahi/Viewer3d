@@ -1,0 +1,2 @@
+OperCode	MatCode	ResCode	AssIndex	Total	Fix	Start	Fin
+spamrd01	A			67	67	09.01.2007  08:00	10.01.2007  16:00

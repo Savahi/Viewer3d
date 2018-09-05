@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 #include "helpers.hpp"
 #include "oplinks.hpp"
 
@@ -30,26 +31,32 @@ namespace Spider3d {
         fp = fopen( cpFile, "rb" );
         if( fp != NULL ) {
             iStatus = parseFileHeader( fp, nFields, cpaFields, ipaFields );
+            //std::cout << *ipaFields[0] << "," << *ipaFields[1]<< "," << *ipaFields[2]<< "," << *ipaFields[3]<< "," << *ipaFields[4]<< "," << *ipaFields[5];
             if( iStatus != -1 ) {
                 while(1) {
-                    cpLine = parseFileLine( fp, nFields, ipaFields, ipaFieldIndexes, &iStatus );
+                    int iParseFileLineStatus;
+                    cpLine = parseFileLine( fp, nFields, ipaFields, ipaFieldIndexes, &iParseFileLineStatus );
                     if( cpLine == NULL ) {
                         break;
                     }
-                    OpLink opLink;
-                    opLink.sPredCode = std::string( trimString( &cpLine[iPredCodeIndex] ) );
-                    opLink.sSuccCode = std::string( trimString( &cpLine[iSuccCodeIndex] ) );
-                    opLink.sTypeSF = std::string( trimString( &cpLine[iTypeSFIndex] ) );
-                    opLink.sLagType = std::string( trimString( &cpLine[iLagTypeIndex] ) );
-                    opLink.sLagUnit = std::string( trimString( &cpLine[iLagUnitIndex] ) );
-                    int iLag;
-                    int nScanned = sscanf( &cpLine[iLagIndex], "%d", &opLink.iLag );
-                    opLink.bLag = ( nScanned == 1 ) ? true : false;
+                    //std::cout << "P: " << iPredCodeIndex << ", i=" << &cpLine[iPredCodeIndex] << std::endl;
+                    //std::cout << "S: " << iSuccCodeIndex << ", i=" << &cpLine[iSuccCodeIndex] << std::endl;
+                    if( iParseFileLineStatus == 0 ) {
+                        OpLink opLink;
+                        opLink.sPredCode = std::string( trimString( &cpLine[iPredCodeIndex] ) );
+                        opLink.sSuccCode = std::string( trimString( &cpLine[iSuccCodeIndex] ) );
+                        opLink.sTypeSF = std::string( trimString( &cpLine[iTypeSFIndex] ) );
+                        opLink.sLagType = std::string( trimString( &cpLine[iLagTypeIndex] ) );
+                        opLink.sLagUnit = std::string( trimString( &cpLine[iLagUnitIndex] ) );
+                        int nScanned = sscanf( &cpLine[iLagIndex], "%f", &opLink.fLag );
+                        opLink.bLag = ( nScanned == 1 ) ? true : false;
 
-                    opLinks.add( opLink );
+                        opLinks.add( opLink );
+                    }
                     free(cpLine);
                 }
             }
+            fclose(fp);
         }
         return 0;
     }

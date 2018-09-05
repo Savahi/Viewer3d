@@ -1,0 +1,3 @@
+Code	Name	Type	Notes	Folder	DPH	ContentCodes	ContentNames	f_Opers	f_UniId
+1	BIT				Количество	R bi  100 |R 77  100 	Бизнес аналитик|IT Аналитик	spscsa02	77
+2	Роль ресурсов2				Количество	R 77  100 	IT Аналитик		310

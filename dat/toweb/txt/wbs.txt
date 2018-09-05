@@ -1,0 +1,4 @@
+Code	Name	RespStruct	Notes
+1	Object Structure	Да	
+2	Структура ответственности	Нет	
+3	Структура 3	Нет	

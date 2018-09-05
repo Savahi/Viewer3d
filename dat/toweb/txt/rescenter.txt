@@ -1,0 +1,2 @@
+Code	Name	ShortName	Notes	SimpleSum	Unit	ContentCodes	ContentNames	f_UniId
+A	Центр ресурсов A			Нет		77|bi|me	IT Аналитик|Бизнес аналитик|Менеджер проекта	305

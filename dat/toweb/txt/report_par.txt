@@ -1,0 +1,6 @@
+RepCode	Step1Type	Step1Code	Step2Type	Step2Code	Step3Type	Step3Code	Step4Type	Step4Code	Calen	Source	SpendType	BaseType	sf_CreditPercent	f_Credit	Alap	f_Demand	Inc	f_OverTimeOnly	Name
+ks6			G	VolSum								Нет		Нет	Нет	Нет	Шаблон	Нет	Volume
+ks6			G	CostTotal								Нет		Нет	Нет	Нет	Шаблон	Нет	Total Cost
+ks3			G	CostTotal								Нет		Нет	Нет	Нет	Шаблон	Нет	Total Cost
+ks2			G	VolSum								Нет		Нет	Нет	Нет	Шаблон	Нет	Volume
+ks2			G	CostTotal								Нет		Нет	Нет	Нет	Шаблон	Нет	Total Cost

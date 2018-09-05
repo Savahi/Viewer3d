@@ -11,7 +11,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} incl
 
 set(VIEWER3D_SOURCES src/display.cpp src/displayaxis.cpp src/displayfacet.cpp src/displayselectedmodelinfo.cpp src/displaytimescale.cpp src/displaytools.cpp src/helpers.cpp src/loadmodels.cpp src/loadoperations.cpp src/loadoptypes.cpp src/models.cpp src/operations.cpp src/viewer3d.cpp)
 
-set(TOWEB_SOURCES src/helpers.cpp src/loadoperations.cpp src/loadoplinks.cpp src/loadresources.cpp src/loadopresassignments src/toweb.cpp)
+set(TOWEB_SOURCES src/helpers.cpp src/loadoperations.cpp src/loadoplinks.cpp src/loadresources.cpp src/loadopresassignments.cpp src/loadcosts.cpp src/loadopcosts.cpp src/loadproject.cpp src/toweb.cpp)
 
 add_executable( ${PROJECT_NAME} ${VIEWER3D_SOURCES} )
 target_link_libraries( ${PROJECT_NAME} ${GLUT_glut_LIBRARY} ${OPENGL_LIBRARY} )
@@ -20,4 +20,4 @@ add_executable( toweb ${TOWEB_SOURCES} )
 target_link_libraries( ${PROJECT_NAME} )
 
 #set( CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/ )
-#install( TARGETS ${PROJECT_NAME} DESTINATION bin )
+#install( TARGETS ${PROJECT_NAME} DESTINATION bin/ )

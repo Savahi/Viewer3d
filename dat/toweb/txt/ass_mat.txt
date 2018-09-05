@@ -1,0 +1,2 @@
+OperCode	MatCode	ResCode	AssIndex	Hour	Plan	Fact	Total	Fix	Contr	Risk	Prob	PerVolume
+spscnc03	A	bi						5				

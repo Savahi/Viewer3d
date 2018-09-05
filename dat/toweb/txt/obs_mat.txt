@@ -1,0 +1,2 @@
+DepCode	MatCode	StructCode	Plan	Fact	Total	Contr	Risk	Prob
+sp	A	1	82	135	217			

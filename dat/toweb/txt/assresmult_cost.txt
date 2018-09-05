@@ -1,0 +1,1 @@
+OperCode	CostCode	ResMultCode	AssIndex	Plan	Fact	Total

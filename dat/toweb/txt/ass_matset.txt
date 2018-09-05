@@ -1,0 +1,1 @@
+OperCode	MatSetCode	ResCode	AssIndex	Hour	Plan	Fact	Total	Fix	Contr	Risk	Prob	PerVolume

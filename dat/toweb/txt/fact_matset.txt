@@ -1,0 +1,1 @@
+OperCode	MatSetCode	ResCode	AssIndex	Total	Fix	Start	Fin

@@ -1,0 +1,49 @@
+Code	Value	ObjType
+NewWBS		
+NewWBS	sp_spam_03	
+NewWBS	sp_spam_spammr_spammr01	
+NewWBS	sp_spam_spammr_spammr02	
+NewWBS	sp_spam_spammr_spammr03	
+NewWBS	sp_spam_spamrd_spamrd04	
+NewWBS	sp_spsc_spsc01	
+NewWBS	sp_spsc_spscic_spscic01	
+NewWBS	sp_spsc_spscic_spscic02	
+NewWBS	sp_spsc_spscnc_spscnc01	
+NewWBS	sp_spsc_spscnc_spscnc02	
+NewWBS	sp_spsc_spscnc_spscnc03	
+NewWBS	sp_spsc_spscsa_spscsa01	
+NewWBS	sp_spsc_spscsa_spscsa02	
+NewWBS	sp_spsc_spscsa_spscsa03	
+NewWBS	sp_spsc_spscsa_spscsa04	
+NewWBS	sp_spsc_spscsa_spscsa05	
+Name	IT Аналитик	PH
+Name	Анализ	PH
+Name	Бизнес аналитик	PH
+Name	Выбор	PH
+Name	Менеджер проекта	PH
+Name	Отсутствуют при сравнении	PH
+Name	Приобретение программы	PH
+Name	Только в сравниваемом	PH
+Name	Фаза12	PH
+Name	Фаза13	PH
+Name	Анализ демо версий	O
+Name	Анализ рынка ПО	O
+Name	Анализ спецификаций	O
+Name	Анализ условий поставки (время, стоимость)	O
+Name	Выбор ПО	O
+Name	Демонстрации	O
+Name	Запрос коммерческого предложения (RFP)	O
+Name	Операция4	O
+Name	Операция5	O
+Name	Переговоры	O
+Name	Получение предложений	O
+Name	Проверка поддержки	O
+Name	Проверка ссылок	O
+Name	Разработка критериев отбора	O
+Name	Рассылка RFP	O
+Name	Создание короткого списка	O
+Name	Список поставщиков	O
+Name	Технические требования	O
+Name	Управление 1	O
+Name	Управление 2	O
+Name	Функциональные требования	O

@@ -1,0 +1,5 @@
+Code	Name	MeanWorkDay	WorkDays	WorkHours	Notes	Mon	Tue	Wed	Thu	Fri	Sat	Sun	f_UniId
+0	Пустая неделя												135
+1	Неделя 1	8	5	40		8	8	8	8	8			136
+2	Неделя 2	1	5	5		1	1	1	1	1			137
+3	Неделя3	8	5	40		8	8	8	8	8			264

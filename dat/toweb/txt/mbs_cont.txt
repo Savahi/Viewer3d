@@ -1,0 +1,2 @@
+StructCode	Code	Name	Level	BSC	Type	Notes	Folder	Start	Fin	CostPlan	CostFact	CostTotal	AsapStart	AsapFin	AlapStart	AlapFin	FactStart	FactFin	DurPlan	DurPlanD	DurFact	DurFactD	DurSum	DurSumD	Calen	SumVol	f_UniId	f_RowColor	f_FontColor	Color
+1	sp	All Materials	1	0				09.01.2007  08:00									09.01.2007  08:00									Нет	185			

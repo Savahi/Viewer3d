@@ -1,0 +1,1 @@
+RepCode	ObjType	FieldCode	Width

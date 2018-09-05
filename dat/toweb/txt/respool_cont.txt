@@ -1,0 +1,4 @@
+ResPoolCode	ResCode	Prior	ObjType	Load
+1	bi		R	100
+1	77		R	100
+2	77		R	100

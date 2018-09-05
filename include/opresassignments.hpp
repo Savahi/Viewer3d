@@ -9,9 +9,9 @@ namespace Spider3d {
 		public:
 			std::string sOperCode;
 			std::string sResCode;
-			int iNumber;
+			float fNumber;
 			bool bNumber;
-			int iPrior;
+			float fPrior;
 			bool bPrior;
 
 			OpResAssignment() {;}

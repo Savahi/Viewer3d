@@ -14,7 +14,7 @@ namespace Spider3d {
 			std::string sTypeSF;
 			std::string sLagType;
 			std::string sLagUnit;
-			int iLag;
+			float fLag;
 			bool bLag;
 
 			OpLink() {;}

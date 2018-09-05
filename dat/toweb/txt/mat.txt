@@ -1,0 +1,4 @@
+Code	Name	Unit	Type	ShortName	Notes	Folder	f_pln_Consum	f_act_Consum	f_sum_Consum	f_pln_Supply	f_act_Supply	f_sum_Supply	f_pln_Total	f_act_Total	f_sum_Total	SpendInt	SpendLess	f_OutputFormNum	DurPlan	DurPlanD	DurFact	DurFactD	DurSum	DurSumD	Calen	f_DoMC	f_UseInSched	f_RowColor	f_FontColor	Color	f_UniId
+A	Материал A						205	482	687				205	482	687	Нет	Нет									Нет	Нет				249
+B	Материал B			bbbbbbbb												Нет	Нет									Нет	Нет				416
+C	Материал C															Нет	Нет									Нет	Нет				417
