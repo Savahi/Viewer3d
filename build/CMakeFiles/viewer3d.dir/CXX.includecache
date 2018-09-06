@@ -19,6 +19,10 @@ string
 -
 ctime
 -
+vector
+-
+map
+-
 
 ../include/models.hpp
 string
@@ -157,12 +161,22 @@ stdlib.h
 -
 string
 -
-iostream
--
 ctype.h
 -
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+iostream
+-
+fstream
+-
+sstream
+-
+string
+-
+vector
+-
+map
+-
 
 /home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp
 stdio.h
@@ -184,6 +198,18 @@ stdlib.h
 string.h
 -
 iostream
+-
+iostream
+-
+fstream
+-
+sstream
+-
+string
+-
+vector
+-
+map
 -
 helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp

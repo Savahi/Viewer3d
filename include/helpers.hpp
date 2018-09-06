@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string>
 #include <ctime>
+#include <vector>
+#include <map>
 
 namespace Spider3d {
 
@@ -25,7 +27,12 @@ namespace Spider3d {
     char *trimString( char *cp );
 
     int timetToStr( time_t timetDT, char *cpBuffer, int iBufferSize=0, bool bAscTime=false, bool bHHMM=true, char cDMYDelim='.' );
+    int parseDatetime( std::string sDatetime, struct tm& tmDatetime );
 
     int parseFileHeader( FILE *fp, int nFields, char **cpaFields, int **ipaFields, bool allFieldsRequired=true );
     char *parseFileLine( FILE *fp, int nFields, int **ipaFields, int **ipaFieldIndexes, int *ipStatus, bool allFieldsRequired=true );
+
+    int parseFileHeader( std::ifstream& infile, std::vector<std::string>& fieldsNames, std::map<std::string,int>& fieldsPositions );
+    int parseFileLine( std::ifstream& infile, std::vector<std::string>& fields );
+    int parseFileLine( std::ifstream& infile, std::map<std::string,int>& fieldsPositions, std::map<std::string,std::string>& fieldsParsed );
 }

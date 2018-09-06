@@ -3,9 +3,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include <string>
-#include <iostream>
 #include <ctype.h>
 #include "helpers.hpp"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <map>
 
 namespace Spider3d {
 
@@ -13,7 +18,7 @@ namespace Spider3d {
 
     char *readLineFromFile( FILE *fp ) {
         int nAllocated, iAllocatedPtr;
-        char cRead;
+        int cRead;
         char *cpAllocated;
 
         if( feof(fp) ) {
@@ -39,11 +44,11 @@ namespace Spider3d {
                 }
                 nAllocated += READ_BUFFER_SIZE;
             }
-            cpAllocated[iAllocatedPtr] = cRead;
-            iAllocatedPtr++;
             if( cRead == '\n' ) {
                 break;
             }
+            cpAllocated[iAllocatedPtr] = (unsigned char)cRead;
+            iAllocatedPtr++;
         }
         cpAllocated[iAllocatedPtr] = '\x0';
         return cpAllocated;
@@ -197,6 +202,32 @@ namespace Spider3d {
         return iReturn;
     }
 
+    int parseDatetime( std::string sDatetime, struct tm& tmDatetime ) {
+
+        const char *cp = sDatetime.c_str();
+        char caDatetime[40];
+
+        int i = 0;
+        for( ; i < 39 && cp[i] != '\x0' ; i++ ) {
+            if( cp[i] == '.' || cp[i] == '-' || cp[i] == ':' ) {
+                caDatetime[i] = ' ';
+            } else {
+                caDatetime[i] = cp[i];
+            }
+        }
+        caDatetime[i] = '\x0';
+
+        int iStatus = sscanf( caDatetime, "%d %d %d %d %d", &tmDatetime.tm_mday, &tmDatetime.tm_mon, &tmDatetime.tm_year, &tmDatetime.tm_hour, &tmDatetime.tm_min );
+        if( iStatus != 5 ) { 
+            return -1;
+        }
+        tmDatetime.tm_year -= 1900;
+        tmDatetime.tm_mon -= 1;
+        tmDatetime.tm_sec = 0;
+        tmDatetime.tm_wday = tmDatetime.tm_yday = tmDatetime.tm_isdst = 0;
+        return 0;
+    }
+
 
     int parseFileHeader( FILE *fp, int nFields, char **cpaFields, int **ipaFields, bool allFieldsRequired ) {
         int iReturn=0;
@@ -266,6 +297,90 @@ namespace Spider3d {
             }            
         }
         return 0;
+    }
+
+    int parseFileLineIntoFields( const std::string& s, std::vector<std::string>& tokens, char delimiter );
+
+    int parseFileHeader( std::ifstream& infile, std::vector<std::string>& fieldsNames, std::map<std::string,int>& fieldsPositions ) 
+    {
+        int numParsed = -1;
+
+        for( int iN = 0 ; iN < fieldsNames.size() ; iN++ ) {
+            fieldsPositions[ fieldsNames[iN] ] = -1;
+        }
+
+        std::string line;
+        if( std::getline(infile, line) ) {
+            std::vector<std::string> fields;
+            parseFileLineIntoFields( line, fields, cDefaultTableFieldsSplitter );            
+            for( int i = 0 ; i < fields.size() ; i++ ) {
+                for( int iN = 0 ; iN < fieldsNames.size() ; iN++ ) {
+                    if( fields[i] == fieldsNames[iN] ) {
+                        fieldsPositions[ fieldsNames[iN] ] = i;
+                        break;
+                    }
+                }
+            }
+            numParsed = 0;
+            for( int iN = 0 ; iN < fieldsNames.size() ; iN++ ) {
+                if( fieldsPositions[ fieldsNames[iN] ] != -1 ) {
+                    numParsed++;
+                }
+            }
+        }
+        return numParsed;
+    }
+
+    int parseFileLine( std::ifstream& infile, std::vector<std::string>& fields ) 
+    {
+        std::string line;
+        int numParsed;
+
+        if( std::getline(infile, line) ) {
+            numParsed = parseFileLineIntoFields( line, fields, '\t' );
+        } else {
+            numParsed = -1;
+        }
+        return numParsed;
+    }
+
+    int parseFileLine( std::ifstream& infile, std::map<std::string,int>& fieldsPositions, std::map<std::string,std::string>& fieldsParsed ) 
+    {
+        int numParsed = -1;
+
+        for( std::map<std::string,int>::iterator it=fieldsPositions.begin(); it!=fieldsPositions.end(); ++it ) {
+            fieldsParsed[ it->first ] = std::string("");
+        }
+
+        std::string line;
+        if( std::getline(infile, line) ) {
+            std::vector<std::string> fields;
+            int numFields = parseFileLineIntoFields( line, fields, '\t' );
+            numParsed = 0;
+            for( int iField = 0 ; iField < numFields ; iField++ ) {
+                for( std::map<std::string,int>::iterator it=fieldsPositions.begin(); it!=fieldsPositions.end(); ++it ) {
+                    if( it->second == iField ) {
+                        fieldsParsed[ it->first ] = fields[iField];
+                        numParsed++;
+                        break;
+                    }
+                }
+            }
+        } 
+        return numParsed;
+    }
+
+    int parseFileLineIntoFields( const std::string& s, std::vector<std::string>& tokens, char delimiter )
+    {
+       std::string token;
+       std::istringstream tokenStream(s);
+       int nTokens = 0;
+       while (std::getline(tokenStream, token, delimiter))
+       {
+          tokens.push_back(token);
+          nTokens++;
+       }
+       return nTokens;
     }
 
 }

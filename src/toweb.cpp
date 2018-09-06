@@ -48,7 +48,7 @@ int main( int argc, char* argv[] ) {
 
     // Writing output file
     std::ofstream fsOutput;
-    std::string outputFile = configParameters[cpOutputPathKey] + "/json.js";
+    std::string outputFile = configParameters[cpOutputPathKey] + "/gantt.js";
     fsOutput.open( outputFile.c_str() );    
     if( fsOutput.fail() ) {
         std::cout << "Can't write into the " << outputFile << ".\nExiting..." << std::endl; 

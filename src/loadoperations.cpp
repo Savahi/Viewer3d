@@ -2,35 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <map>
 #include "helpers.hpp"
 #include "operations.hpp"
 
 namespace Spider3d {
 
-    static int parseDate( char *cpDatetime, struct tm& tmDatetime ); 
-
-    static int iCodePos, iNamePos, iTypePos, iModelCodePos, iLevelPos, 
-        iActualStartPos, iActualFinishPos, iAsapStartPos, iAsapFinishPos, iCompareStartPos, iCompareFinishPos, 
-        iCriticalPos, iCostTotalPos, iVolSumPos, iDurSumDPos;
-
-    static char caCode[] = "Code", caName[] = "Name", caType[] = "Type", caModelCode[] = "Model", caLevel[] = "Level", 
-        iActualStart[] = "FactStart", caActualFinish[] = "FactFin", caAsapStart[] = "AsapStart", caAsapFinish[] = "AsapFin", 
-        caCompareStart[] = "Start_COMP", caCompareFinish[] = "Fin_COMP", 
-        iCritical[] = "f_Critical", caCostTotal[] = "CostTotal", caVolSum[] = "VolSum", caDurSumD[]= "DurSumD";
-
-    static int nFields = 15;
-    static char *cpaFields[] = { caCode, caName, caType, caModelCode, caLevel, iActualStart, caActualFinish, caAsapStart, caAsapFinish, 
-        caCompareStart, caCompareFinish, iCritical, caCostTotal, caVolSum, caDurSumD };
-    static int  *ipaFields[] = { &iCodePos, &iNamePos, &iTypePos, &iModelCodePos, &iLevelPos, 
-        &iActualStartPos, &iActualFinishPos, &iAsapStartPos, &iAsapFinishPos, &iCompareStartPos, &iCompareFinishPos, 
-        &iCriticalPos, &iCostTotalPos, &iVolSumPos, &iDurSumDPos };
-
-    static int iCodeIndex, iNameIndex, iTypeIndex, iModelCodeIndex, iLevelIndex, 
-        iActualStartIndex, iActualFinishIndex, iAsapStartIndex, iAsapFinishIndex, iCompareStartIndex, iCompareFinishIndex, 
-        iCriticalIndex, iCostTotalIndex, iVolSumIndex, iDurSumDIndex;
-    static int *ipaFieldIndexes[] = { &iCodeIndex, &iNameIndex, &iTypeIndex, &iModelCodeIndex, &iLevelIndex, 
-        &iActualStartIndex, &iActualFinishIndex, &iAsapStartIndex, &iAsapFinishIndex, &iCompareStartIndex, &iCompareFinishIndex, 
-        &iCriticalIndex, &iCostTotalIndex, &iVolSumIndex, &iDurSumDIndex };
+    int fieldsToReadNum = 15;
+    static const char *fieldsToRead[] = { "Code", "Name", "Type", "Model", "Level", "FactStart", "FactFin", "AsapStart", "AsapFin", 
+        "Start_COMP", "Fin_COMP", "f_Critical", "CostTotal", "VolSum", "DurSumD" };
 
     int loadOperations( Operations& operations, const char *cpFile ) {
         FILE *fp;
@@ -38,165 +23,110 @@ namespace Spider3d {
         int iStatus;
         int nScanned;
 
-        fp = fopen( cpFile, "rb" );
-        if( fp != NULL ) {            
-            iStatus = parseFileHeader( fp, nFields, cpaFields, ipaFields, false );
-            if( iStatus != -1 ) {                
-                while(1) {
-                    int iParseFileLineStatus;
-                    cpLine = parseFileLine( fp, nFields, ipaFields, ipaFieldIndexes, &iParseFileLineStatus, false );
-                    if( cpLine == NULL ) {
-                        break;
-                    }
-                    if( iParseFileLineStatus == 0 ) {
-                        Operation operation;
-
-                        operation.sLevel = (iLevelIndex != -1) ? std::string( trimString( &cpLine[iLevelIndex] ) ) : std::string("");
-                        if( iLevelIndex != -1 ) {
-                            nScanned = sscanf( &cpLine[iLevelIndex], "%d", &operation.iLevel );
-                            operation.bLevel = ( nScanned == 1 ) ? true : false;
-                        } else {
-                            operation.iLevel = -1;
-                            operation.bLevel = false;
-                        }
-
-                        operation.sCode = (iCodeIndex != -1) ? std::string( trimString( &cpLine[iCodeIndex] ) ) : std::string("");
-                        operation.sName = (iNameIndex != -1) ? std::string( trimString( &cpLine[iNameIndex] ) ) : std::string("");
-                        operation.sType = (iTypeIndex != -1) ? std::string( trimString( &cpLine[iTypeIndex] ) ) : std::string("");
-                        operation.sModelCode = (iModelCodeIndex != -1) ? std::string( trimString( &cpLine[iModelCodeIndex] ) ) : std::string("");
-
-                        if( iActualStartIndex != -1 ) {                        
-                            iStatus = parseDate( trimString( &cpLine[iActualStartIndex] ), operation.tmActualStart );
-                            if( iStatus != -1 ) {
-                                operation.tActualStart = mktime( &(operation.tmActualStart) );
-                                operation.sActualStart = std::string( trimString( &cpLine[iActualStartIndex] ) );
-                            } 
-                        }
-                        if( iActualStartIndex == -1 || iStatus == -1 ) {
-                            operation.tActualStart = 0;            
-                            operation.sActualStart = std::string("");
-                        }
-
-                        if( iActualFinishIndex != -1 ) {
-                            iStatus = parseDate( trimString( &cpLine[iActualFinishIndex] ), operation.tmActualFinish );
-                            if( iStatus != -1 ) {
-                                operation.tActualFinish = mktime( &(operation.tmActualFinish) );
-                                operation.sActualFinish = std::string( trimString( &cpLine[iActualFinishIndex] ) );
-                            } 
-                        }
-                        if( iActualFinishIndex == -1 || iStatus == -1 ) {
-                            operation.tActualFinish = 0;            
-                            operation.sActualFinish = std::string("");
-                        }
-
-                        if( iAsapStartIndex != -1 ) {
-                            iStatus = parseDate( &cpLine[iAsapStartIndex], operation.tmAsapStart );
-                            if( iStatus != -1 ) {
-                                operation.tAsapStart = mktime( &(operation.tmAsapStart) );
-                                operation.sAsapStart = std::string( trimString( &cpLine[iAsapStartIndex] ) );
-                            } 
-                        }
-                        if( iAsapStartIndex == -1 || iStatus == -1 ) {
-                            operation.tAsapStart = 0;            
-                            operation.sAsapStart = std::string("");
-                        }
-
-                        if( iAsapFinishIndex != -1 ) {
-                            iStatus = parseDate( &cpLine[iAsapFinishIndex], operation.tmAsapFinish );
-                            if( iStatus != -1 ) {
-                                operation.tAsapFinish = mktime( &(operation.tmAsapFinish) );
-                                operation.sAsapFinish = std::string( trimString( &cpLine[iAsapFinishIndex] ) );
-                            }
-                        }
-                        if( iAsapFinishIndex == -1 || iStatus == -1 ) {
-                            operation.tAsapFinish = 0;            
-                            operation.sAsapFinish = std::string("");
-                        }
-
-                        int iStatus1 = -1, iStatus2 = -1;
-                        if( iCompareStartIndex != -1 && iCompareFinishIndex != -1 ) {
-                            iStatus1 = parseDate( &cpLine[iCompareStartIndex], operation.tmCompareStart );
-                            if( iStatus1 != -1 ) {
-                                operation.tCompareStart = mktime( &(operation.tmCompareStart) );
-                                operation.sCompareStart = std::string( trimString( &cpLine[iCompareStartIndex] ) );
-                            } 
-
-                            iStatus2 = parseDate( &cpLine[iCompareFinishIndex], operation.tmCompareFinish );
-                            if( iStatus2 != -1 ) {
-                                operation.tCompareFinish = mktime( &(operation.tmCompareFinish) );
-                                operation.sCompareFinish = std::string( trimString( &cpLine[iCompareFinishIndex] ) );
-                            } 
-                        }
-                        if( iStatus1 == -1 || iStatus2 == -1 ) {
-                            operation.tCompareStart = 0;            
-                            operation.sCompareStart = std::string("");
-                            operation.tCompareFinish = 0;            
-                            operation.sCompareFinish = std::string("");                            
-                        }
-
-                        if( iCriticalIndex != -1 ) {
-                            nScanned = sscanf( &cpLine[iCriticalIndex], "%d", &operation.iCritical );
-                            operation.bCritical = ( nScanned == 1 ) ? true : false;
-                        } else {
-                            operation.iCritical = -1;
-                            operation.bCritical = false;
-                        }
-
-                        if( iCostTotalIndex != -1 ) {
-                            nScanned = sscanf( &cpLine[iCostTotalIndex], "%f", &operation.fCostTotal );
-                            operation.bCostTotal = ( nScanned == 1 ) ? true : false;                            
-                        } else {
-                            operation.fCostTotal = -1.0;
-                            operation.bCostTotal = false;
-                        }
-
-                        if( iVolSumIndex != -1 ) {
-                            nScanned = sscanf( &cpLine[iVolSumIndex], "%f", &operation.fVolSum );
-                            operation.bVolSum = ( nScanned == 1 ) ? true : false;                            
-                        } else {
-                            operation.fVolSum = -1.0;
-                            operation.bVolSum = false;                            
-                        }
-
-                        if( iDurSumDIndex != -1 ) {
-                            nScanned = sscanf( &cpLine[iDurSumDIndex], "%f", &operation.fDurSumD );
-                            operation.bDurSumD = ( nScanned == 1 ) ? true : false;                            
-                        } else {
-                            operation.fDurSumD = -1.0;
-                            operation.bDurSumD = false;                            
-                        }
-
-                        // Checking dates are valid...
-                        if( (operation.tActualStart > 0 && operation.tActualFinish > 0 ) || // if "finished" ...
-                            (operation.tAsapStart > 0 && operation.tAsapFinish > 0) || // ... or not "not started"
-                            (operation.tActualStart > 0 && operation.tAsapStart && operation.tAsapFinish > 0) ) { // ...or "partly finished..."
-                            operations.add( operation ); // ... then it's ok - adding a new operation.
-                        }
-                    }
-                    free(cpLine);
-                }                
-            }
-            fclose(fp);
+        std::vector<std::string> fieldsNames;
+        for( int i= 0 ; i < fieldsToReadNum ; i++ ) {
+            fieldsNames.push_back( fieldsToRead[i] );
         }
-        return 0;
-    }
+        std::map<std::string,int> fieldsPositions;
 
-    static int parseDate( char *cpDatetime, struct tm& tmDatetime ) {
-        int iStatus;
-        for( int i = 0 ; cpDatetime[i] != '\x0' ; i++ ) {
-            if( cpDatetime[i] == '.' || cpDatetime[i] == '-' || cpDatetime[i] == ':' ) {
-                cpDatetime[i] = ' ';
-            }
-        }
-        iStatus = sscanf( cpDatetime, "%d %d %d %d %d", &tmDatetime.tm_mday, &tmDatetime.tm_mon, &tmDatetime.tm_year, &tmDatetime.tm_hour, &tmDatetime.tm_min );
-        if( iStatus != 5 ) { 
+        std::ifstream infile( cpFile );
+        if( !infile.is_open() ) {
             return -1;
         }
-        tmDatetime.tm_year -= 1900;
-        tmDatetime.tm_mon -= 1;
-        tmDatetime.tm_sec = 0;
-        tmDatetime.tm_wday = tmDatetime.tm_yday = tmDatetime.tm_isdst = 0;
+
+        int nParsed = parseFileHeader( infile, fieldsNames, fieldsPositions );
+        if( nParsed != -1 ) {
+            while(1) {
+                std::map<std::string,std::string> fieldsParsed;    
+                int numParsed = parseFileLine( infile, fieldsPositions, fieldsParsed );
+                if( numParsed == -1 ) {
+                    break;
+                }
+                Operation operation;
+
+                operation.sLevel = fieldsParsed["Level"];
+                nScanned = sscanf( operation.sLevel.c_str(), "%d", &operation.iLevel );
+                operation.bLevel = ( nScanned == 1 ) ? true : false;
+
+                operation.sCode = fieldsParsed["Code"];
+                operation.sName = fieldsParsed["Name"];
+                operation.sType = fieldsParsed["Type"];
+
+                operation.sModelCode = fieldsParsed["ModelCode"];
+
+                operation.sActualStart = fieldsParsed["FactStart"]; 
+                iStatus = parseDatetime( operation.sActualStart, operation.tmActualStart );
+                if( iStatus != -1 ) {
+                    operation.tActualStart = mktime( &(operation.tmActualStart) );
+                } else {
+                    operation.tActualStart = 0;            
+                    operation.sActualStart = std::string("");
+                }
+                operation.sActualFinish = fieldsParsed["FactFin"]; 
+                iStatus = parseDatetime( operation.sActualFinish, operation.tmActualFinish );
+                if( iStatus != -1 ) {
+                    operation.tActualFinish = mktime( &(operation.tmActualFinish) );
+                } else {
+                    operation.tActualFinish = 0;            
+                    operation.sActualFinish = std::string("");
+                }
+
+                operation.sAsapStart = fieldsParsed["AsapStart"]; 
+                iStatus = parseDatetime( operation.sAsapStart, operation.tmAsapStart );
+                if( iStatus != -1 ) {
+                    operation.tAsapStart = mktime( &(operation.tmAsapStart) );
+                } else {
+                    operation.tAsapStart = 0;            
+                    operation.sAsapStart = std::string("");
+                }
+                operation.sAsapFinish = fieldsParsed["AsapFin"]; 
+                iStatus = parseDatetime( operation.sAsapFinish, operation.tmAsapFinish );
+                if( iStatus != -1 ) {
+                    operation.tAsapFinish = mktime( &(operation.tmAsapFinish) );
+                } else {
+                    operation.tAsapFinish = 0;            
+                    operation.sAsapFinish = std::string("");
+                }
+
+                int iStatus1 = -1, iStatus2 = -1;
+                operation.sCompareStart = fieldsParsed["Start_COMP"];
+                iStatus1 = parseDatetime( operation.sCompareStart, operation.tmCompareStart );
+                if( iStatus1 != -1 ) {
+                    operation.tCompareStart = mktime( &(operation.tmCompareStart) );
+                } 
+                operation.sCompareFinish = fieldsParsed["Fin_COMP"];
+                iStatus2 = parseDatetime( operation.sCompareFinish, operation.tmCompareFinish );
+                if( iStatus2 != -1 ) {
+                    operation.tCompareFinish = mktime( &(operation.tmCompareFinish) );
+                } 
+                if( iStatus1 == -1 || iStatus2 == -1 ) {
+                    operation.tCompareStart = 0;            
+                    operation.sCompareStart = std::string("");
+                    operation.tCompareFinish = 0;            
+                    operation.sCompareFinish = std::string("");                            
+                }
+
+                nScanned = sscanf( fieldsParsed["f_Critical"].c_str(), "%d", &operation.iCritical );
+                operation.bCritical = ( nScanned == 1 ) ? true : false;
+
+                nScanned = sscanf( fieldsParsed["CostTotal"].c_str(), "%f", &operation.fCostTotal );
+                operation.bCostTotal = ( nScanned == 1 ) ? true : false;                            
+
+                nScanned = sscanf( fieldsParsed["VolSum"].c_str(), "%f", &operation.fVolSum );
+                operation.bVolSum = ( nScanned == 1 ) ? true : false;                            
+
+                nScanned = sscanf( fieldsParsed["DurSumD"].c_str(), "%f", &operation.fDurSumD );
+                operation.bDurSumD = ( nScanned == 1 ) ? true : false;                            
+
+                // Checking dates are valid...
+                if( (operation.tActualStart > 0 && operation.tActualFinish > 0 ) || // if "finished" ...
+                    (operation.tAsapStart > 0 && operation.tAsapFinish > 0) || // ... or not "not started"
+                    (operation.tActualStart > 0 && operation.tAsapStart && operation.tAsapFinish > 0) ) { // ...or "partly finished..."
+                    operations.add( operation ); // ... then it's ok - adding a new operation.
+                }
+            }
+        }
+        infile.close();
         return 0;
     }
-
 }
