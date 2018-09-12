@@ -8,6 +8,7 @@
 
 using namespace Spider3d;
 
+static std::string ganttJSON = "gantt.json";
 static const char *cpOutputPathKey = "GanttFilesDir";
 static const char *cpInputPathKey = "TextFilesDir";
 static int loadIni( const char *configFile, std::map<std::string, std::string>& configParameters );
@@ -48,7 +49,7 @@ int main( int argc, char* argv[] ) {
 
     // Writing output file
     std::ofstream fsOutput;
-    std::string outputFile = configParameters[cpOutputPathKey] + "/gantt.js";
+    std::string outputFile = configParameters[cpOutputPathKey] + "/" + ganttJSON;
     fsOutput.open( outputFile.c_str() );    
     if( fsOutput.fail() ) {
         std::cout << "Can't write into the " << outputFile << ".\nExiting..." << std::endl; 
@@ -59,7 +60,7 @@ int main( int argc, char* argv[] ) {
         outputOperations( fsOutput, operations );
         outputOpLinks( fsOutput, opLinks ); 
         
-        fsOutput << "\r\n};";
+        fsOutput << "\r\n}";
     }
     fsOutput.close();
     
@@ -68,72 +69,83 @@ int main( int argc, char* argv[] ) {
 
 
 static void outputProject( std::ofstream& fsOutput, Project& project ) {
-        fsOutput << "\r\nproj: { ";
-        fsOutput << "code:'" << project.sCode << "', name:'" << project.sName << "'";
-        fsOutput << ", projVer:" << project.iProjVer << ", curTime:'" << project.sCurTime << "'";
+        fsOutput << "\r\n\"proj\": { ";
+        fsOutput << "\"code\":\"" << project.sCode << "\", \"name\":\"" << project.sName << "\"";
+        fsOutput << ",\"projVer\":" << project.iProjVer << ",\"curTime\":\"" << project.sCurTime << "\"";
         fsOutput << "},";
 }
 
-static void outputOpLinks( std::ofstream& fsOutput, OpLinks& opLinks ) {
 
-    fsOutput << "\r\nopLinks: [";
-    for( int i = 0 ; i < opLinks.number() ; i++ ) {
-        fsOutput << "\r\n{";
-        fsOutput << "predCode:'" << opLinks.mOpLinks[i].sPredCode << "',";
-        fsOutput << "succCode:'" << opLinks.mOpLinks[i].sSuccCode << "',";
-        fsOutput << "typeSF:'" << opLinks.mOpLinks[i].sTypeSF << "',";
-        fsOutput << "lagType:'" << opLinks.mOpLinks[i].sLagType << "',";
-        fsOutput << "lagUnit:'" << opLinks.mOpLinks[i].sLagUnit << "',";
-        if( opLinks.mOpLinks[i].bLag ) {
-            fsOutput << " lag:" << opLinks.mOpLinks[i].fLag << ",";
-        } else {
-            fsOutput << " lag:null,";
+static void outputOperations ( std::ofstream& fsOutput, Operations& operations ) {
+    fsOutput << "\r\n\"operations\": [";
+    for( int i = 0 ; i < operations.number() ; i++ ) {
+        if( i > 0 ) {
+            fsOutput << ",";
         }
-        fsOutput << "}," ;
+        fsOutput << "\r\n{";
+        if( !operations.mOperations[i].sLevel.empty() ) {
+            fsOutput << "\"Level\":" << operations.mOperations[i].iLevel << ",";
+        } else {
+            fsOutput << "\"Level\":null,";
+        }
+        fsOutput << "\"Code\":\"" << operations.mOperations[i].sCode << "\",";
+        fsOutput << "\"Name\":\"" << operations.mOperations[i].sName << "\",";
+        fsOutput << "\"Start\":\"" << operations.mOperations[i].sStart << "\",";
+        fsOutput << "\"Fin\":\"" << operations.mOperations[i].sFinish << "\",";            
+        fsOutput << "\"FactStart\":\"" << operations.mOperations[i].sActualStart << "\",";
+        fsOutput << "\"FactFin\":\"" << operations.mOperations[i].sActualFinish << "\",";            
+        fsOutput << "\"AsapStart\":\"" << operations.mOperations[i].sAsapStart << "\",";
+        fsOutput << "\"AsapFin\":\"" << operations.mOperations[i].sAsapFinish << "\",";            
+        fsOutput << "\"Start_COMP\":\"" << operations.mOperations[i].sCompareStart << "\",";
+        fsOutput << "\"Fin_COMP\":\"" << operations.mOperations[i].sCompareFinish << "\",";            
+        if( operations.mOperations[i].bCritical ) {
+            fsOutput << "\"f_Ccritical\":" << operations.mOperations[i].iCritical << ",";
+        } else {
+            fsOutput << "\"f_Critical\":null,";
+        }
+        if( operations.mOperations[i].bCostTotal ) {
+            fsOutput << "\"CostTotal\":" << operations.mOperations[i].fCostTotal << ",";
+        } else {
+            fsOutput << "\"CostTotal\":null,";
+        }
+        if( operations.mOperations[i].bVolSum ) {
+            fsOutput << "\"VolSum\":" << operations.mOperations[i].fVolSum << ",";
+        } else {
+            fsOutput << "\"VolSum\":null,";
+        }
+        if( operations.mOperations[i].bDurSumD ) {
+            fsOutput << "\"DurSumD\":" << operations.mOperations[i].fDurSumD << ",";
+        } else {
+            fsOutput << "\"DurSumD\":null,";
+        }
+        fsOutput << "\"Notes\":\"" << operations.mOperations[i].sNotes << "\"";
+        fsOutput << "}" ;
     }
     fsOutput << "\r\n],";
 }
 
-static void outputOperations ( std::ofstream& fsOutput, Operations& operations ) {
-    fsOutput << "\r\noperations: [";
-    for( int i= 0 ; i < operations.number() ; i++ ) {
+
+static void outputOpLinks( std::ofstream& fsOutput, OpLinks& opLinks ) {
+
+    fsOutput << "\r\n\"opLinks\": [";
+    for( int i = 0 ; i < opLinks.number() ; i++ ) {
+        if( i > 0 ) {
+            fsOutput << ",";
+        }
         fsOutput << "\r\n{";
-        if( !operations.mOperations[i].sLevel.empty() ) {
-            fsOutput << " level:" << operations.mOperations[i].iLevel << ",";
+        fsOutput << "\"PredCode\":\"" << opLinks.mOpLinks[i].sPredCode << "\",";
+        fsOutput << "\"SuccCode\":\"" << opLinks.mOpLinks[i].sSuccCode << "\",";
+        fsOutput << "\"TypeSF\":\"" << opLinks.mOpLinks[i].sTypeSF << "\",";
+        fsOutput << "\"LagType\":\"" << opLinks.mOpLinks[i].sLagType << "\",";
+        fsOutput << "\"LagUnit\":\"" << opLinks.mOpLinks[i].sLagUnit << "\",";
+        if( opLinks.mOpLinks[i].bLag ) {
+            fsOutput << "\"Lag\":" << opLinks.mOpLinks[i].fLag << "";
         } else {
-            fsOutput << " level:null,";
+            fsOutput << "\"Lag\":null";
         }
-        fsOutput << "code:'" << operations.mOperations[i].sCode << "',";
-        fsOutput << "name:'" << operations.mOperations[i].sName << "',";
-        fsOutput << "actualStart:'" << operations.mOperations[i].sActualStart << "',";
-        fsOutput << "actualFinish:'" << operations.mOperations[i].sActualFinish << "',";            
-        fsOutput << "asapStart:'" << operations.mOperations[i].sAsapStart << "',";
-        fsOutput << "asapFinish:'" << operations.mOperations[i].sAsapFinish << "',";            
-        fsOutput << "compareStart:'" << operations.mOperations[i].sCompareStart << "',";
-        fsOutput << "compareFinish:'" << operations.mOperations[i].sCompareFinish << "',";            
-        if( operations.mOperations[i].bCritical ) {
-            fsOutput << " critical:" << operations.mOperations[i].iCritical << ",";
-        } else {
-            fsOutput << " critical:null,";
-        }
-        if( operations.mOperations[i].bCostTotal ) {
-            fsOutput << " costTotal:" << operations.mOperations[i].fCostTotal << ",";
-        } else {
-            fsOutput << " costTotal:null,";
-        }
-        if( operations.mOperations[i].bVolSum ) {
-            fsOutput << " volSum:" << operations.mOperations[i].fVolSum << ",";
-        } else {
-            fsOutput << " volSum:null,";
-        }
-        if( operations.mOperations[i].bDurSumD ) {
-            fsOutput << " durSumD:" << operations.mOperations[i].fDurSumD << ",";
-        } else {
-            fsOutput << " durSumD:null,";
-        }
-        fsOutput << "}," ;
+        fsOutput << "}" ;
     }
-    fsOutput << "\r\n],";
+    fsOutput << "\r\n]";
 }
 
 static int loadIni( const char *configFile, std::map<std::string, std::string>& configParameters ) {

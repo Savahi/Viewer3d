@@ -11,6 +11,7 @@ namespace Spider3d {
 			std::string sCode;
 			std::string sName;
 
+			std::string sProjVer;
 			int iProjVer;
 			bool bProjVer;
 

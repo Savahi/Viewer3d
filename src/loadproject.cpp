@@ -2,57 +2,51 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <map>
 #include "helpers.hpp"
 #include "project.hpp"
 
 namespace Spider3d {
 
-    static int iCodePos, iNamePos, iProjVerPos, iCurTimePos;
-
-    static char caCode[] = "Code";
-    static char caName[] = "Name";
-    static char caProjVer[] = "ProjVer";
-    static char caCurTime[] = "CurTime";
-
-    static int nFields = 4;
-    static char *cpaFields[] = { caCode, caName, caProjVer, caCurTime };
-    static int  *ipaFields[] = { &iCodePos, &iNamePos, &iProjVerPos, &iCurTimePos };
-
-    static int iCodeIndex, iNameIndex, iProjVerIndex, iCurTimeIndex;
-    static int *ipaFieldIndexes[] = { &iCodeIndex, &iNameIndex, &iProjVerIndex, &iCurTimeIndex };
+    static int fieldsToReadNum = 4;
+    static const char *fieldsToRead[] = { "Code", "Name", "ProjVer", "CurTime" };
 
     int loadProject( Project& project, const char *cpFile ) {
-        FILE *fp;
-        char *cpLine;
-        int iStatus;
-        int nScanned;
         int iReturn = -1;
+        int nScanned;
 
-        fp = fopen( cpFile, "rb" );
-        if( fp != NULL ) {
-            iStatus = parseFileHeader( fp, nFields, cpaFields, ipaFields );
-            if( iStatus != -1 ) {
-                int iParseFileLineStatus;
-                cpLine = parseFileLine( fp, nFields, ipaFields, ipaFieldIndexes, &iParseFileLineStatus );
-                if( cpLine != NULL ) {
-                    if( iParseFileLineStatus == 0 ) {
-                        project.sCode = std::string( trimString( &cpLine[iCodeIndex] ) );
-                        project.sName = std::string( trimString( &cpLine[iNameIndex] ) );
+        std::vector<std::string> fieldsNames;
+        for( int i= 0 ; i < fieldsToReadNum ; i++ ) {
+            fieldsNames.push_back( fieldsToRead[i] );
+        }
+        std::map<std::string,int> fieldsPositions;
 
-                        nScanned = sscanf( &cpLine[iProjVerIndex], "%d", &project.iProjVer );
-                        if( nScanned == 0 ) {
-                            project.iProjVer = 0;
-                        }
+        std::ifstream infile( cpFile );
+        if( infile.is_open() ) {
+
+            int numHeaderParsed = parseFileHeader( infile, fieldsNames, fieldsPositions );
+            if( numHeaderParsed != -1 ) {
+                std::map<std::string,std::string> fieldsParsed;    
+                int numParsed = parseFileLine( infile, fieldsPositions, fieldsParsed );
+                if( numParsed != -1 ) {
+                    project.sCode = fieldsParsed["Code"];
+                    project.sName = fieldsParsed["Name"];
+                    project.sProjVer = fieldsParsed["projVer"];
+                    int nScanned = sscanf( project.sProjVer.c_str(), "%d", &project.iProjVer );
+                    if( nScanned == 1 ) {
                         project.bProjVer = true;
-
-                        project.sCurTime = std::string( trimString( &cpLine[iCurTimeIndex] ) );
-
-                        iReturn = 0;
+                    } else {
+                        project.iProjVer = 0;                    
+                        project.bProjVer = false;
                     }
-                    free(cpLine);
+                    project.sCurTime = fieldsParsed["CurTime"];
+                    iReturn = 0;
                 }
             }
-            fclose(fp);
+            infile.close();
         }
         return iReturn;
     }

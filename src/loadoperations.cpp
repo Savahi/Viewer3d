@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
-#include <iostream>
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <vector>
 #include <map>
@@ -13,13 +11,12 @@
 
 namespace Spider3d {
 
-    int fieldsToReadNum = 15;
-    static const char *fieldsToRead[] = { "Code", "Name", "Type", "Model", "Level", "FactStart", "FactFin", "AsapStart", "AsapFin", 
-        "Start_COMP", "Fin_COMP", "f_Critical", "CostTotal", "VolSum", "DurSumD" };
+    static int fieldsToReadNum = 15;
+    static const char *fieldsToRead[] = { "Code", "Name", "Type", "Model", "Level", 
+        "Start", "Fin", "FactStart", "FactFin", "AsapStart", "AsapFin", 
+        "Start_COMP", "Fin_COMP", "f_Critical", "CostTotal", "VolSum", "DurSumD", "Notes" };
 
     int loadOperations( Operations& operations, const char *cpFile ) {
-        FILE *fp;
-        char *cpLine;
         int iStatus;
         int nScanned;
 
@@ -34,8 +31,8 @@ namespace Spider3d {
             return -1;
         }
 
-        int nParsed = parseFileHeader( infile, fieldsNames, fieldsPositions );
-        if( nParsed != -1 ) {
+        int numHeaderParsed = parseFileHeader( infile, fieldsNames, fieldsPositions );
+        if( numHeaderParsed != -1 ) {
             while(1) {
                 std::map<std::string,std::string> fieldsParsed;    
                 int numParsed = parseFileLine( infile, fieldsPositions, fieldsParsed );
@@ -53,6 +50,23 @@ namespace Spider3d {
                 operation.sType = fieldsParsed["Type"];
 
                 operation.sModelCode = fieldsParsed["ModelCode"];
+
+                operation.sStart = fieldsParsed["Start"]; 
+                iStatus = parseDatetime( operation.sStart, operation.tmStart );
+                if( iStatus != -1 ) {
+                    operation.tStart = mktime( &(operation.tmStart) );
+                } else {
+                    operation.tStart = 0;            
+                    operation.sStart = std::string("");
+                }
+                operation.sFinish = fieldsParsed["Fin"]; 
+                iStatus = parseDatetime( operation.sFinish, operation.tmFinish );
+                if( iStatus != -1 ) {
+                    operation.tFinish = mktime( &(operation.tmFinish) );
+                } else {
+                    operation.tFinish = 0;            
+                    operation.sFinish = std::string("");
+                }
 
                 operation.sActualStart = fieldsParsed["FactStart"]; 
                 iStatus = parseDatetime( operation.sActualStart, operation.tmActualStart );
@@ -124,6 +138,8 @@ namespace Spider3d {
                     (operation.tActualStart > 0 && operation.tAsapStart && operation.tAsapFinish > 0) ) { // ...or "partly finished..."
                     operations.add( operation ); // ... then it's ok - adding a new operation.
                 }
+
+                operation.sNotes = fieldsParsed["Notes"];                
             }
         }
         infile.close();

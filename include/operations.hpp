@@ -18,6 +18,9 @@ namespace Spider3d {
 			std::string sType;
 			std::string sModelCode;
 			
+
+			std::string sStart;
+			std::string sFinish;
 			std::string sActualStart;
 			std::string sActualFinish;
 			std::string sAsapStart;
@@ -37,8 +40,10 @@ namespace Spider3d {
 			float fDurSumD;
 			bool bDurSumD;
 
-			tm tmActualStart, tmActualFinish, tmAsapStart, tmAsapFinish, tmCompareStart, tmCompareFinish;
-			time_t tActualStart, tActualFinish, tAsapStart, tAsapFinish, tCompareStart, tCompareFinish;
+			std::string sNotes;
+
+			tm tmStart, tmFinish, tmActualStart, tmActualFinish, tmAsapStart, tmAsapFinish, tmCompareStart, tmCompareFinish;
+			time_t tStart, tFinish, tActualStart, tActualFinish, tAsapStart, tAsapFinish, tCompareStart, tCompareFinish;
 			bool bDatesInitialized;
 
 			OpType *opType;
