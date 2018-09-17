@@ -1,17 +1,11 @@
 #pragma once
-#include "operations.hpp"
-#include "oplinks.hpp"
-#include "resources.hpp"
-#include "opresassignments.hpp"
-#include "costs.hpp"
-#include "opcosts.hpp"
-#include "project.hpp"
+#include "stdafx.h"
 
 namespace Spider3d {
 
 	int loadProject( Project& project, const char *cpFile );
 
-	int loadOperations( Operations& operations, const char *cpFile );
+	int loadGantt( Gantt& gantt, const char *cpFile );
 
 	int loadOpLinks( OpLinks& opLinks, const char *cpFile );
 

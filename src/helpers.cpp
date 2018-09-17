@@ -1,16 +1,5 @@
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <string>
-#include <ctype.h>
-#include "helpers.hpp"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <map>
+#include "stdafx.h"
 
 namespace Spider3d {
 
@@ -381,6 +370,59 @@ namespace Spider3d {
           nTokens++;
        }
        return nTokens;
+    }
+
+    int parseAllFileHeader( std::ifstream& infile, std::vector<std::string>& fieldsNames, std::map<std::string,int>& fieldsPositions ) 
+    {
+        int numParsed = 0;
+
+        std::string line;
+        if( std::getline(infile, line) ) {
+            std::vector<std::string> fields;
+            parseFileLineIntoFields( line, fields, cDefaultTableFieldsSplitter );            
+            for( int i = 0 ; i < fields.size() ; i++ ) {
+                fieldsNames.push_back( fields[i] );
+                fieldsPositions.insert( std::pair<std::string,int>( fields[i], i ) );
+            }
+            numParsed = fields.size();
+        }
+        return numParsed;
+    }
+
+    int parseAllFileHeaderTitles( std::ifstream& infile, std::vector<std::string>& fieldsNames, 
+        std::map<std::string,std::string>& fieldsTitles ) 
+    {
+        int numParsed = 0;
+
+        std::string line;
+        if( std::getline(infile, line) ) {
+            std::vector<std::string> fields;
+            parseFileLineIntoFields( line, fields, cDefaultTableFieldsSplitter );            
+            for( int i = 0 ; i < fields.size() ; i++ ) {
+                fieldsTitles.insert( std::pair<std::string,std::string>( fieldsNames[i], fields[i] ) );
+            }
+            numParsed = fields.size();
+        }
+        return numParsed;
+    }
+
+    int parseAllFileHeaderFlags( std::ifstream& infile, std::vector<std::string>& fieldsNames, 
+        std::map<std::string,long int>& fieldsFlags ) 
+    {
+        int numParsed = 0;
+
+        std::string line;
+        if( std::getline(infile, line) ) {
+            std::vector<std::string> fields;
+            parseFileLineIntoFields( line, fields, cDefaultTableFieldsSplitter );            
+            for( int i = 0 ; i < fields.size() ; i++ ) {
+                char *ptr;
+                long int iFlags = strtol( fields[i].c_str(), &ptr, 0 );
+                fieldsFlags.insert( std::pair<std::string,long int>( fieldsNames[i], iFlags ) );
+            }
+            numParsed = fields.size();
+        }
+        return numParsed;
     }
 
 }

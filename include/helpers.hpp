@@ -1,9 +1,6 @@
 #pragma once
-#include <stdio.h>
-#include <string>
-#include <ctime>
-#include <vector>
-#include <map>
+
+#include "stdafx.h"
 
 namespace Spider3d {
 
@@ -35,4 +32,10 @@ namespace Spider3d {
     int parseFileHeader( std::ifstream& infile, std::vector<std::string>& fieldsNames, std::map<std::string,int>& fieldsPositions );
     int parseFileLine( std::ifstream& infile, std::vector<std::string>& fields );
     int parseFileLine( std::ifstream& infile, std::map<std::string,int>& fieldsPositions, std::map<std::string,std::string>& fieldsParsed );
+
+    int parseAllFileHeader( std::ifstream& infile, std::vector<std::string>& fieldsNames, std::map<std::string,int>& fieldsPositions );
+    int parseAllFileHeaderTitles( std::ifstream& infile, std::vector<std::string>& fieldsNames, 
+        std::map<std::string,std::string>& fieldsTitles );  
+    int parseAllFileHeaderFlags( std::ifstream& infile, std::vector<std::string>& fieldsNames, 
+        std::map<std::string,long int>& fieldsFlags );
 }

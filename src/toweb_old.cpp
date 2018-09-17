@@ -1,11 +1,16 @@
-#include "stdafx.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <map>
+#include "helpers.hpp"
+#include "toweb.hpp"
 
 using namespace Spider3d;
 
 static std::string ganttJSON = "gantt.json";
 static const char *cpOutputPathKey = "GanttFilesDir";
 static const char *cpInputPathKey = "TextFilesDir";
-static const char *cpLanguageKey = "Language";
 static int loadIni( const char *configFile, std::map<std::string, std::string>& configParameters );
 
 static std::string fileProject("proj.txt");
@@ -13,7 +18,7 @@ static std::string fileOperations("oper.txt");
 static std::string fileOpLinks("link.txt");
 
 static void outputProject( std::ofstream& fsOutput, Project& project );
-static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt );
+static void outputOperations ( std::ofstream& fsOutput, Operations& operations );
 static void outputOpLinks( std::ofstream& fsOutput, OpLinks& opLinks );
 
 int main( int argc, char* argv[] ) {
@@ -26,7 +31,7 @@ int main( int argc, char* argv[] ) {
     }
 
     Project project;
-    Gantt gantt;
+    Operations operations;
     OpLinks opLinks;
 
     std::map<std::string, std::string> configParameters;
@@ -38,7 +43,7 @@ int main( int argc, char* argv[] ) {
 
     loadProject( project, (configParameters[cpInputPathKey] + fileProject).c_str() );
 
-    loadGantt( gantt, (configParameters[cpInputPathKey] + fileOperations).c_str() );
+    loadOperations( operations, (configParameters[cpInputPathKey] + fileOperations).c_str() );
 
     loadOpLinks( opLinks, (configParameters[cpInputPathKey] + fileOpLinks).c_str() );
 
@@ -52,11 +57,9 @@ int main( int argc, char* argv[] ) {
         fsOutput << "{";
 
         outputProject( fsOutput, project ); 
-        fsOutput << ",\r\n";
-        outputGantt( fsOutput, gantt );
-        fsOutput << ",\r\n";
+        outputOperations( fsOutput, operations );
         outputOpLinks( fsOutput, opLinks ); 
-        fsOutput << ",\r\n\"language\":\"" << configParameters[cpLanguageKey] << "\"";
+        
         fsOutput << "\r\n}";
     }
     fsOutput.close();
@@ -69,55 +72,56 @@ static void outputProject( std::ofstream& fsOutput, Project& project ) {
         fsOutput << "\r\n\"proj\": { ";
         fsOutput << "\"code\":\"" << project.sCode << "\", \"name\":\"" << project.sName << "\"";
         fsOutput << ",\"projVer\":" << project.iProjVer << ",\"curTime\":\"" << project.sCurTime << "\"";
-        fsOutput << "}";
+        fsOutput << "},";
 }
 
 
-static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
+static void outputOperations ( std::ofstream& fsOutput, Operations& operations ) {
     fsOutput << "\r\n\"operations\": [";
-    for( int i = 0 ; i < gantt.operations.size() ; i++ ) {
+    for( int i = 0 ; i < operations.number() ; i++ ) {
         if( i > 0 ) {
             fsOutput << ",";
         }
         fsOutput << "\r\n{";
-
-        for( int iField = 0 ; iField < gantt.operations[i].fields.size() ; iField++ ) {
-            if( iField > 0 ) {
-                fsOutput << ",";
-            }
-            fsOutput << "\"" << gantt.fieldsNames[i] << "\":";
-
-            if( !gantt.operations[i].fields[iField].empty() ) {
-                fsOutput << "\"" << gantt.operations[i].fields[iField] << "\"";
-            } else {
-                fsOutput << ":null";
-            }            
+        if( !operations.mOperations[i].sLevel.empty() ) {
+            fsOutput << "\"Level\":" << operations.mOperations[i].iLevel << ",";
+        } else {
+            fsOutput << "\"Level\":null,";
         }
+        fsOutput << "\"Code\":\"" << operations.mOperations[i].sCode << "\",";
+        fsOutput << "\"Name\":\"" << operations.mOperations[i].sName << "\",";
+        fsOutput << "\"Start\":\"" << operations.mOperations[i].sStart << "\",";
+        fsOutput << "\"Fin\":\"" << operations.mOperations[i].sFinish << "\",";            
+        fsOutput << "\"FactStart\":\"" << operations.mOperations[i].sActualStart << "\",";
+        fsOutput << "\"FactFin\":\"" << operations.mOperations[i].sActualFinish << "\",";            
+        fsOutput << "\"AsapStart\":\"" << operations.mOperations[i].sAsapStart << "\",";
+        fsOutput << "\"AsapFin\":\"" << operations.mOperations[i].sAsapFinish << "\",";            
+        fsOutput << "\"Start_COMP\":\"" << operations.mOperations[i].sCompareStart << "\",";
+        fsOutput << "\"Fin_COMP\":\"" << operations.mOperations[i].sCompareFinish << "\",";            
+        if( operations.mOperations[i].bCritical ) {
+            fsOutput << "\"f_Ccritical\":" << operations.mOperations[i].iCritical << ",";
+        } else {
+            fsOutput << "\"f_Critical\":null,";
+        }
+        if( operations.mOperations[i].bCostTotal ) {
+            fsOutput << "\"CostTotal\":" << operations.mOperations[i].fCostTotal << ",";
+        } else {
+            fsOutput << "\"CostTotal\":null,";
+        }
+        if( operations.mOperations[i].bVolSum ) {
+            fsOutput << "\"VolSum\":" << operations.mOperations[i].fVolSum << ",";
+        } else {
+            fsOutput << "\"VolSum\":null,";
+        }
+        if( operations.mOperations[i].bDurSumD ) {
+            fsOutput << "\"DurSumD\":" << operations.mOperations[i].fDurSumD << ",";
+        } else {
+            fsOutput << "\"DurSumD\":null,";
+        }
+        fsOutput << "\"Notes\":\"" << operations.mOperations[i].sNotes << "\"";
         fsOutput << "}" ;
     }
     fsOutput << "\r\n],";
-
-    fsOutput << "\r\n\"table\": [ { \"name\":\"[]\", \"ref\":null, \"width\":20 }";
-
-    for( int i = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
-        fsOutput << ",\r\n { \"name\":\"" << gantt.fieldsTitles[ gantt.fieldsNames[i] ] << "\",\"ref\":\"" << gantt.fieldsNames[i] << "\",\"width\":40}";
-    }
-    fsOutput << "\r\n],";
-    
-    fsOutput << "\r\n\"editable\": [ ";
-
-    for( int i = 0, counter = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
-        long int iFlags = gantt.fieldsFlags[ gantt.fieldsNames[i] ];
-        if( !( iFlags & 1 ) ) {
-            continue;
-        } 
-        if( counter > 0 ) {
-            fsOutput << ",";
-        }
-        fsOutput << ",\r\n { \"ref\":\"" << gantt.fieldsNames[i] << "\",\"type\":\"text\"}";
-        counter++;
-    }
-    fsOutput << "\r\n]";
 }
 
 
