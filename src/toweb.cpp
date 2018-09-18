@@ -97,7 +97,7 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
     }
     fsOutput << "\r\n],";
 
-    fsOutput << "\r\n\"table\": [ { \"name\":\"[]\", \"ref\":null, \"width\":20 }";
+    fsOutput << "\r\n\"table\": [ { \"name\":\"[]\", \"ref\":\"expandColumn\", \"width\":20 }";
 
     for( int i = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
         fsOutput << ",\r\n { \"name\":\"" << gantt.fieldsTitles[ gantt.fieldsNames[i] ] << "\",\"ref\":\"" << gantt.fieldsNames[i] << "\",\"width\":40}";
@@ -123,7 +123,7 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
 
 static void outputOpLinks( std::ofstream& fsOutput, OpLinks& opLinks ) {
 
-    fsOutput << "\r\n\"opLinks\": [";
+    fsOutput << "\r\n\"links\": [";
     for( int i = 0 ; i < opLinks.number() ; i++ ) {
         if( i > 0 ) {
             fsOutput << ",";
