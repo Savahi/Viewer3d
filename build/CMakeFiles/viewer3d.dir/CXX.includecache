@@ -28,6 +28,10 @@ stdafx.h
 stdafx.h
 ../include/stdafx.h
 
+../include/links.hpp
+stdafx.h
+../include/stdafx.h
+
 ../include/models.hpp
 string
 -
@@ -62,14 +66,6 @@ helpers.hpp
 optypes.hpp
 ../include/optypes.hpp
 
-../include/oplinks.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
-
 ../include/opresassignments.hpp
 vector
 -
@@ -87,12 +83,8 @@ helpers.hpp
 ../include/helpers.hpp
 
 ../include/project.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/resources.hpp
 vector
@@ -127,14 +119,16 @@ ctime
 -
 helpers.hpp
 ../include/helpers.hpp
+table.hpp
+../include/table.hpp
 project.hpp
 ../include/project.hpp
 gantt.hpp
 ../include/gantt.hpp
 operations.hpp
 ../include/operations.hpp
-oplinks.hpp
-../include/oplinks.hpp
+links.hpp
+../include/links.hpp
 resources.hpp
 ../include/resources.hpp
 opresassignments.hpp
@@ -145,6 +139,10 @@ opcosts.hpp
 ../include/opcosts.hpp
 toweb.hpp
 ../include/toweb.hpp
+
+../include/table.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/toweb.hpp
 stdafx.h
@@ -261,26 +259,8 @@ models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-iostream
--
-fstream
--
-string
--
-vector
--
-map
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp
 stdio.h

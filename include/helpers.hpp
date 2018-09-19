@@ -38,4 +38,7 @@ namespace Spider3d {
         std::map<std::string,std::string>& fieldsTitles );  
     int parseAllFileHeaderFlags( std::ifstream& infile, std::vector<std::string>& fieldsNames, 
         std::map<std::string,long int>& fieldsFlags );
+
+    std::string toLower(std::string s);
+    bool isDigitsOnly(std::string s);
 }

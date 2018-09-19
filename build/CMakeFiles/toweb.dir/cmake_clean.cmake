@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/toweb.dir/src/helpers.cpp.o"
   "CMakeFiles/toweb.dir/src/loadgantt.cpp.o"
-  "CMakeFiles/toweb.dir/src/loadoplinks.cpp.o"
+  "CMakeFiles/toweb.dir/src/loadtable.cpp.o"
+  "CMakeFiles/toweb.dir/src/loadlinks.cpp.o"
   "CMakeFiles/toweb.dir/src/loadresources.cpp.o"
   "CMakeFiles/toweb.dir/src/loadopresassignments.cpp.o"
   "CMakeFiles/toweb.dir/src/loadcosts.cpp.o"

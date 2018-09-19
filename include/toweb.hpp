@@ -7,7 +7,7 @@ namespace Spider3d {
 
 	int loadGantt( Gantt& gantt, const char *cpFile );
 
-	int loadOpLinks( OpLinks& opLinks, const char *cpFile );
+	int loadLinks( Links& links, const char *cpFile );
 
 	int loadResources( Resources& resources, const char *cpFile );
 
@@ -16,4 +16,6 @@ namespace Spider3d {
 	int loadCosts( Costs& costs, const char *cpFile );
 
     int loadOpCosts( OpCosts& opCosts, const char *cpFile );
+
+    int loadTable( Table& table, const char *cpFile );
 }

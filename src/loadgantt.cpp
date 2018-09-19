@@ -1,4 +1,3 @@
-
 #include "stdafx.h"
 
 namespace Spider3d {
@@ -11,12 +10,12 @@ namespace Spider3d {
         if( !infile.is_open() ) {
             return -1;
         }
-        int numParsed = parseAllFileHeader( infile, gantt.fieldsNames, gantt.fieldsPositions );
-        if( numParsed != -1 ) {
-            int numTitlesParsed = parseAllFileHeaderTitles( infile, gantt.fieldsNames, gantt.fieldsTitles );
-            if( numTitlesParsed == numParsed ) {
-                int numFlagsParsed = parseAllFileHeaderFlags( infile, gantt.fieldsNames, gantt.fieldsFlags );
-                if( numFlagsParsed != numParsed ) {
+        int numHeaderParsed = parseAllFileHeader( infile, gantt.fieldsNames, gantt.fieldsPositions );
+        if( numHeaderParsed != -1 ) {
+            int numFlagsParsed = parseAllFileHeaderFlags( infile, gantt.fieldsNames, gantt.fieldsFlags );
+            if( numFlagsParsed == numHeaderParsed ) {
+                int numTitlesParsed = parseAllFileHeaderTitles( infile, gantt.fieldsNames, gantt.fieldsTitles );
+                if( numTitlesParsed == numHeaderParsed ) {
                     while(1) {
                         std::vector<std::string> fieldsParsed;    
                         int numParsed = parseFileLine( infile, fieldsParsed );
@@ -33,6 +32,6 @@ namespace Spider3d {
             }
         }
         infile.close();
-        return gantt.number();
+        return gantt.size();
     }
 }

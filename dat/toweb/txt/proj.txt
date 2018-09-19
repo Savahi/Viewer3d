@@ -1,2 +1,0 @@
-Code	Name	ProjVer	Storage	CurTime	DirTime	Notes	BaseCode	BaseVer	BaseStorage	ResThresh	NoteDelayOper	NoteDelayPhase	Compare	Risk	Trunc	DefOperDur	DefOperDurUnit	DefTeamName	PesCode	PesVer	PesPath	ExpCode	ExpVer	ExpPath	OptCode	OptVer	OptPath
-sp	Приобретение программы	2	Отладка	17.01.2007  08:00	01.01.2008  08:00		sp	2	E:\Sp4\Release							5	D	Команда	sp_pes	1	E:\sp4\Distrib\Source\Examples\Rus	sp_mp	1	E:\sp4\Distrib\Source\Examples\Rus	sp_opt	1	E:\sp4\Distrib\Source\Examples\Rus

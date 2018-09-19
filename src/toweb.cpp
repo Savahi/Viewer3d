@@ -10,11 +10,11 @@ static int loadIni( const char *configFile, std::map<std::string, std::string>& 
 
 static std::string fileProject("proj.txt");
 static std::string fileOperations("oper.txt");
-static std::string fileOpLinks("link.txt");
+static std::string fileLinks("link.txt");
 
 static void outputProject( std::ofstream& fsOutput, Project& project );
 static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt );
-static void outputOpLinks( std::ofstream& fsOutput, OpLinks& opLinks );
+static void outputLinks( std::ofstream& fsOutput, Links& links );
 
 int main( int argc, char* argv[] ) {
     int iStatus;
@@ -27,7 +27,7 @@ int main( int argc, char* argv[] ) {
 
     Project project;
     Gantt gantt;
-    OpLinks opLinks;
+    Links links;
 
     std::map<std::string, std::string> configParameters;
     loadIni( argv[1], configParameters );
@@ -40,7 +40,7 @@ int main( int argc, char* argv[] ) {
 
     loadGantt( gantt, (configParameters[cpInputPathKey] + fileOperations).c_str() );
 
-    loadOpLinks( opLinks, (configParameters[cpInputPathKey] + fileOpLinks).c_str() );
+    loadLinks( links, (configParameters[cpInputPathKey] + fileLinks).c_str() );
 
     // Writing output file
     std::ofstream fsOutput;
@@ -55,8 +55,8 @@ int main( int argc, char* argv[] ) {
         fsOutput << ",\r\n";
         outputGantt( fsOutput, gantt );
         fsOutput << ",\r\n";
-        outputOpLinks( fsOutput, opLinks ); 
-        fsOutput << ",\r\n\"language\":\"" << configParameters[cpLanguageKey] << "\"";
+        outputLinks( fsOutput, links ); 
+        fsOutput << ",\r\n\"lang\":\"" << toLower(configParameters[cpLanguageKey]) << "\"";
         fsOutput << "\r\n}";
     }
     fsOutput.close();
@@ -66,15 +66,16 @@ int main( int argc, char* argv[] ) {
 
 
 static void outputProject( std::ofstream& fsOutput, Project& project ) {
-        fsOutput << "\r\n\"proj\": { ";
-        fsOutput << "\"code\":\"" << project.sCode << "\", \"name\":\"" << project.sName << "\"";
-        fsOutput << ",\"projVer\":" << project.iProjVer << ",\"curTime\":\"" << project.sCurTime << "\"";
-        fsOutput << "}";
+    fsOutput << "\r\n\"proj\": { ";
+    fsOutput << "\"Code\":\"" << project.sCode << "\", \"Name\":\"" << project.sName << "\"";
+    fsOutput << ",\"ProjVer\":" << project.sProjVer << ",\"CurTime\":\"" << project.sCurTime << "\"";
+    fsOutput << ",\"Notes\":\"" << project.sNotes << "\"";
+    fsOutput << "}";
 }
 
 
 static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
-    fsOutput << "\r\n\"operations\": [";
+    fsOutput << "\"operations\": [";
     for( int i = 0 ; i < gantt.operations.size() ; i++ ) {
         if( i > 0 ) {
             fsOutput << ",";
@@ -85,60 +86,94 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
             if( iField > 0 ) {
                 fsOutput << ",";
             }
-            fsOutput << "\"" << gantt.fieldsNames[i] << "\":";
+            fsOutput << "\"" << gantt.fieldsNames[iField] << "\":";
+
+            if( gantt.fieldsNames[iField] == "Level" ) { // If "Level"...   
+                if( isDigitsOnly( gantt.operations[i].fields[iField] ) ) {  // If phase ("digits only")...
+                    fsOutput << gantt.operations[i].fields[iField]; // ...outputing without quotes.
+                    continue;
+                } 
+            }
 
             if( !gantt.operations[i].fields[iField].empty() ) {
                 fsOutput << "\"" << gantt.operations[i].fields[iField] << "\"";
             } else {
-                fsOutput << ":null";
+                fsOutput << "null";
             }            
         }
         fsOutput << "}" ;
     }
     fsOutput << "\r\n],";
 
-    fsOutput << "\r\n\"table\": [ { \"name\":\"[]\", \"ref\":\"expandColumn\", \"width\":20 }";
+    fsOutput << "\r\n\"table\": [ { \"name\":\"[]\", \"ref\":\"expandColumn\", \"width\":20, \"visible\":true }";
 
     for( int i = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
-        fsOutput << ",\r\n { \"name\":\"" << gantt.fieldsTitles[ gantt.fieldsNames[i] ] << "\",\"ref\":\"" << gantt.fieldsNames[i] << "\",\"width\":40}";
+        long int iFlags = gantt.fieldsFlags[ gantt.fieldsNames[i] ];
+        std::string visible;
+        if( iFlags & FIELD_HIDDEN ) {
+            visible = "false";
+        } else {
+            visible = "true";
+        }
+        fsOutput << ",\r\n {\"name\":\"" << gantt.fieldsTitles[ gantt.fieldsNames[i] ];
+        fsOutput << "\",\"ref\":\"" << gantt.fieldsNames[i] << "\",\"visible\":" << visible << ",\"width\":40}";
     }
     fsOutput << "\r\n],";
     
-    fsOutput << "\r\n\"editable\": [ ";
+    fsOutput << "\r\n\"editables\": [ ";
 
     for( int i = 0, counter = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
         long int iFlags = gantt.fieldsFlags[ gantt.fieldsNames[i] ];
-        if( !( iFlags & 1 ) ) {
+        if( !( iFlags & FIELD_EDITABLE ) ) {
             continue;
         } 
         if( counter > 0 ) {
             fsOutput << ",";
         }
-        fsOutput << ",\r\n { \"ref\":\"" << gantt.fieldsNames[i] << "\",\"type\":\"text\"}";
+        std::string type;
+        if( iFlags & FIELD_STRING ) {
+            if( gantt.fieldsNames[i] == "Notes" ) {
+                type = "text";
+            } else {
+                type = "string";
+            }
+        } else if( iFlags & FIELD_FLOAT ) {
+            type = "float";
+        } else if( iFlags & FIELD_INT ) {
+            type = "int";
+        }
+        fsOutput << "\r\n{ \"ref\":\"" << gantt.fieldsNames[i] << "\",\"type\":\"" << type << "\"}";
         counter++;
     }
     fsOutput << "\r\n]";
 }
 
 
-static void outputOpLinks( std::ofstream& fsOutput, OpLinks& opLinks ) {
-
-    fsOutput << "\r\n\"links\": [";
-    for( int i = 0 ; i < opLinks.number() ; i++ ) {
+static void outputLinks( std::ofstream& fsOutput, Links& links ) {
+    fsOutput << "\"links\": [";
+    for( int i = 0 ; i < links.size() ; i++ ) {
         if( i > 0 ) {
             fsOutput << ",";
         }
         fsOutput << "\r\n{";
-        fsOutput << "\"PredCode\":\"" << opLinks.mOpLinks[i].sPredCode << "\",";
-        fsOutput << "\"SuccCode\":\"" << opLinks.mOpLinks[i].sSuccCode << "\",";
-        fsOutput << "\"TypeSF\":\"" << opLinks.mOpLinks[i].sTypeSF << "\",";
-        fsOutput << "\"LagType\":\"" << opLinks.mOpLinks[i].sLagType << "\",";
-        fsOutput << "\"LagUnit\":\"" << opLinks.mOpLinks[i].sLagUnit << "\",";
-        if( opLinks.mOpLinks[i].bLag ) {
-            fsOutput << "\"Lag\":" << opLinks.mOpLinks[i].fLag << "";
+        fsOutput << "\"PredCode\":\"" << links.links[i].sPredCode << "\",";
+        fsOutput << "\"SuccCode\":\"" << links.links[i].sSuccCode << "\",";
+
+        std::string type;
+        if( links.links[i].bTypeSF2 ) {
+            if( links.links[i].iTypeSF2 == LINK_SS ) {
+                type = "SS";
+            } else if( links.links[i].iTypeSF2 == LINK_FF ) {
+                type = "FF";
+            } else if( links.links[i].iTypeSF2 == LINK_SF ) {
+                type = "SF";
+            } else {
+                type = "FS";                
+            }
         } else {
-            fsOutput << "\"Lag\":null";
+            type = "FS";            
         }
+        fsOutput << "\"TypeSF2\":\"" << type << "\"";
         fsOutput << "}" ;
     }
     fsOutput << "\r\n]";

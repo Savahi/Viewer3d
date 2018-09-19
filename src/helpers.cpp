@@ -364,9 +364,9 @@ namespace Spider3d {
        std::string token;
        std::istringstream tokenStream(s);
        int nTokens = 0;
-       while (std::getline(tokenStream, token, delimiter))
+       while( std::getline(tokenStream, token, delimiter) )
        {
-          tokens.push_back(token);
+          tokens.push_back( rtrim( token, "\r\n") );
           nTokens++;
        }
        return nTokens;
@@ -417,7 +417,7 @@ namespace Spider3d {
             parseFileLineIntoFields( line, fields, cDefaultTableFieldsSplitter );            
             for( int i = 0 ; i < fields.size() ; i++ ) {
                 char *ptr;
-                long int iFlags = strtol( fields[i].c_str(), &ptr, 0 );
+                long int iFlags = strtol( fields[i].c_str(), &ptr, 16 );
                 fieldsFlags.insert( std::pair<std::string,long int>( fieldsNames[i], iFlags ) );
             }
             numParsed = fields.size();
@@ -425,4 +425,26 @@ namespace Spider3d {
         return numParsed;
     }
 
+    std::string toLower( std::string s ) {
+        for( int i = 0 ; i < s.size() ; i++ ) {
+            s[i] = std::tolower(static_cast<unsigned char>(s[i]));
+        }
+        return s;
+    }
+
+    bool isDigitsOnly( std::string s ) {
+        bool bReturn = true;
+        bool bDigits = false;
+
+        for( int i = 0 ; i < s.size() ; i++ ) {
+            if( s[i] != ' ' && !isdigit( s[i] ) ) {
+                bReturn = false;
+                break;
+            }
+            if( isdigit( s[i]) ) {
+                bDigits = true;
+            }
+        }
+        return bReturn & bDigits;
+    }
 }

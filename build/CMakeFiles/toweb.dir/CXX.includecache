@@ -22,6 +22,10 @@ stdafx.h
 stdafx.h
 ../include/stdafx.h
 
+../include/links.hpp
+stdafx.h
+../include/stdafx.h
+
 ../include/opcosts.hpp
 vector
 -
@@ -42,14 +46,6 @@ helpers.hpp
 optypes.hpp
 ../include/optypes.hpp
 
-../include/oplinks.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
-
 ../include/opresassignments.hpp
 vector
 -
@@ -67,12 +63,8 @@ helpers.hpp
 ../include/helpers.hpp
 
 ../include/project.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/resources.hpp
 vector
@@ -107,14 +99,16 @@ ctime
 -
 helpers.hpp
 ../include/helpers.hpp
+table.hpp
+../include/table.hpp
 project.hpp
 ../include/project.hpp
 gantt.hpp
 ../include/gantt.hpp
 operations.hpp
 ../include/operations.hpp
-oplinks.hpp
-../include/oplinks.hpp
+links.hpp
+../include/links.hpp
 resources.hpp
 ../include/resources.hpp
 opresassignments.hpp
@@ -125,6 +119,10 @@ opcosts.hpp
 ../include/opcosts.hpp
 toweb.hpp
 ../include/toweb.hpp
+
+../include/table.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/toweb.hpp
 stdafx.h
@@ -150,6 +148,10 @@ costs.hpp
 stdafx.h
 /home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
+/home/user/Desktop/spider/Viewer3d/src/loadlinks.cpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
+
 /home/user/Desktop/spider/Viewer3d/src/loadopcosts.cpp
 stdio.h
 -
@@ -161,20 +163,6 @@ helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
 opcosts.hpp
 /home/user/Desktop/spider/Viewer3d/src/opcosts.hpp
-
-/home/user/Desktop/spider/Viewer3d/src/loadoplinks.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-iostream
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-oplinks.hpp
-/home/user/Desktop/spider/Viewer3d/src/oplinks.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/loadopresassignments.cpp
 stdio.h
@@ -189,26 +177,8 @@ opresassignments.hpp
 /home/user/Desktop/spider/Viewer3d/src/opresassignments.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/loadproject.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-iostream
--
-fstream
--
-string
--
-vector
--
-map
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-project.hpp
-/home/user/Desktop/spider/Viewer3d/src/project.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadresources.cpp
 stdio.h
@@ -221,6 +191,10 @@ helpers.hpp
 /home/user/Desktop/spider/Viewer3d/src/helpers.hpp
 resources.hpp
 /home/user/Desktop/spider/Viewer3d/src/resources.hpp
+
+/home/user/Desktop/spider/Viewer3d/src/loadtable.cpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/toweb.cpp
 stdafx.h

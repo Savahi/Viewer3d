@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <map>
-#include "helpers.hpp"
-#include "operations.hpp"
+#include "stdafx.h"
 
 namespace Spider3d {
 
