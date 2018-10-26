@@ -56,11 +56,11 @@ namespace Spider3d {
         sprintf( caOpenTag, "<%s>", cpTagName );
         sprintf( caCloseTag, "</%s>", cpTagName );
 
-        iFound = findSubstring( cpText, caOpenTag, iStartAt, iStopAt, &iOpenTagStart, &iOpenTagEnd );
+        iFound = findSubstring( cpText, caOpenTag, iStartAt, iStopAt, &iOpenTagStart, &iOpenTagEnd, false );
         if( iFound == 0 ) {
             return 0;
-        }
-        iFound = findSubstring( cpText, caCloseTag, iOpenTagEnd, iStopAt, &iCloseTagStart, &iCloseTagEnd );
+        }        
+        iFound = findSubstring( cpText, caCloseTag, iOpenTagEnd, iStopAt, &iCloseTagStart, &iCloseTagEnd, false );
         if( iFound == 0 ) {
             return 0;
         }
@@ -83,6 +83,7 @@ namespace Spider3d {
             iStopAt = iTextLen-1;
         }
         iSubstringLen = strlen( cpSubstring );
+
         iSubstringIndex = 0;
         for( i = iStartAt ; i <= iStopAt ; i++ ) {
             if( tolower(cpSubstring[iSubstringIndex]) == tolower(cpText[i]) ) {
@@ -366,7 +367,7 @@ namespace Spider3d {
        int nTokens = 0;
        while( std::getline(tokenStream, token, delimiter) )
        {
-          tokens.push_back( rtrim( token, "\r\n") );
+          tokens.push_back( trim( token, "\r\n") );
           nTokens++;
        }
        return nTokens;
@@ -446,5 +447,18 @@ namespace Spider3d {
             }
         }
         return bReturn & bDigits;
+    }
+
+
+    bool isEmpty( std::string s ) {
+        bool bReturn = true;
+
+        for( int i = 0 ; i < s.size() ; i++ ) {
+            if( s[i] != ' ' &&  s[i] != '\r' && s[i] != '\n' && s[i] != '\t' ) {
+                bReturn = false;
+                break;
+            }
+        }
+        return bReturn;
     }
 }

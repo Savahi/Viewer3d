@@ -45,19 +45,19 @@ namespace Spider3d {
             return -1;
         }
 
-        _iCodePos = getPosByColumnName( cpHeader, "code" );
+        _iCodePos = getPosByColumnName( cpHeader, "Code" );
         if( _iCodePos == -1 ) {
             ret_val = -1;
         }
-        _iNamePos = getPosByColumnName( cpHeader, "name" );
+        _iNamePos = getPosByColumnName( cpHeader, "Name" );
         if( _iNamePos == -1 ) {
             ret_val = -1;
         }
-        _iDescriptionPos = getPosByColumnName( cpHeader, "description" );
+        _iDescriptionPos = getPosByColumnName( cpHeader, "Description" );
         if( _iDescriptionPos == -1 ) {
             ret_val = -1;
         }
-        _iNotesPos = getPosByColumnName( cpHeader, "notes" );
+        _iNotesPos = getPosByColumnName( cpHeader, "Notes" );
         if( _iNotesPos == -1 ) {
             ret_val = -1;
         }
@@ -256,7 +256,7 @@ namespace Spider3d {
             } else if( iPos == _iNotesPos && *notesIndex == -1 ) {
                 *notesIndex = i;
             } 
-            if( cpLine[i] == ';' ) {
+            if( cpLine[i] == '\t' ) {
                 iPos++;
                 cpLine[i] = '\x0';
             } else if( cpLine[i] == '\r' || cpLine[i] == '\n') {

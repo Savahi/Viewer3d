@@ -1,16 +1,16 @@
-Code ; Name ; Color
-sometype1 ; Operation TYPE 1111 ; 7798903
-sometype2 ; Operation TYPE 2222 ; 7829248
-sometype3 ; Operation TYPE 3333 ; 7798903
-sometype4 ; Operation TYPE 4444 ; 7829248
-sometype5 ; Operation TYPE 5555 ; 7798903
-sometype6 ; Operation TYPE 6666 ; 7829248
-sometype7 ; Operation TYPE 7777 ; 7798903
-sometype8 ; Operation TYPE 8888 ; 7829248
-sometype9 ; Operation TYPE 9999 ; 7798903
-sometype10; Operation TYPE 1010 ; 7829248
-sometype11; Operation TYPE 1111 ; 7798903
-sometype12; Operation TYPE 1212 ; 7829248
-sometype13; Operation TYPE 1313 ; 7798903
-sometype14; Operation TYPE 1414 ; 7829248
-sometype15; Operation TYPE 1515 ; 7798903
+Code	Name	Color
+sometype1	Operation TYPE 1111	7798903
+sometype2	Operation TYPE 2222	7829248
+sometype3	Operation TYPE 3333	7798903
+sometype4	Operation TYPE 4444	7829248
+sometype5	Operation TYPE 5555	7798903
+sometype6	Operation TYPE 6666	7829248
+sometype7	Operation TYPE 7777	7798903
+sometype8	Operation TYPE 8888	7829248
+sometype9	Operation TYPE 9999	7798903
+sometype10	Operation TYPE 1010	7829248
+sometype11	Operation TYPE 1111	7798903
+sometype12	Operation TYPE 1212	7829248
+sometype13	Operation TYPE 1313	7798903
+sometype14	Operation TYPE 1414	7829248
+sometype15	Operation TYPE 1515	7798903

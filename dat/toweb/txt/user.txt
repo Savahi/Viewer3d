@@ -1,5 +1,5 @@
-Code	Name	Notes	Folder	AddressIn	AddressOut	MailAddress	Password	RightCode	RightName	Connection	SendWhole	Notify	UseMail	f_OpenPortfolio	LastFactVer	f_UniId
-Admin	Администратор проекта							Admin	Права Администратора	Локальная сеть	Нет	Нет	Нет	Да		71
-ken	ken					kostik.efremov@gmail.com		Admin	Права Администратора	Локальная сеть	Нет	Нет	Нет	Да		325
-ivanov	Иванов Иван			test	test		1099660754 2144324348	Admin	Права Администратора	FTP сервер	Нет	Нет	Нет	Да		327
-petrov	Петров Пётр			test	test		1740652417 -1814702522	Admin	Права Администратора	FTP сервер	Нет	Нет	Нет	Да		328
+Code	Name	Password
+50000	50000	50000
+РљРѕРґ	РРјСЏ	РџР°СЂРѕР»СЊ
+ivanov	РРІР°РЅРѕРІ РРІР°РЅ	96899E919089
+petrov	РџРµС‚СЂРѕРІ РџС‘С‚СЂ	8F9A8B8D9089

@@ -41,4 +41,5 @@ namespace Spider3d {
 
     std::string toLower(std::string s);
     bool isDigitsOnly(std::string s);
+    bool isEmpty( std::string s );
 }

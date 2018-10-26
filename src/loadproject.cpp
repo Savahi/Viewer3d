@@ -16,7 +16,6 @@ namespace Spider3d {
 
         std::ifstream infile( cpFile );
         if( infile.is_open() ) {
-
             int numHeaderParsed = parseAllFileHeader( infile, project.fieldsNames, project.fieldsPositions );
             if( numHeaderParsed != -1 ) {
                 int numFlagsParsed = parseAllFileHeaderFlags( infile, project.fieldsNames, project.fieldsFlags );
@@ -28,7 +27,7 @@ namespace Spider3d {
                         if( numParsed != -1 ) {
                             project.sCode = fieldsParsed["Code"];
                             project.sName = fieldsParsed["Name"];
-                            project.sProjVer = fieldsParsed["projVer"];
+                            project.sProjVer = fieldsParsed["ProjVer"];
                             int nScanned = sscanf( project.sProjVer.c_str(), "%d", &project.iProjVer );
                             if( nScanned == 1 ) {
                                 project.bProjVer = true;
