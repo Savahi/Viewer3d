@@ -1,4 +1,4 @@
-#include "operations.hpp"
+#include "stdafx.h"
 
 namespace Spider3d {
 	;

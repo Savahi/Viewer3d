@@ -7,12 +7,14 @@
 #IncludeRegexTransform: 
 
 ../include/costs.hpp
-vector
+stdafx.h
+../include/stdafx.h
+
+../include/display.hpp
+stdafx.h
+../include/stdafx.h
+GL/glut.h
 -
-string
--
-helpers.hpp
-../include/helpers.hpp
 
 ../include/gantt.hpp
 stdafx.h
@@ -26,53 +28,33 @@ stdafx.h
 stdafx.h
 ../include/stdafx.h
 
+../include/models.hpp
+stdafx.h
+../include/stdafx.h
+
 ../include/opcosts.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/operations.hpp
-vector
--
-string
--
-ctime
--
-helpers.hpp
-../include/helpers.hpp
-optypes.hpp
-../include/optypes.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/opresassignments.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/optypes.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/project.hpp
 stdafx.h
 ../include/stdafx.h
 
 ../include/resources.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/stdafx.h
 stdio.h
@@ -82,6 +64,8 @@ stdlib.h
 string.h
 -
 ctype.h
+-
+math.h
 -
 iostream
 -
@@ -105,6 +89,8 @@ project.hpp
 ../include/project.hpp
 gantt.hpp
 ../include/gantt.hpp
+optypes.hpp
+../include/optypes.hpp
 operations.hpp
 ../include/operations.hpp
 links.hpp
@@ -119,6 +105,12 @@ opcosts.hpp
 ../include/opcosts.hpp
 toweb.hpp
 ../include/toweb.hpp
+models.hpp
+../include/models.hpp
+display.hpp
+../include/display.hpp
+viewer3d.hpp
+../include/viewer3d.hpp
 
 ../include/table.hpp
 stdafx.h
@@ -128,21 +120,21 @@ stdafx.h
 stdafx.h
 ../include/stdafx.h
 
+../include/viewer3d.hpp
+models.hpp
+../include/models.hpp
+optypes.hpp
+../include/optypes.hpp
+operations.hpp
+../include/operations.hpp
+
 /home/user/Desktop/spider/Viewer3d/src/helpers.cpp
 stdafx.h
 /home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadcosts.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-costs.hpp
-/home/user/Desktop/spider/Viewer3d/src/costs.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadgantt.cpp
 stdafx.h
@@ -153,16 +145,8 @@ stdafx.h
 /home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadopcosts.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-opcosts.hpp
-/home/user/Desktop/spider/Viewer3d/src/opcosts.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadopresassignments.cpp
 stdio.h

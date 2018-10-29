@@ -7,7 +7,6 @@ namespace Spider3d {
 
     int loadProject( Project& project, const char *cpFile ) {
         int iReturn = -1;
-        int nScanned;
 
         std::vector<std::string> fieldsNames;
         for( int i= 0 ; i < fieldsToReadNum ; i++ ) {

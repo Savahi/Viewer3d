@@ -39,7 +39,7 @@ namespace Spider3d {
                     resource.sCode = std::string( trimString( &cpLine[iCodeIndex] ) );
                     resource.sName = std::string( trimString( &cpLine[iNameIndex] ) );
                     resource.sType = std::string( trimString( &cpLine[iTypeIndex] ) );
-                    float fNumber;
+
                     nScanned = sscanf( &cpLine[iNumberIndex], "%f", &resource.fNumber );
                     resource.bNumber = ( nScanned == 1 ) ? true : false;
 

@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
-#include "helpers.hpp"
-#include "operations.hpp"
+#include "stdafx.h"
 
 namespace Spider3d {
 
@@ -40,7 +35,7 @@ namespace Spider3d {
     }
 
     static int parseFileHeader( FILE *fp ) {
-        int iReturn=0, i, iStatus, iStart;
+        int iReturn=0;
         char *cpHeader;
 
         cpHeader = readLineFromFile(fp);

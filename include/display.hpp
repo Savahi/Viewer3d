@@ -1,5 +1,5 @@
 #pragma once
-#include "models.hpp"
+#include "stdafx.h"
 #include <GL/glut.h>
 
 namespace Spider3d {

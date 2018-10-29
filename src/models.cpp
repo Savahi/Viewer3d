@@ -1,4 +1,4 @@
-#include "models.hpp"
+#include "stdafx.h"
 
 namespace Spider3d {
 	;

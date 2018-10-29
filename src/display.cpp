@@ -1,13 +1,4 @@
-#include <vector>
-#include <iostream>
-#include <stdio.h> 
-#include <string.h>
-#include <math.h>
-#include "models.hpp"
-#include "optypes.hpp"
-#include "operations.hpp"
-#include "display.hpp"
-#include "viewer3d.hpp"
+#include "stdafx.h" 
 #include <GL/glut.h>
 
 namespace Spider3d {

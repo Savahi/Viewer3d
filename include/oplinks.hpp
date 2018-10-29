@@ -1,8 +1,5 @@
 #pragma once
-
-#include <vector>
-#include <string>
-#include "helpers.hpp"
+#include "stdafx.h"
 	
 namespace Spider3d {
 

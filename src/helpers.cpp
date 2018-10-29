@@ -257,7 +257,7 @@ namespace Spider3d {
 
     static int parseFileLineIntoFields( char *cpLine, int nFields, int **ipaFields, int **ipaFieldIndexes, bool allFieldsRequired ) 
     {
-        int iPos, iLineLen;
+        int iLineLen;
 
         for( int iF = 0 ; iF < nFields ; iF++ ) {
             *ipaFieldIndexes[iF] = -1;

@@ -4,8 +4,6 @@
 namespace Spider3d {
 
     int loadTable( Table& table, const char *cpFile ) {
-        int iStatus;
-        int nScanned;
 
         std::ifstream infile( cpFile );
         if( !infile.is_open() ) {

@@ -34,6 +34,7 @@ CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/displayaxis.cpp.o: ../src/displayaxis.cpp
 
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/costs.hpp
@@ -51,6 +52,7 @@ CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/displayfacet.cpp.o: ../src/displayfacet.cpp
 
 CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/costs.hpp
@@ -68,6 +70,7 @@ CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/resources
 CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/displayselectedmodelinfo.cpp.o: ../src/displayselectedmodelinfo.cpp
 
 CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/costs.hpp
@@ -85,6 +88,7 @@ CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/displaytimescale.cpp.o: ../src/displaytimescale.cpp
 
 CMakeFiles/viewer3d.dir/src/displaytools.cpp.o: ../include/costs.hpp
@@ -102,12 +106,15 @@ CMakeFiles/viewer3d.dir/src/displaytools.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/displaytools.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/displaytools.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/displaytools.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/displaytools.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/displaytools.cpp.o: ../src/displaytools.cpp
 
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/costs.hpp
+CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/gantt.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/links.hpp
+CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/models.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/opcosts.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/operations.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/opresassignments.hpp
@@ -117,9 +124,11 @@ CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/helpers.cpp.o: ../src/helpers.cpp
 
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/costs.hpp
+CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/gantt.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/links.hpp
@@ -133,12 +142,15 @@ CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/loadmodels.cpp.o: ../src/loadmodels.cpp
 
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/costs.hpp
+CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/gantt.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/links.hpp
+CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/models.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/opcosts.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/operations.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/opresassignments.hpp
@@ -148,12 +160,15 @@ CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/loadoperations.cpp.o: ../src/loadoperations.cpp
 
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/costs.hpp
+CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/gantt.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/links.hpp
+CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/models.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/opcosts.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/operations.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/opresassignments.hpp
@@ -163,9 +178,11 @@ CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/loadoptypes.cpp.o: ../src/loadoptypes.cpp
 
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/costs.hpp
+CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/gantt.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/links.hpp
@@ -179,12 +196,15 @@ CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/models.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/models.cpp.o: ../src/models.cpp
 
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/costs.hpp
+CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/gantt.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/links.hpp
+CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/models.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/opcosts.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/operations.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/opresassignments.hpp
@@ -194,9 +214,11 @@ CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/resources.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/stdafx.h
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/table.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/toweb.hpp
+CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../include/viewer3d.hpp
 CMakeFiles/viewer3d.dir/src/operations.cpp.o: ../src/operations.cpp
 
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: ../include/costs.hpp
+CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: ../include/display.hpp
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: ../include/gantt.hpp
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: ../include/helpers.hpp
 CMakeFiles/viewer3d.dir/src/viewer3d.cpp.o: ../include/links.hpp

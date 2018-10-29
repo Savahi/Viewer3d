@@ -6,8 +6,6 @@ namespace Spider3d {
     static const char *fieldsToRead[] = { "PredCode", "SuccCode", "TypeSF2" };
 
     int loadLinks( Links& links, const char *cpFile ) {
-        int iStatus;
-        int nScanned;
 
         std::vector<std::string> fieldsNames;
         for( int i= 0 ; i < fieldsToReadNum ; i++ ) {
@@ -33,7 +31,7 @@ namespace Spider3d {
                         Link link;
                         link.sPredCode = fieldsParsed["PredCode"];
                         link.sSuccCode = fieldsParsed["SuccCode"];
-                        nScanned = sscanf( fieldsParsed["f_TypeSF2"].c_str(), "%lx", &link.iTypeSF2 );
+                        int nScanned = sscanf( fieldsParsed["f_TypeSF2"].c_str(), "%lx", &link.iTypeSF2 );
                         link.bTypeSF2 = ( nScanned == 1 ) ? true : false;
                         links.add(link);
                     }

@@ -7,16 +7,12 @@
 #IncludeRegexTransform: 
 
 ../include/costs.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/display.hpp
-models.hpp
-../include/models.hpp
+stdafx.h
+../include/stdafx.h
 GL/glut.h
 -
 
@@ -33,66 +29,32 @@ stdafx.h
 ../include/stdafx.h
 
 ../include/models.hpp
-string
--
-vector
--
-ctime
--
-map
--
-helpers.hpp
-../include/helpers.hpp
-operations.hpp
-../include/operations.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/opcosts.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/operations.hpp
-vector
--
-string
--
-ctime
--
-helpers.hpp
-../include/helpers.hpp
-optypes.hpp
-../include/optypes.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/opresassignments.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/optypes.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/project.hpp
 stdafx.h
 ../include/stdafx.h
 
 ../include/resources.hpp
-vector
--
-string
--
-helpers.hpp
-../include/helpers.hpp
+stdafx.h
+../include/stdafx.h
 
 ../include/stdafx.h
 stdio.h
@@ -102,6 +64,8 @@ stdlib.h
 string.h
 -
 ctype.h
+-
+math.h
 -
 iostream
 -
@@ -125,6 +89,8 @@ project.hpp
 ../include/project.hpp
 gantt.hpp
 ../include/gantt.hpp
+optypes.hpp
+../include/optypes.hpp
 operations.hpp
 ../include/operations.hpp
 links.hpp
@@ -139,6 +105,12 @@ opcosts.hpp
 ../include/opcosts.hpp
 toweb.hpp
 ../include/toweb.hpp
+models.hpp
+../include/models.hpp
+display.hpp
+../include/display.hpp
+viewer3d.hpp
+../include/viewer3d.hpp
 
 ../include/table.hpp
 stdafx.h
@@ -157,26 +129,8 @@ operations.hpp
 ../include/operations.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/display.cpp
-vector
--
-iostream
--
-stdio.h
--
-string.h
--
-math.h
--
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
-optypes.hpp
-/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
-display.hpp
-/home/user/Desktop/spider/Viewer3d/src/display.hpp
-viewer3d.hpp
-/home/user/Desktop/spider/Viewer3d/src/viewer3d.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 GL/glut.h
 -
 
@@ -185,60 +139,26 @@ display.hpp
 /home/user/Desktop/spider/Viewer3d/src/display.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/displayfacet.cpp
-math.h
--
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
-display.hpp
-/home/user/Desktop/spider/Viewer3d/src/display.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 GL/glut.h
 -
 
 /home/user/Desktop/spider/Viewer3d/src/displayselectedmodelinfo.cpp
-string.h
--
-ctime
--
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
-optypes.hpp
-/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
-display.hpp
-/home/user/Desktop/spider/Viewer3d/src/display.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 GL/glut.h
 -
 
 /home/user/Desktop/spider/Viewer3d/src/displaytimescale.cpp
-string.h
--
-ctime
--
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
-optypes.hpp
-/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
-display.hpp
-/home/user/Desktop/spider/Viewer3d/src/display.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 GL/glut.h
 -
 
 /home/user/Desktop/spider/Viewer3d/src/displaytools.cpp
-string.h
--
-ctime
--
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
-optypes.hpp
-/home/user/Desktop/spider/Viewer3d/src/optypes.hpp
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
-display.hpp
-/home/user/Desktop/spider/Viewer3d/src/display.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 GL/glut.h
 -
 
@@ -247,30 +167,12 @@ stdafx.h
 /home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadmodels.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp
-stdio.h
--
-stdlib.h
--
-string.h
--
-iostream
--
-helpers.hpp
-/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp
 stdio.h
@@ -285,12 +187,12 @@ optypes.hpp
 /home/user/Desktop/spider/Viewer3d/src/optypes.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/models.cpp
-models.hpp
-/home/user/Desktop/spider/Viewer3d/src/models.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/operations.cpp
-operations.hpp
-/home/user/Desktop/spider/Viewer3d/src/operations.hpp
+stdafx.h
+/home/user/Desktop/spider/Viewer3d/src/stdafx.h
 
 /home/user/Desktop/spider/Viewer3d/src/viewer3d.cpp
 string
