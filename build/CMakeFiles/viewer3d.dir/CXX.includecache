@@ -259,8 +259,18 @@ models.hpp
 /home/user/Desktop/spider/Viewer3d/src/models.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/loadoperations.cpp
-stdafx.h
-/home/user/Desktop/spider/Viewer3d/src/stdafx.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+iostream
+-
+helpers.hpp
+/home/user/Desktop/spider/Viewer3d/src/helpers.hpp
+operations.hpp
+/home/user/Desktop/spider/Viewer3d/src/operations.hpp
 
 /home/user/Desktop/spider/Viewer3d/src/loadoptypes.cpp
 stdio.h
