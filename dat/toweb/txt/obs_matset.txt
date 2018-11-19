@@ -1,1 +1,0 @@
-DepCode	MatSetCode	StructCode	Plan	Fact	Total	Contr	Risk	Prob

@@ -1,3 +1,0 @@
-OperCode	MatCode	Hour	Plan	Fact	Total	Fix	Contr	Risk	Prob	StartProf	FinProf	PerVolume
-spamrd01	A			67	67							
-spscnc03	A					3						

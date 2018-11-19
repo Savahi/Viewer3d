@@ -1,1 +1,0 @@
-PhaseCode	CentCode	CenterType	StructCode	Plan	Fact	Total	Contr	Risk	Prob

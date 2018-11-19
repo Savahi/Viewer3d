@@ -1,1 +1,0 @@
-OperCode	CentCode	CenterType	TeamCode	Plan	Fact	Total

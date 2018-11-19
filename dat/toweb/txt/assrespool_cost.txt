@@ -1,3 +1,0 @@
-OperCode	CostCode	ResPoolCode	AssIndex	Plan	Fact	Total
-spscsa02	ind	1		420		420
-spscsa02	sal	1		52		52

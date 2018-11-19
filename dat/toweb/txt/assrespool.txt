@@ -1,2 +1,0 @@
-OperCode	Code	OperName	Name	Type	Notes	DPH	Number	Prod	Load	AssIndex	CostPlan	CostFact	CostTotal	f_OperType	f_ResType	TeamCode	f_UniId
-spscsa02	1	Рассылка RFP	BIT	SA		Количество	1		100		472		472	SA		1	4

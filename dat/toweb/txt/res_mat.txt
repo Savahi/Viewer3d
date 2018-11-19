@@ -1,2 +1,0 @@
-ResCode	MatCode	Hour	Plan	Fact	Total
-me	A		82	135	217

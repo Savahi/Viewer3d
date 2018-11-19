@@ -1,1 +1,0 @@
-ObjCode	ObjName	Notes	Code	Name	f_StateProb	DurPlan	DurPlanD	DurSum	DurSumD	NumDays	NumDaysSum	CostTotal	CostPlan	CostFact	WorkLoadSum	WorkLoadPlan	WorkLoadFact	NPV	NPV_Plan	IRR	IRR_Plan	PayBackMoment	ResCentQuan	ResCentHour	DurFact	DurFactD	NumDaysFact	f_UniId

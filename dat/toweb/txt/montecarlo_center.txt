@@ -1,1 +1,0 @@
-f_UniId	CentCode	CenterType	Plan	Fact	Total

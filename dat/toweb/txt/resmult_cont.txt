@@ -1,2 +1,0 @@
-ResMultCode	ResCode	Number	ObjType	Load
-A	2	1	P	100

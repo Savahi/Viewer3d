@@ -1,8 +1,0 @@
-PhaseCode	MatCode	StructCode	Plan	Fact	Total	Contr	Risk	Prob
-main	A	1	205	482	687			
-Груша	A	1	205	482	687			
-spamrd	A	1		67	67			
-sp	A	2	205	482	687			
-11	A	2	205	415	620			
-1	A	2		67	67			
-2	A	2		67	67			

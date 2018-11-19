@@ -1,2 +1,0 @@
-Code	Name	Type	ShortName	Notes	Folder	Unit	f_pln_Supply	f_pln_Consum	f_pln_Total	f_act_Supply	f_act_Consum	f_act_Total	f_sum_Supply	f_sum_Consum	f_sum_Total	f_OutputFormNum	ContentCodes	ContentNames	f_DoMC	f_UseInSched	f_UniId
-1	Комплект материалов 1																		Нет	Нет	250

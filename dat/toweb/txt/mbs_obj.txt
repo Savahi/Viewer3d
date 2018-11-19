@@ -1,4 +1,0 @@
-StructCode	ObjCode	ParentCode
-1	A	sp
-1	B	sp
-1	C	sp

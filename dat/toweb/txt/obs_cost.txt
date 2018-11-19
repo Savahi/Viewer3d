@@ -1,3 +1,0 @@
-DepCode	CostCode	StructCode	Plan	Fact	Total	Contr	Risk	Prob
-sp	ind	1	16744.8	99504	116248.8			
-sp	sal	1	3816.98666666667	82920	86736.9866666667			

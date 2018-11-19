@@ -1,1 +1,0 @@
-OperCode	MatSetCode	TeamCode	Plan	Fact	Total

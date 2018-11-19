@@ -1,1 +1,0 @@
-StructCode	MatPhaseCode	Code	Value	Total	Fact	Risk	Contr	Prob

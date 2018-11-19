@@ -4,15 +4,17 @@ using namespace Spider3d;
 
 static std::string ganttJSON = "gantt.php";
 static std::string usersPHP = "users.php";
-static const char *cpOutputPathKey = "GanttFilesDir";
-static const char *cpInputPathKey = "TextFilesDir";
+static const char *cpOutputPathKey = "TargetFilesDir";
+static const char *cpInputPathKey = "SourceFilesDir";
 static const char *cpLanguageKey = "Language";
+static const char *cpModeKey = "Mode";
 static int loadIni( const char *configFile, std::map<std::string, std::string>& configParameters );
 
 static std::string fileProject("proj.txt");
 static std::string fileOperations("oper.txt");
 static std::string fileLinks("link.txt");
 static std::string fileUsers("user.txt");
+static std::string fileParameters("parameters.js");
 
 static std::string phpExitScript = "<?php exit(); ?>";
 static std::string phpAuthScript = "<?php require('auth.php'); if( isAuthRequired() ) { auth(true); } ?>";
@@ -90,6 +92,26 @@ int main( int argc, char* argv[] ) {
             }
         }
         fsUsers.close();        
+    }
+
+    // Writing parameters file
+    std::ofstream fsParameters;
+    std::string parametersFile = configParameters[cpOutputPathKey] + "/" + fileParameters;
+    fsParameters.open( parametersFile.c_str() );    
+    if( fsParameters.fail() ) {
+        std::cout << "Can't write into the " << parametersFile << " file.\nExiting..." << std::endl; 
+    } else {
+        // Writing "mode" (gantt/input) parameter 
+        if( configParameters.find(cpModeKey)==configParameters.end() ) {
+            fsParameters << "var _inputOnly=" << "true;"  << std::endl;
+        } else if( toLower(configParameters[cpModeKey]).compare("input") == 0 ) {
+            fsParameters << "var _inputOnly=" << "true;"  << std::endl;            
+        } else {
+            fsParameters << "var _inputOnly=" << "false;"  << std::endl;            
+        }
+        // Writing language parameter
+        fsParameters << "var _lang=\"" << toLower(configParameters[cpLanguageKey]) << "\";" << std::endl;
+        fsParameters.close();
     }
 
     return 0;

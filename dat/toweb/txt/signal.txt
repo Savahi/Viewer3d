@@ -1,2 +1,0 @@
-Code	Name	Notes	ContentCodes	f_UniId
-A	Сигнал A		-1e+100 16776960|1 16711935	318

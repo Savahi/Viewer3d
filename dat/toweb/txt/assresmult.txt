@@ -1,1 +1,0 @@
-OperCode	Code	OperName	Name	Type	Notes	Number	NumPlan	VolPlan	Prod	Load	Prior	Variable	NumberMin	LoadMin	AssIndex	Unit	CostPlan	CostFact	CostTotal	f_OperType	f_ResType	TeamCode	f_UniId

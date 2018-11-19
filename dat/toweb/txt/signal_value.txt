@@ -1,3 +1,0 @@
-Code	Value	Color
-A	-1e+100	16776960
-A	1	16711935

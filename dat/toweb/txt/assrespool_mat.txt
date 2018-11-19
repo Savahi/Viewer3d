@@ -1,1 +1,0 @@
-OperCode	MatCode	ResPoolCode	AssIndex	Plan	Fact	Total

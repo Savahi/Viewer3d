@@ -1,4 +1,0 @@
-Code	Name	MeanWorkDay	WorkDays	WorkHours	Notes	Main	WeekCode	WeekName	Mon	Tue	Wed	Thu	Fri	Sat	Sun	ContentCodes	ContentNames	f_UniId
-1	Календарь1	8	5	40		Основной	1	Неделя 1	8	8	8	8	8					133
-2	Календарь2	1	5	5			2	Неделя 2	1	1	1	1	1					134
-3	Календарь3	8	5	40			1	Неделя 1	8	8	8	8	8					263

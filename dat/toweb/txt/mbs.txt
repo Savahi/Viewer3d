@@ -1,2 +1,0 @@
-Code	Name	RespStruct	Notes
-1	Structure 1	Да	

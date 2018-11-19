@@ -1,1 +1,0 @@
-OperCode	CentCode	CenterType	ResPoolCode	AssIndex	Plan	Fact	Total

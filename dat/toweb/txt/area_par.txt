@@ -1,1 +1,0 @@
-AreaCode	Code	f_Cond	f_Bound
