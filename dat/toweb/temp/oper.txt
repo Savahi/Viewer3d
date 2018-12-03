@@ -1,5 +1,5 @@
 Level	Code	Name	Type	Notes	Folder	f_ColorBack	f_ColorCom	f_LastFin	Start	Fin	AsapStart	AsapFin	FactStart	FactFin	DurPlan	DurPlanD	VolPlan	VolFact	Unit	CostPlan
-30002	250011	50028	150011	10050011	50011	20030011	20030011	20040011	140011	140011	40011	40011	40011	40011	10011	10011	110011	110011	50011	210011
+30002	50011	50028	50011	10050011	50011	20030011	20030011	20040011	40011	40011	40011	40011	40011	40011	10011	10011	10011	10011	50011	10011
 Level	Code	Name	Type	Notes	References to documents, sites, folders (URL)	ColorBack	ColorGraph	LastFin	Start	Finish	Start [ASAP]	Finish [ASAP]	Start [Actual]	Finish [Actual]	Duration, Hours [Remaining]	Duration, Days [Remaining]	Volume [Remaining]	Volume [Actual]	Unit of volume	Total cost [Remaining]
 1	main	Приобретение программы				13233656	11534336	16.01.2007  16:00	09.01.2007  08:00	22.02.2007  08:19	17.01.2007  08:00	22.02.2007  08:19	09.01.2007  08:00		168	21				22914.0933333333
 2	Груша	Требования и рынок	R&M			13434828	53760	16.01.2007  16:00	09.01.2007  08:00	25.01.2007  16:00	17.01.2007  08:00	25.01.2007  16:00	09.01.2007  08:00		56	7				8196.33333333333

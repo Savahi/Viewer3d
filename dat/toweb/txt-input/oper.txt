@@ -1,5 +1,5 @@
 f_ColorBack	Level	Code	Name	Start	Fin	Notes	VolPlan	VolDone	VolRest	TeamDur	DurDone	DurRest
-20030011	30002	50011	50028	10040011	10040011	10050011	10011	10010011	10011	10011	10010011	10011
+20030011	30002	50011	50028	10040011	10040011	10050011	10011	10010011	10010011	10011	10010011	10010011
 ColorBack	Level	Code	Name	Start of period	Finish of period	Notes	Volume [Before]	Volume [Done]	Volume [Remaining]	Duration Hours [Before]	Duration Hours [Spent]	Duration Hours [Remaining]
 13233656	1	main	Приобретение программы	17.01.2007  08:00	14.02.2007  16:00							
 13434828	2	Груша	Требования и рынок	17.01.2007  08:00	25.01.2007  16:00							

@@ -5,6 +5,7 @@ namespace Spider3d {
 
 	#define FIELD_WIDTH_MASK    0x000000FF  // ширина колонки в символах (максимум 256)
 	#define FIELD_TYPE_MASK    0x00070000
+	#define FIELD_FORMAT_MASK    0x00F00000
 
 	#define FIELD_FLOAT   0x00010000  // вещественное число
 	#define FIELD_INT     0x00030000  // целое число
@@ -13,7 +14,6 @@ namespace Spider3d {
 
 	#define FIELD_EDITABLE    0x10000000
 	#define FIELD_HIDDEN      0x20000000  // целое число
-
 
 	class GanttOperation {
 		public:

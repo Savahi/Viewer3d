@@ -23,7 +23,7 @@ static void outputProject( std::ofstream& fsOutput, Project& project );
 static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt );
 static void outputLinks( std::ofstream& fsOutput, Links& links );
 
-static void getFieldTypeAndWidth( int iFlags, std::string fieldName, std::string& type, int& fieldWidth );
+static void getMaskedFieldValues( int iFlags, std::string fieldName, std::string& type, int& fieldWidth, int& iFormat );
 
 int main( int argc, char* argv[] ) {
     int iStatus;
@@ -86,7 +86,7 @@ int main( int argc, char* argv[] ) {
             int iLogin = table.fieldsPositions["Code"];
             int iName = table.fieldsPositions["Name"];
             int iPassword = table.fieldsPositions["Password"];
-            for( int i = 0 ; i < table.size() ; i++ ) {
+            for( unsigned int i = 0 ; i < table.size() ; i++ ) {
                 fsUsers << table.lines[i].fields[iLogin] << "\t" << table.lines[i].fields[iPassword] << "\t";
                 fsUsers << table.lines[i].fields[iName] << std::endl;
             }
@@ -130,7 +130,7 @@ static void outputProject( std::ofstream& fsOutput, Project& project ) {
 static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
     fsOutput << "\"operations\": [";
     bool bFirst = true;
-    for( int i = 0 ; i < gantt.operations.size() ; i++ ) {
+    for( unsigned int i = 0 ; i < gantt.operations.size() ; i++ ) {
 
         int iAsapStart = gantt.fieldsPositions["AsapStart"];
         int iFactStart = gantt.fieldsPositions["FactStart"];
@@ -149,7 +149,7 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
         bFirst = false;
         fsOutput << std::endl << " {";
 
-        for( int iField = 0 ; iField < gantt.operations[i].fields.size() ; iField++ ) {
+        for( unsigned int iField = 0 ; iField < gantt.operations[i].fields.size() ; iField++ ) {
             if( iField > 0 ) {
                 fsOutput << ",";
             }
@@ -172,9 +172,10 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
     }
     fsOutput << std::endl << "],";
 
-    fsOutput << std::endl << "\"table\": [" << std::endl << "{ \"name\":\"[]\", \"ref\":\"expandColumn\", \"width\":2, \"visible\":true, \"type\":null }";
+    fsOutput << std::endl << "\"table\": [" << std::endl;
+    fsOutput << "{ \"name\":\"[]\", \"ref\":\"expandColumn\", \"width\":2, \"visible\":true, \"type\":null,\"format\":null }";
 
-    for( int i = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
+    for( unsigned int i = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
         long int iFlags = gantt.fieldsFlags[ gantt.fieldsNames[i] ];
         std::string visible;
         if( iFlags & FIELD_HIDDEN ) {
@@ -182,15 +183,17 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
         }
         std::string type;
         int iWidth;
-        getFieldTypeAndWidth( iFlags, gantt.fieldsNames[i], type, iWidth ); 
+        int iFormat;
+        getMaskedFieldValues( iFlags, gantt.fieldsNames[i], type, iWidth, iFormat ); 
         fsOutput << "," << std::endl <<  "{\"name\":\"" << gantt.fieldsTitles[ gantt.fieldsNames[i] ];
-        fsOutput << "\",\"ref\":\"" << gantt.fieldsNames[i] << "\",\"visible\":true,\"width\":" << iWidth << ",\"type\":\"" << type << "\"}";
+        fsOutput << "\",\"ref\":\"" << gantt.fieldsNames[i] << "\",\"visible\":true,\"width\":" << iWidth;
+        fsOutput << ",\"type\":\"" << type << "\",\"format\":" << iFormat << "}";
     }
     fsOutput << std::endl << "],";
     
     fsOutput << std::endl << "\"editables\": [ ";
 
-    for( int i = 0, counter = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
+    for( unsigned int i = 0, counter = 0 ; i < gantt.fieldsNames.size() ; i++ ) {
         long int iFlags = gantt.fieldsFlags[ gantt.fieldsNames[i] ];
         if( !( iFlags & FIELD_EDITABLE ) ) {
             continue;
@@ -200,10 +203,11 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
         }
         std::string type;
         int iWidth;
-        getFieldTypeAndWidth( iFlags, gantt.fieldsNames[i], type, iWidth ); 
+        int iFormat;
+        getMaskedFieldValues( iFlags, gantt.fieldsNames[i], type, iWidth, iFormat ); 
         fsOutput << std::endl;
         fsOutput << " { \"ref\":\"" << gantt.fieldsNames[i] << "\",\"name\":\"" << gantt.fieldsTitles[ gantt.fieldsNames[i] ] << "\"";
-        fsOutput << ",\"type\":\"" << type << "\"}";
+        fsOutput << ",\"type\":\"" << type << "\",\"format\":" << iFormat << "}";
         counter++;
     }
     fsOutput << std::endl << "]";
@@ -212,7 +216,7 @@ static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
 
 static void outputLinks( std::ofstream& fsOutput, Links& links ) {
     fsOutput << "\"links\": [";
-    for( int i = 0 ; i < links.size() ; i++ ) {
+    for( unsigned int i = 0 ; i < links.size() ; i++ ) {
         if( i > 0 ) {
             fsOutput << ",";
         }
@@ -262,7 +266,7 @@ static int loadIni( const char *configFile, std::map<std::string, std::string>& 
 }
 
 
-static void getFieldTypeAndWidth( int iFlags, std::string fieldName, std::string& type, int& iWidth ) {
+static void getMaskedFieldValues( int iFlags, std::string fieldName, std::string& type, int& iWidth, int& iFormat ) {
     int masked = iFlags & FIELD_TYPE_MASK; 
     if( masked == FIELD_STRING ) {
         if( fieldName == "Notes" ) {
@@ -278,4 +282,5 @@ static void getFieldTypeAndWidth( int iFlags, std::string fieldName, std::string
         type = "datetime";
     }
     iWidth = iFlags & FIELD_WIDTH_MASK;
+    iFormat = (iFlags & FIELD_FORMAT_MASK) >> 20;
 }
