@@ -20,7 +20,7 @@ static std::string phpExitScript = "<?php exit(); ?>";
 static std::string phpAuthScript = "<?php require('auth.php'); if( isAuthRequired() ) { auth(true); } ?>";
 
 static void outputProject( std::ofstream& fsOutput, Project& project );
-static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt );
+static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt, bool bModeInput );
 static void outputLinks( std::ofstream& fsOutput, Links& links );
 
 static void getMaskedFieldValues( int iFlags, std::string fieldName, std::string& type, int& fieldWidth, int& iFormat );
@@ -28,6 +28,7 @@ static void getMaskedFieldValues( int iFlags, std::string fieldName, std::string
 int main( int argc, char* argv[] ) {
     int iStatus;
     std::string empty("");
+    bool bModeInput;
 
     if( argc < 2 ) {
         std::cout << "A required argument is missing!\nUse: " << argv[0] << " <full-path-to-ini-file>.\nExiting...\n";
@@ -45,13 +46,21 @@ int main( int argc, char* argv[] ) {
         std::cout << "The configuration file " << argv[1] << " is invalid.\nExiting...\n";
     }
 
+    if( configParameters.find(cpModeKey)==configParameters.end() ) {
+        bModeInput = true;
+    } else if( toLower(configParameters[cpModeKey]).compare("input") == 0 ) {
+        bModeInput = true;
+    } else {
+        bModeInput = false;
+    }
+
     loadProject( project, (configParameters[cpInputPathKey] + fileProject).c_str() );
 
     loadGantt( gantt, (configParameters[cpInputPathKey] + fileOperations).c_str() );
 
     loadLinks( links, (configParameters[cpInputPathKey] + fileLinks).c_str() );
 
-    // Writing output file
+    // Writing output file (the one with all the data read)
     std::ofstream fsOutput;
     std::string outputFile = configParameters[cpOutputPathKey] + "/" + ganttJSON;
     fsOutput.open( outputFile.c_str() );    
@@ -63,7 +72,7 @@ int main( int argc, char* argv[] ) {
 
         outputProject( fsOutput, project ); 
         fsOutput << "," << std::endl;
-        outputGantt( fsOutput, gantt );
+        outputGantt( fsOutput, gantt, bModeInput );
         fsOutput << "," << std::endl;
         outputLinks( fsOutput, links ); 
         fsOutput << "," << std::endl << "\"lang\":\"" << toLower(configParameters[cpLanguageKey]) << "\"";
@@ -97,15 +106,13 @@ int main( int argc, char* argv[] ) {
     // Writing parameters file
     std::ofstream fsParameters;
     std::string parametersFile = configParameters[cpOutputPathKey] + "/" + fileParameters;
-    fsParameters.open( parametersFile.c_str() );    
+    fsParameters.open( parametersFile.c_str() );
     if( fsParameters.fail() ) {
         std::cout << "Can't write into the " << parametersFile << " file.\nExiting..." << std::endl; 
     } else {
         // Writing "mode" (gantt/input) parameter 
-        if( configParameters.find(cpModeKey)==configParameters.end() ) {
+        if( bModeInput ) {
             fsParameters << "var _inputOnly=" << "true;"  << std::endl;
-        } else if( toLower(configParameters[cpModeKey]).compare("input") == 0 ) {
-            fsParameters << "var _inputOnly=" << "true;"  << std::endl;            
         } else {
             fsParameters << "var _inputOnly=" << "false;"  << std::endl;            
         }
@@ -127,20 +134,22 @@ static void outputProject( std::ofstream& fsOutput, Project& project ) {
 }
 
 
-static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt ) {
+static void outputGantt ( std::ofstream& fsOutput, Gantt& gantt, bool bModeInput ) {
     fsOutput << "\"operations\": [";
     bool bFirst = true;
     for( unsigned int i = 0 ; i < gantt.operations.size() ; i++ ) {
-
-        int iAsapStart = gantt.fieldsPositions["AsapStart"];
-        int iFactStart = gantt.fieldsPositions["FactStart"];
-        if( isEmpty( gantt.operations[i].fields[iAsapStart] ) && isEmpty( gantt.operations[i].fields[iFactStart] ) ) {
-            continue;
-        }
-        int iAsapFin = gantt.fieldsPositions["AsapFin"];
-        int iFactFin = gantt.fieldsPositions["FactFin"];
-        if( isEmpty( gantt.operations[i].fields[iAsapFin] ) && isEmpty( gantt.operations[i].fields[iFactFin] ) ) {
-            continue;
+        
+        if( !bModeInput ) { // If not "Input" but the "Gantt Mode" is set - making sure all the dates required are specified.
+            int iAsapStart = gantt.fieldsPositions["AsapStart"];
+            int iFactStart = gantt.fieldsPositions["FactStart"];
+            if( isEmpty( gantt.operations[i].fields[iAsapStart] ) && isEmpty( gantt.operations[i].fields[iFactStart] ) ) {
+                continue;
+            }
+            int iAsapFin = gantt.fieldsPositions["AsapFin"];
+            int iFactFin = gantt.fieldsPositions["FactFin"];
+            if( isEmpty( gantt.operations[i].fields[iAsapFin] ) && isEmpty( gantt.operations[i].fields[iFactFin] ) ) {
+                continue;
+            }            
         }
 
         if( !bFirst ) {

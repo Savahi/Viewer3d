@@ -367,7 +367,7 @@ namespace Spider3d {
        int nTokens = 0;
        while( std::getline(tokenStream, token, delimiter) )
        {
-          tokens.push_back( trim( token, "\r\n") );
+          tokens.push_back( trim( token, " \r\n") );
           nTokens++;
        }
        return nTokens;
