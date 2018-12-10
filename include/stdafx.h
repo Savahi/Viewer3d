@@ -14,6 +14,7 @@
 #include <vector>
 #include <map>
 #include <ctime>
+#include <locale>
 #include "helpers.hpp"
 #include "table.hpp"
 #include "project.hpp"

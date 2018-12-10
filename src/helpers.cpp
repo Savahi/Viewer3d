@@ -428,7 +428,8 @@ namespace Spider3d {
 
     std::string toLower( std::string s ) {
         for( int i = 0 ; i < s.size() ; i++ ) {
-            s[i] = std::tolower(static_cast<unsigned char>(s[i]));
+            //s[i] = std::tolower(static_cast<unsigned char>(s[i]), std::locale());
+            s[i] = towlower(static_cast<unsigned char>(s[i]));
         }
         return s;
     }

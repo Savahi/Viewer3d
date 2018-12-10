@@ -90,6 +90,8 @@ int main( int argc, char* argv[] ) {
         iStatus = loadTable( table, (configParameters[cpInputPathKey] + fileUsers).c_str() );
         if( iStatus == -1 ) {
             fsUsers << "NOAUTH";
+        } else if( table.size() == 0 ) {
+            fsUsers << "NOAUTH";
         } else {
             fsUsers << phpExitScript << std::endl; // To prevent direct access to the file via http.
             int iLogin = table.fieldsPositions["Code"];
