@@ -8,12 +8,14 @@ namespace Spider3d {
 	#define FIELD_FORMAT_MASK    0x00F00000
 
 	#define FIELD_FLOAT   0x00010000  // вещественное число
+	#define FIELD_SIGNAL  0x00020000  // The color or a circle
 	#define FIELD_INT     0x00030000  // целое число
 	#define FIELD_TIME    0x00040000  // дата-время
 	#define FIELD_STRING  0x00050000  // строка
 
 	#define FIELD_EDITABLE    0x10000000
 	#define FIELD_HIDDEN      0x20000000  // целое число
+
 
 	class GanttOperation {
 		public:

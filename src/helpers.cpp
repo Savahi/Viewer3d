@@ -462,4 +462,223 @@ namespace Spider3d {
         }
         return bReturn;
     }
-}
+
+
+    int splitStringIntoVector( std::string& s, std::vector<std::string>& splitted, const char *delimiters )
+    {
+        int len = s.length();
+        int start = 0;
+        bool started = true;
+        int numSplitted=0;
+
+        int i = 0;
+        for(  ; i < len ; i++ ) {
+          if( !isOneOfTheFollowing( s[i], (char*)delimiters ) ) {
+            start = i;
+            started = true;
+            break;
+          }
+        }
+        if( !started ) {
+          return -1;
+        }
+
+        for( ; i < len ; i++ ) {
+          if( isOneOfTheFollowing( s[i], (char*)delimiters ) ) {
+            splitted.push_back( s.substr( start, i-start ) );
+            numSplitted++;
+            started = false;
+            for( int j=i+1 ; j < len ; j++ ) {
+              if( !isOneOfTheFollowing( s[j], (char*)delimiters ) ) {
+                i = j;
+                start = j;
+                started = true;
+                break;
+              }
+            }
+            if( !started ) {
+             break;
+            }
+          }
+        }
+        if( started ) {
+            splitted.push_back( s.substr( start, len-1 ) );          
+        }
+
+      return numSplitted;
+    }
+
+    bool isOneOfTheFollowing( char c, char *among ) {
+      int len = strlen(among);
+      for( int i = 0 ; i < len ; i++ ) {
+        if( c == among[i] ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+
+    // ***************************************************************************************************************************
+    // XML SECTION
+
+    static int xmlFindStartingBracket( char *contents );
+    static int xmlSubstrInStr( char *substr, char *str );
+
+
+    int xmlLoad( const char *fileName, std::string& fileContents ) {
+        int returnValue = -1;
+
+        std::ifstream in( fileName, std::ifstream::binary );
+        if ( in.is_open() ) {
+            
+            in.seekg(0, std::ios::end);
+            size_t len = in.tellg();
+            in.seekg(0);
+
+            fileContents.reserve(len);
+            while( !in.eof() ) {
+                fileContents += in.get();
+            }   
+            in.close();
+
+            returnValue = len;
+        }
+        return returnValue;
+    }
+
+
+    char *xmlLoad( const char *fileName ) {
+        char *returnValue = NULL;
+
+        std::ifstream in( fileName, std::ios::binary );
+        if( in.is_open() ) {
+            
+            in.seekg(0, std::ios::end);
+            size_t len = in.tellg();
+            in.seekg(0);
+
+            char *buffer = new char [len+1];
+            if( buffer != 0x0 ) {
+                in.read( buffer, len );
+                buffer[len] = '\x0';
+                in.close();         
+                returnValue = buffer;
+            }
+        }
+        return returnValue;
+    }
+
+
+    char *xmlGetNextTag( char *_contents, int &_offset ) {
+        char *tag=NULL;
+
+        if( _offset < strlen(_contents) ) {
+            char *contents = &_contents[_offset];
+            int startingBracket = xmlFindStartingBracket( contents );
+            if( startingBracket >= 0 ) {
+                //std::cout << "startingBracket=" << startingBracket << std::endl;
+                int endingBracket = xmlSubstrInStr( (char*)">", &contents[startingBracket] );
+                //std::cout << "endingBracket=" << endingBracket << std::endl;
+                if( endingBracket > 1 ) {
+                    tag = new char [ endingBracket ];
+                    if( tag != 0x0 ) {
+                        strncpy( tag, &contents[startingBracket+1], endingBracket-1 );
+                        tag[endingBracket-1] = '\x0';
+
+                        _offset += startingBracket + endingBracket + 1;
+                    }
+                }
+            }
+        }
+        return tag;
+    }
+
+
+    char *xmlReadTagValue( char *tag, char *contents ) {
+        char *buffer=NULL;
+
+        int tagLen = strlen(tag);
+        char *openingTag = new char [tagLen+3];
+        if( openingTag != 0x0 ) {
+            openingTag[0] = '<';
+            openingTag[1] = '\x0';
+            strcat( openingTag, tag);
+            openingTag[tagLen+1] = '>'; 
+            openingTag[tagLen+2] = '\x0';   
+            int openingTagStart = xmlSubstrInStr( openingTag, contents ); 
+            if( openingTagStart >= 0 ) {
+                char *closingTag = new char [tagLen+4];
+                if( closingTag != 0x0 ) {
+                    closingTag[0] = '<';
+                    closingTag[1] = '/';
+                    closingTag[2] = '\x0';
+                    strcat( closingTag, tag );
+                    closingTag[tagLen+2] = '>'; 
+                    closingTag[tagLen+3] = '\x0';
+
+                    int tagContentStart = openingTagStart+tagLen+2;
+                    int closingTagStart = xmlSubstrInStr( closingTag, &contents[tagContentStart] ); 
+                    if( closingTagStart >= 0 ) {
+                        int bufferLen = closingTagStart;
+                        buffer = new char [bufferLen+1];
+                        strncpy( buffer, &contents[tagContentStart], bufferLen);
+                        buffer[bufferLen] = '\x0';  
+                    }           
+                    delete [] closingTag;
+                }
+            }           
+            delete [] openingTag;
+        }
+        return buffer;
+    }
+
+
+    static int xmlFindStartingBracket( char *contents ) {
+        int returnValue = -1;
+        int startingBracket = 0, overallOffset = 0;
+        int len = strlen(contents);
+
+        while(true) {
+            startingBracket = xmlSubstrInStr( (char*)"<", &contents[startingBracket] );
+            if( startingBracket == -1 ) {
+                break;
+            }
+            if( startingBracket >= len-2 ) {
+                break;
+            }
+            if( contents[startingBracket+1] != '/' ) {
+                returnValue = overallOffset + startingBracket;
+                break;
+            }
+            startingBracket += 1;
+            overallOffset += startingBracket;
+        }
+        return returnValue;
+    }
+
+    static int xmlSubstrInStr( char *substr, char *str ) {
+        int returnValue = -1;
+        int istr, isubstr;
+
+        int strLen = strlen(str);
+        int substrLen = strlen( substr );
+        if( substrLen <= strLen ) {
+            for( int i = 0 ; i < strLen - substrLen + 1 ; i++ ) {
+                bool substringFound = true;
+                for( istr=i, isubstr=0 ; isubstr < substrLen ; istr++, isubstr++ ) {
+                    if( str[istr] != substr[isubstr] ) {
+                        substringFound=false;
+                        break;
+                    }
+                }
+                if( substringFound ) {
+                    returnValue = i;
+                    break;
+                }
+            }
+        }
+        return returnValue;
+    }
+
+} // end of namespace Spider3d

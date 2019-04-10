@@ -41,4 +41,14 @@ namespace Spider3d {
     std::string toLower(std::string s);
     bool isDigitsOnly(std::string s);
     bool isEmpty( std::string s );
+
+    int splitStringIntoVector( std::string& s, std::vector<std::string>& splitted, const char *delimiters );
+    bool isOneOfTheFollowing( char c, char *among );
+
+    // XML SECTION
+    int xmlLoad( const char *fileName, std::string& fileContents );
+    char *xmlLoad( const char *fileName );
+    char *xmlGetNextTag( char *_contents, int &_offset );
+    char *xmlReadTagValue( char *tag, char *contents );
+
 }

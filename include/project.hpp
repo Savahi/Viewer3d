@@ -20,6 +20,11 @@ namespace Spider3d {
 		std::string sCurTime;
 		std::string sNotes;
 
+		std::string sStart;
+		std::string sFinish;
+
+	    std::map< std::string, std::vector<std::string> > calendars;
+
 		Project() {;}
 		~Project() {;}
 	};

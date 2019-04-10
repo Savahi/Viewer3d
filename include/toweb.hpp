@@ -5,6 +5,8 @@ namespace Spider3d {
 
 	int loadProject( Project& project, const char *cpFile );
 
+    int loadProjectXML( Project& project, const char *cpFile );
+
 	int loadGantt( Gantt& gantt, const char *cpFile );
 
 	int loadLinks( Links& links, const char *cpFile );

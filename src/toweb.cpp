@@ -7,7 +7,11 @@ static std::string usersPHP = "users.php";
 static const char *cpOutputPathKey = "TargetFilesDir";
 static const char *cpInputPathKey = "SourceFilesDir";
 static const char *cpLanguageKey = "Language";
+static const char *cpDateDelimKey = "DateDelim";
+static const char *cpTimeDelimKey = "TimeDelim";
+static const char *cpDateFormatKey = "DateFormat";
 static const char *cpModeKey = "Mode";
+static const char *cpFileNameKey = "FileName";
 static int loadIni( const char *configFile, std::map<std::string, std::string>& configParameters );
 
 static std::string fileProject("proj.txt");
@@ -41,9 +45,11 @@ int main( int argc, char* argv[] ) {
 
     std::map<std::string, std::string> configParameters;
     loadIni( argv[1], configParameters );
+
     if( configParameters.find(cpOutputPathKey)==configParameters.end() || 
         configParameters.find(cpInputPathKey)==configParameters.end() ) {
         std::cout << "The configuration file " << argv[1] << " is invalid.\nExiting...\n";
+        return 0;
     }
 
     if( configParameters.find(cpModeKey)==configParameters.end() ) {
@@ -54,7 +60,20 @@ int main( int argc, char* argv[] ) {
         bModeInput = false;
     }
 
-    loadProject( project, (configParameters[cpInputPathKey] + fileProject).c_str() );
+    int projectLoadStatus = -1;
+    if( bModeInput ) {
+        if( configParameters.find(cpFileNameKey) != configParameters.end() ) {
+            projectLoadStatus = loadProjectXML( project, 
+                (configParameters[cpInputPathKey] + configParameters[cpFileNameKey] + ".scnf").c_str() );
+            fileOperations.assign( (configParameters[cpFileNameKey] + ".txt") );
+        }
+    } else {
+        projectLoadStatus = loadProject( project, (configParameters[cpInputPathKey] + fileProject).c_str() );
+    }
+    if( projectLoadStatus == -1 ) {
+        std::cout << "Can't load project.\nExiting...\n";
+        return 0;
+    }
 
     loadGantt( gantt, (configParameters[cpInputPathKey] + fileOperations).c_str() );
 
@@ -120,6 +139,9 @@ int main( int argc, char* argv[] ) {
         }
         // Writing language parameter
         fsParameters << "var _lang=\"" << toLower(configParameters[cpLanguageKey]) << "\";" << std::endl;
+        fsParameters << "var _dateDelim=\"" << toLower(configParameters[cpDateDelimKey]) << "\";" << std::endl;
+        fsParameters << "var _timeDelim=\"" << toLower(configParameters[cpTimeDelimKey]) << "\";" << std::endl;
+        fsParameters << "var _dateFormat=\"" << toLower(configParameters[cpDateFormatKey]) << "\";" << std::endl;
         fsParameters.close();
     }
 
@@ -132,6 +154,33 @@ static void outputProject( std::ofstream& fsOutput, Project& project ) {
     fsOutput << "\"Code\":\"" << project.sCode << "\", \"Name\":\"" << project.sName << "\"";
     fsOutput << ",\"ProjVer\":\"" << project.sProjVer << "\",\"CurTime\":\"" << project.sCurTime << "\"";
     fsOutput << ",\"Notes\":\"" << project.sNotes << "\"";
+
+    // Writing calendars if exist
+    bool firstCalendar = true;
+    fsOutput << ",\"Calendars\":{";
+    std::map< std::string, std::vector<std::string> >::iterator it; 
+    for ( it = project.calendars.begin(); it != project.calendars.end(); it++ ) {
+
+        int len = it->second.size();
+        if( len > 0 && len % 2 == 0 ) {
+            if( !firstCalendar ) {
+                fsOutput << ",";
+            } else {
+                firstCalendar = false;    
+            }
+            fsOutput <<  "\"" << it->first << "\":[";
+            for( int i = 0 ; i < len ; i += 2 ) {
+                if( i > 0 ) {
+                    fsOutput << ",";
+                }
+                fsOutput << it->second[i] << "," << it->second[i+1];
+            }
+            fsOutput << "]";
+        }
+    }
+    fsOutput << "}";
+    // Finished writing calendars
+
     fsOutput << "}";
 }
 
@@ -291,6 +340,8 @@ static void getMaskedFieldValues( int iFlags, std::string fieldName, std::string
         type = "int";
     } else if( masked == FIELD_TIME ) {
         type = "datetime";
+    } else if( masked == FIELD_SIGNAL ) {
+        type = "signal";
     }
     iWidth = iFlags & FIELD_WIDTH_MASK;
     iFormat = (iFlags & FIELD_FORMAT_MASK) >> 20;
